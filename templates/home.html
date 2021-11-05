@@ -1,13 +1,42 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
-    <div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <h1>Home</h1>
-            <p>
-                This is the home page.
-            </p>
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-md-12">
+{#                add image img-responsive center-block#}
+                <img class="col-lg-4 col-md-4" src="{% static 'images/iiui-logo.jpg' %}" >
+
+            </div>
         </div>
+    </div>
+    <div class="card col-md-4 col-sm-3 col-lg-3 mx-auto ">
+      <div class="card-body">
+      <h4 class="card-title mb-4 text-center bg text-success">Sign in</h4>
+      <form>
+      	  <a href="#" class="btn btn-google btn-block mb-4"> <i class="fab fa-google"></i> &nbsp;  Sign in with Google</a>
+          <div class="form-group">
+            <div class="input-group">
+				<div class="input-group-prepend">
+				    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+				 </div>
+				<input name="" class="form-control" placeholder="Username" type="text">
+			</div> <!-- input-group.// -->
+          </div> <!-- form-group// -->
+          <div class="form-group">
+            <div class="input-group">
+				<div class="input-group-prepend">
+				    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+				 </div>
+				<input name="" class="form-control" placeholder="Password" type="password">
+			</div> <!-- input-group.// -->
+          </div> <!-- form-group// -->
+
+          <div class="form-group">
+              <button type="submit" class="btn btn-lg btn-success btn-block"> Login  </button>
+          </div> <!-- form-group// -->
+      </form>
+      </div> <!-- card-body.// -->
     </div>
 {% endblock %}
