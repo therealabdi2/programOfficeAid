@@ -71,3 +71,38 @@ class Account(AbstractBaseUser):
     def has_module_perms(self, add_label):
         return True
 
+
+# class Batch(models.Model):
+#     batch_name = models.CharField(max_length=5)
+#
+#     class Meta:
+#         verbose_name = "Batch"
+#         verbose_name_plural = "Batches"
+#
+#     def __str__(self):
+#         return self.batch_name
+#
+#
+# class Degree(models.Model):
+#     name = models.CharField(max_length=6)
+#
+#     class Meta:
+#         verbose_name = "Degree"
+#         verbose_name_plural = "Degrees"
+#
+#     def __str__(self):
+#         return self.name
+#
+#
+# class StudentProfile(models.Model):
+#     user = models.OneToOneField(Account, on_delete=models.CASCADE)
+#     registration_number = models.CharField(max_length=6, unique=True)
+#     degree = models.ForeignKey(Degree, on_delete=models.CASCADE)
+#     batch = models.ForeignKey(Batch, on_delete=models.CASCADE)
+#
+#     class Meta:
+#         verbose_name = "Student Profile"
+#         verbose_name_plural = "Student Profiles"
+#
+#     def __str__(self):
+#         return self.user.first_name
