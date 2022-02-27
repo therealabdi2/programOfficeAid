@@ -44,7 +44,6 @@ class Account(AbstractBaseUser):
     last_name = models.CharField(max_length=50)
     username = models.CharField(max_length=50, unique=True)
     email = models.EmailField(max_length=100, unique=True)
-    phone_number = models.CharField(max_length=50)
 
     # required
     date_joined = models.DateTimeField(auto_now_add=True)
@@ -72,37 +71,48 @@ class Account(AbstractBaseUser):
         return True
 
 
-# class Batch(models.Model):
-#     batch_name = models.CharField(max_length=5)
-#
-#     class Meta:
-#         verbose_name = "Batch"
-#         verbose_name_plural = "Batches"
-#
-#     def __str__(self):
-#         return self.batch_name
-#
-#
-# class Degree(models.Model):
-#     name = models.CharField(max_length=6)
-#
-#     class Meta:
-#         verbose_name = "Degree"
-#         verbose_name_plural = "Degrees"
-#
-#     def __str__(self):
-#         return self.name
-#
-#
-# class StudentProfile(models.Model):
-#     user = models.OneToOneField(Account, on_delete=models.CASCADE)
-#     registration_number = models.CharField(max_length=6, unique=True)
-#     degree = models.ForeignKey(Degree, on_delete=models.CASCADE)
-#     batch = models.ForeignKey(Batch, on_delete=models.CASCADE)
-#
-#     class Meta:
-#         verbose_name = "Student Profile"
-#         verbose_name_plural = "Student Profiles"
-#
-#     def __str__(self):
-#         return self.user.first_name
+class Batch(models.Model):
+    batch_name = models.CharField(max_length=14)
+
+    class Meta:
+        verbose_name = "Batch"
+        verbose_name_plural = "Batches"
+
+    def __str__(self):
+        return self.batch_name
+
+
+class Degree(models.Model):
+    degree_name = models.CharField(max_length=14)
+
+    def __str__(self):
+        return self.degree_name
+
+
+class Faculty(models.Model):
+    faculty_name = models.CharField(max_length=30)
+
+    class Meta:
+        verbose_name_plural = "Faculties"
+
+
+class Department(models.Model):
+    department_name = models.CharField(max_length=14)
+    faculty = models.ForeignKey(Faculty, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.department_name
+
+
+class StudentProfile(models.Model):
+    user = models.OneToOneField(Account, on_delete=models.CASCADE)
+    registration_number = models.CharField(max_length=6, unique=True)
+    degree = models.ForeignKey(Degree, on_delete=models.CASCADE)
+    batch = models.ForeignKey(Batch, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = "Student Profile"
+        verbose_name_plural = "Student Profiles"
+
+    def __str__(self):
+        return self.user.first_name
