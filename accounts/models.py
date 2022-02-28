@@ -87,9 +87,12 @@ class Faculty(models.Model):
     class Meta:
         verbose_name_plural = "Faculties"
 
+    def __str__(self):
+        return self.faculty_name
+
 
 class Department(models.Model):
-    department_name = models.CharField(max_length=14)
+    department_name = models.CharField(max_length=30)
     faculty = models.ForeignKey(Faculty, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -97,7 +100,7 @@ class Department(models.Model):
 
 
 class Programme(models.Model):
-    degree_name = models.CharField(max_length=14)
+    degree_name = models.CharField(max_length=50)
     batch = models.ForeignKey(Batch, on_delete=models.CASCADE)
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
 
@@ -108,6 +111,9 @@ class Programme(models.Model):
 class Section(models.Model):
     section_name = models.CharField(max_length=2)
     batch = models.ForeignKey(Batch, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"Section {self.section_name}"
 
 
 class StudentProfile(models.Model):
