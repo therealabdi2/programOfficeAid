@@ -75,18 +75,10 @@ class Batch(models.Model):
     batch_name = models.CharField(max_length=14)
 
     class Meta:
-        verbose_name = "Batch"
         verbose_name_plural = "Batches"
 
     def __str__(self):
         return self.batch_name
-
-
-class Degree(models.Model):
-    degree_name = models.CharField(max_length=14)
-
-    def __str__(self):
-        return self.degree_name
 
 
 class Faculty(models.Model):
@@ -104,14 +96,30 @@ class Department(models.Model):
         return self.department_name
 
 
+class Programme(models.Model):
+    degree_name = models.CharField(max_length=14)
+    batch = models.ForeignKey(Batch, on_delete=models.CASCADE)
+    department = models.ForeignKey(Department, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.degree_name
+
+
+class Section(models.Model):
+    section_name = models.CharField(max_length=2)
+    batch = models.ForeignKey(Batch, on_delete=models.CASCADE)
+
+
 class StudentProfile(models.Model):
     user = models.OneToOneField(Account, on_delete=models.CASCADE)
     registration_number = models.CharField(max_length=6, unique=True)
-    degree = models.ForeignKey(Degree, on_delete=models.CASCADE)
+    faculty = models.ForeignKey(Faculty, on_delete=models.CASCADE)
+    department = models.ForeignKey(Department, on_delete=models.CASCADE)
+    programme = models.ForeignKey(Programme, on_delete=models.CASCADE)
     batch = models.ForeignKey(Batch, on_delete=models.CASCADE)
+    section = models.ForeignKey(Section, on_delete=models.CASCADE)
 
     class Meta:
-        verbose_name = "Student Profile"
         verbose_name_plural = "Student Profiles"
 
     def __str__(self):
