@@ -113,14 +113,16 @@ class Section(models.Model):
     batch = models.ForeignKey(Batch, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"Section {self.section_name}"
+        return self.section_name
 
 
 class StudentProfile(models.Model):
     user = models.OneToOneField(Account, on_delete=models.CASCADE)
+    phone_number = models.CharField(max_length=20, blank=True)
     registration_number = models.CharField(max_length=6, unique=True)
     faculty = models.ForeignKey(Faculty, on_delete=models.CASCADE)
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
+    fatherName = models.CharField(max_length=50, blank=True)
     programme = models.ForeignKey(Programme, on_delete=models.CASCADE)
     batch = models.ForeignKey(Batch, on_delete=models.CASCADE)
     section = models.ForeignKey(Section, on_delete=models.CASCADE)
