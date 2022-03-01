@@ -6,8 +6,6 @@ from accounts.models import Account, Batch, Faculty, Department, Programme, Sect
 
 
 # Register your models here.
-
-
 class AccountAdmin(UserAdmin):
     list_display = (
         'email',
@@ -27,7 +25,7 @@ class AccountAdmin(UserAdmin):
 
 
 class StudentAdmin(admin.ModelAdmin):
-    search_help_text = 'Search by student ID, first name, last name, or email'
+    search_help_text = 'Search by student Registration Number, first name, last name, or email'
     list_display = 'student_full_name', 'registration_number', 'batch', 'programme', 'section', 'department', 'faculty'
     search_fields = ['registration_number', 'user__first_name', 'user__last_name', 'user__email']
     list_filter = ['batch', 'programme', 'section', 'department', 'faculty']
@@ -61,17 +59,39 @@ class BatchAdmin(admin.ModelAdmin):
 
 class DepartmentInline(admin.TabularInline):
     model = Department
-    extra = 1
+    extra = 0
+    show_change_link = True
+
+
+class ProgrammeInline(admin.TabularInline):
+    model = Programme
+    extra = 0
+    show_change_link = True
+
+
+class BatchInline(admin.TabularInline):
+    model = Batch
+    extra = 0
+    show_change_link = True
+
+
+class DepartmentAdmin(admin.ModelAdmin):
+    inlines = [ProgrammeInline]
 
 
 class FacultyAdmin(admin.ModelAdmin):
     inlines = [DepartmentInline]
 
 
+class ProgrammeAdmin(admin.ModelAdmin):
+    list_display = 'degree_name', 'department'
+    inlines = [BatchInline]
+
+
 admin.site.register(Account, AccountAdmin)
 admin.site.register(Batch, BatchAdmin)
 admin.site.register(Faculty, FacultyAdmin)
-admin.site.register(Department)
-admin.site.register(Programme)
+admin.site.register(Department, DepartmentAdmin)
+admin.site.register(Programme, ProgrammeAdmin)
 admin.site.register(Section, SectionAdmin)
 admin.site.register(StudentProfile, StudentAdmin)

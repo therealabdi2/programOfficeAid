@@ -71,16 +71,6 @@ class Account(AbstractBaseUser):
         return True
 
 
-class Batch(models.Model):
-    batch_name = models.CharField(max_length=14)
-
-    class Meta:
-        verbose_name_plural = "Batches"
-
-    def __str__(self):
-        return self.batch_name
-
-
 class Faculty(models.Model):
     faculty_name = models.CharField(max_length=30)
 
@@ -101,15 +91,25 @@ class Department(models.Model):
 
 class Programme(models.Model):
     degree_name = models.CharField(max_length=50)
-    batch = models.ForeignKey(Batch, on_delete=models.CASCADE)
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.degree_name
 
 
+class Batch(models.Model):
+    batch_name = models.CharField(max_length=14)
+    programme = models.ForeignKey(Programme, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name_plural = "Batches"
+
+    def __str__(self):
+        return self.batch_name
+
+
 class Section(models.Model):
-    section_name = models.CharField(max_length=2)
+    section_name = models.CharField(max_length=14)
     batch = models.ForeignKey(Batch, on_delete=models.CASCADE)
 
     def __str__(self):
