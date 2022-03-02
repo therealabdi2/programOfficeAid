@@ -76,6 +76,10 @@ class BatchInline(admin.TabularInline):
 
 
 class DepartmentAdmin(admin.ModelAdmin):
+    fieldsets = [
+        (None, {'fields': ['department_name']}),
+        ('Faculty information', {'fields': ['faculty']}),
+    ]
     inlines = [ProgrammeInline]
 
 
@@ -85,6 +89,10 @@ class FacultyAdmin(admin.ModelAdmin):
 
 class ProgrammeAdmin(admin.ModelAdmin):
     list_display = 'degree_name', 'department'
+    fieldsets = [
+        (None,               {'fields': ['degree_name']}),
+        ('Department information', {'fields': ['department']}),
+    ]
     inlines = [BatchInline]
 
 
