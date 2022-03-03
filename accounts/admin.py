@@ -86,11 +86,14 @@ class DepartmentAdmin(admin.ModelAdmin):
 class FacultyAdmin(admin.ModelAdmin):
     inlines = [DepartmentInline]
 
+    def has_delete_permission(self, request, obj=None):
+        return False
+
 
 class ProgrammeAdmin(admin.ModelAdmin):
     list_display = 'degree_name', 'department'
     fieldsets = [
-        (None,               {'fields': ['degree_name']}),
+        (None, {'fields': ['degree_name']}),
         ('Department information', {'fields': ['department']}),
     ]
     inlines = [BatchInline]
