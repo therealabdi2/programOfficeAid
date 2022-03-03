@@ -1,6 +1,7 @@
 # Create your models here.
 
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.core.validators import RegexValidator
 from django.db import models
 
 
@@ -43,7 +44,12 @@ class Account(AbstractBaseUser):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     username = models.CharField(max_length=50, unique=True)
-    email = models.EmailField(max_length=100, unique=True)
+    email = models.EmailField(max_length=100, unique=True, validators=[
+        RegexValidator(
+            regex="^[\w]+[\w.%+-]*@iiu\.edu\.pk$",
+            message='Please enter a valid IIUI email address'
+        ),
+    ])
 
     # required
     date_joined = models.DateTimeField(auto_now_add=True)
@@ -118,7 +124,12 @@ class Section(models.Model):
 
 class StudentProfile(models.Model):
     user = models.OneToOneField(Account, on_delete=models.CASCADE)
-    phone_number = models.CharField(max_length=20, blank=True)
+    phone_number = models.CharField(max_length=20, blank=True, validators=[
+        RegexValidator(
+            regex='^((\+92)?(0092)?(92)?(0)?)(3)([0-9]{9})$',
+            message='Please enter a valid Pakistan phone number'
+        ),
+    ])
     registration_number = models.CharField(max_length=6, unique=True)
     faculty = models.ForeignKey(Faculty, on_delete=models.CASCADE)
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
