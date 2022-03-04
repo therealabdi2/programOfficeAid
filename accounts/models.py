@@ -1,6 +1,7 @@
 # Create your models here.
 
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.db import models
 
@@ -123,6 +124,12 @@ class Section(models.Model):
 
 
 class StudentProfile(models.Model):
+    def validate_image(fieldfile_obj):
+        filesize = fieldfile_obj.file.size
+        megabyte_limit = 5.0
+        if filesize > megabyte_limit * 1024 * 1024:
+            raise ValidationError("Max file size is %sMB" % str(megabyte_limit))
+
     user = models.OneToOneField(Account, on_delete=models.CASCADE)
     phone_number = models.CharField(max_length=20, blank=True, validators=[
         RegexValidator(
@@ -130,14 +137,15 @@ class StudentProfile(models.Model):
             message='Please enter a valid Pakistan phone number'
         ),
     ])
-    registration_number = models.CharField(max_length=6, unique=True, help_text="Please use the following format: <em>3958-FBAS/BSCS4/F18</em>.")
+    registration_number = models.CharField(max_length=6, unique=True,
+                                           help_text="Please use the following format: <em>3958-FBAS/BSCS4/F18</em>.")
     faculty = models.ForeignKey(Faculty, on_delete=models.CASCADE)
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
     fatherName = models.CharField(max_length=50, blank=True)
     programme = models.ForeignKey(Programme, on_delete=models.CASCADE)
     batch = models.ForeignKey(Batch, on_delete=models.CASCADE)
     section = models.ForeignKey(Section, on_delete=models.CASCADE)
-    profile_picture = models.ImageField(upload_to='profile_pictures', blank=True)
+    profile_picture = models.ImageField(upload_to='profile_pictures', blank=True, validators=[validate_image])
 
     class Meta:
         verbose_name_plural = "Student Profiles"
