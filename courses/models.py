@@ -7,6 +7,9 @@ from django.db import models
 class CourseCategory(models.Model):
     course_category_name = models.CharField(max_length=30)
 
+    class Meta:
+        verbose_name_plural = 'Course Categories'
+
     def __str__(self):
         return self.course_category_name
 
