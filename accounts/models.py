@@ -143,7 +143,7 @@ class StudentProfile(models.Model):
                                            help_text="Please use the following format: <em>3958-FBAS/BSCS4/F18</em>.")
     faculty = models.ForeignKey(Faculty, on_delete=models.CASCADE)
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
-    fatherName = models.CharField(max_length=50, blank=True)
+    fatherName = models.CharField(max_length=50, blank=True, null=True)
     programme = models.ForeignKey(Programme, on_delete=models.CASCADE)
     batch = models.ForeignKey(Batch, on_delete=models.CASCADE)
     section = models.ForeignKey(Section, on_delete=models.CASCADE)
