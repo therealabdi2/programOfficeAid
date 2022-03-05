@@ -35,3 +35,14 @@ class Course(models.Model):
 
     def __str__(self):
         return self.course_name
+
+
+class Session(models.Model):
+    session_name = models.CharField(max_length=20, unique=True)
+    session_start_date = models.DateField()
+    session_end_date = models.DateField()
+    programme = models.ForeignKey('accounts.Programme', on_delete=models.CASCADE)
+    courses_offered = models.ManyToManyField(Course)
+
+    def __str__(self):
+        return self.session_name
