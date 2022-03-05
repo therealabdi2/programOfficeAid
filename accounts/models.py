@@ -5,6 +5,8 @@ from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.db import models
 
+from courses.models import Course
+
 
 class MyAccountManager(BaseUserManager):
     def create_user(self, first_name, last_name, username, email, password=None):
@@ -130,7 +132,7 @@ class StudentProfile(models.Model):
         if filesize > megabyte_limit * 1024 * 1024:
             raise ValidationError("Max file size is %sMB" % str(megabyte_limit))
 
-    user = models.OneToOneField(Account, on_delete=models.CASCADE)
+    student = models.OneToOneField(Account, on_delete=models.CASCADE)
     phone_number = models.CharField(max_length=20, blank=True, validators=[
         RegexValidator(
             regex='^((\+92)?(0092)?(92)?(0)?)(3)([0-9]{9})$',
@@ -146,6 +148,7 @@ class StudentProfile(models.Model):
     batch = models.ForeignKey(Batch, on_delete=models.CASCADE)
     section = models.ForeignKey(Section, on_delete=models.CASCADE)
     profile_picture = models.ImageField(upload_to='profile_pictures', blank=True, validators=[validate_image])
+    course = models.ManyToManyField(Course, blank=True)
 
     class Meta:
         verbose_name_plural = "Student Profiles"
