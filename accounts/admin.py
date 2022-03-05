@@ -27,7 +27,7 @@ class AccountAdmin(UserAdmin):
 class StudentAdmin(admin.ModelAdmin):
     search_help_text = 'Search by student Registration Number, first name, last name, or email'
     list_display = 'student_full_name', 'registration_number', 'faculty', 'programme', 'batch', 'section', 'department',
-    search_fields = ['registration_number', 'user__first_name', 'user__last_name', 'user__email']
+    search_fields = ['registration_number', 'student__first_name', 'student__last_name', 'student__email']
     list_filter = ['batch', 'programme', 'section', 'department', 'faculty']
 
     @display(description='Name')

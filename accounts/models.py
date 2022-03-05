@@ -154,4 +154,4 @@ class StudentProfile(models.Model):
         verbose_name_plural = "Student Profiles"
 
     def __str__(self):
-        return self.user.first_name
+        return self.student.first_name
