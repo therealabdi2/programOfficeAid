@@ -30,6 +30,7 @@ class CourseAdmin(admin.ModelAdmin):
     ordering = ['course_code']
     search_fields = ['course_code', 'course_name']
     search_help_text = 'Search by course code or course name'
+    list_per_page = 10
 
 
 class CourseTypeAdmin(admin.ModelAdmin):
@@ -48,6 +49,7 @@ class SessionAdmin(admin.ModelAdmin):
     search_help_text = 'Search by session name e.g SPR-2022'
     list_display = 'session_name', 'batch', 'session_start_date', 'session_end_date'
     list_filter = ['session_start_date', 'batch']
+    list_per_page = 10
 
 
 admin.site.register(Course, CourseAdmin)

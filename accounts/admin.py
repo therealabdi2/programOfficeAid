@@ -29,6 +29,7 @@ class StudentAdmin(admin.ModelAdmin):
     list_display = 'student_full_name', 'registration_number', 'faculty', 'programme', 'batch', 'section', 'department',
     search_fields = ['registration_number', 'student__first_name', 'student__last_name', 'student__email']
     list_filter = ['batch', 'programme', 'section', 'department', 'faculty']
+    list_per_page = 10
 
     @display(description='Name')
     def student_full_name(self, obj):
@@ -45,6 +46,7 @@ class SectionAdmin(admin.ModelAdmin):
     list_display_links = ('section_name', 'batch',)
     search_fields = ['section_name', 'batch__batch_name']
     inlines = [StudentInline]
+    list_per_page = 10
 
 
 class SectionInline(admin.TabularInline):
@@ -55,6 +57,7 @@ class SectionInline(admin.TabularInline):
 
 class BatchAdmin(admin.ModelAdmin):
     inlines = [SectionInline]
+    list_per_page = 10
 
 
 class DepartmentInline(admin.TabularInline):
