@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from courses.models import Course, CourseType, CourseCategory
+from courses.models import Course, CourseType, CourseCategory, Session
 
 
 class CourseInline(admin.TabularInline):
@@ -42,6 +42,15 @@ class CourseCategoryAdmin(admin.ModelAdmin):
     inlines = [CourseTypeInline]
 
 
+class SessionAdmin(admin.ModelAdmin):
+    filter_horizontal = ('courses_offered',)
+    search_fields = ['session_name']
+    search_help_text = 'Search by session name e.g SPR-2022'
+    list_display = 'session_name', 'batch', 'session_start_date', 'session_end_date'
+    list_filter = ['session_start_date', 'batch']
+
+
 admin.site.register(Course, CourseAdmin)
 admin.site.register(CourseType, CourseTypeAdmin)
 admin.site.register(CourseCategory, CourseCategoryAdmin)
+admin.site.register(Session, SessionAdmin)

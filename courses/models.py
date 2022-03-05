@@ -26,7 +26,7 @@ class CourseType(models.Model):
 class Course(models.Model):
     course_name = models.CharField(max_length=50, unique=True)
     course_code = models.CharField(max_length=15, unique=True)
-    course_details = models.TextField(blank=True)
+    course_details = models.TextField(blank=True, null=True)
     course_credit = models.IntegerField(default=3)
     course_type = models.ForeignKey(CourseType, on_delete=models.CASCADE)
     course_programme = models.ManyToManyField('accounts.Programme')
@@ -34,15 +34,17 @@ class Course(models.Model):
                                             on_delete=models.CASCADE, null=True)
 
     def __str__(self):
-        return self.course_name
+        return f"{self.course_code} {self.course_name}"
 
 
 class Session(models.Model):
-    session_name = models.CharField(max_length=20, unique=True)
-    session_start_date = models.DateField()
-    session_end_date = models.DateField()
+    session_name = models.CharField(max_length=20,
+                                    help_text="Please use the following format: <em>SPR-2022</em>.")
+    session_start_date = models.DateField(help_text="Please use the following format: <em>YYYY-MM-DD</em>.")
+    session_end_date = models.DateField(help_text="Please use the following format: <em>YYYY-MM-DD</em>.")
     programme = models.ForeignKey('accounts.Programme', on_delete=models.CASCADE)
-    courses_offered = models.ManyToManyField(Course)
+    batch = models.OneToOneField('accounts.Batch', on_delete=models.CASCADE)
+    courses_offered = models.ManyToManyField(Course, related_name="courses")
 
     def __str__(self):
         return self.session_name
