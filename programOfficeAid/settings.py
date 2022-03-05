@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'admin_interface',
     'colorfield',
     'accounts',
+    'courses',
     'django.contrib.admin',
     'rest_framework',
 ]
