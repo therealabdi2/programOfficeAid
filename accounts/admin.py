@@ -26,13 +26,13 @@ class AccountAdmin(UserAdmin):
 
 class StudentAdmin(admin.ModelAdmin):
     search_help_text = 'Search by student Registration Number, first name, last name, or email'
-    list_display = 'student_full_name', 'registration_number', 'batch', 'programme', 'section', 'department', 'faculty'
+    list_display = 'student_full_name', 'registration_number', 'faculty', 'programme', 'batch', 'section', 'department',
     search_fields = ['registration_number', 'user__first_name', 'user__last_name', 'user__email']
     list_filter = ['batch', 'programme', 'section', 'department', 'faculty']
 
     @display(description='Name')
     def student_full_name(self, obj):
-        return f"{obj.user.first_name} {obj.user.last_name}"
+        return f"{obj.student.first_name} {obj.student.last_name}"
 
 
 class StudentInline(admin.TabularInline):
