@@ -6,20 +6,35 @@ from courses.models import Course, CourseType, CourseCategory
 
 class CourseInline(admin.TabularInline):
     model = Course
+    fields = ['course_code', 'course_credit']
+    readonly_fields = ['course_code', 'course_credit']
+    show_change_link = True
     extra = 0
+
+    def has_delete_permission(self, request, obj=None):
+        return False
 
 
 class CourseTypeInline(admin.TabularInline):
     model = CourseType
+    readonly_fields = ['course_type_name']
     extra = 0
+
+    def has_delete_permission(self, request, obj=None):
+        return False
 
 
 class CourseAdmin(admin.ModelAdmin):
     list_display = 'course_code', 'course_name', 'course_credit'
-    list_filter = 'course_type', 'course_programme'
+    list_filter = ['course_type', 'course_programme']
+    ordering = ['course_code']
+    search_fields = ['course_code', 'course_name']
+    search_help_text = 'Search by course code or course name'
 
 
 class CourseTypeAdmin(admin.ModelAdmin):
+    list_display = 'course_type_name', 'course_type_category'
+    list_filter = ['course_type_category']
     inlines = [CourseInline]
 
 
