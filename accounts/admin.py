@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.contrib.admin import display
 from django.contrib.auth.admin import UserAdmin
+from django.utils.safestring import mark_safe
 
 from accounts.models import Account, Batch, Faculty, Department, Programme, Section, StudentProfile
 
@@ -30,6 +31,15 @@ class StudentAdmin(admin.ModelAdmin):
     search_fields = ['registration_number', 'student__first_name', 'student__last_name', 'student__email']
     list_filter = ['batch', 'programme', 'section', 'department', 'faculty']
     list_per_page = 10
+    readonly_fields = ["profile_picture_image"]
+
+    def profile_picture_image(self, obj):
+        return mark_safe('<img src="{url}" width="{width}" height={height} />'.format(
+            url=obj.profile_picture.url,
+            width=obj.profile_picture.width,
+            height=obj.profile_picture.height,
+        )
+        )
 
     @display(description='Name')
     def student_full_name(self, obj):
