@@ -25,12 +25,19 @@ class CourseTypeInline(admin.TabularInline):
 
 
 class CourseAdmin(admin.ModelAdmin):
-    list_display = 'course_code', 'course_name', 'course_credit'
+    list_display = 'course_code', 'course_name', 'course_credit', 'prerequisite_display'
     list_filter = ['course_type', 'course_programme']
     ordering = ['course_code']
     search_fields = ['course_code', 'course_name']
     search_help_text = 'Search by course code or course name'
     list_per_page = 10
+
+    def prerequisite_display(self, obj):
+        return ", ".join([
+            prerequisite_course.course_name for prerequisite_course in obj.prerequisite_course.all()
+        ])
+
+    prerequisite_display.short_description = "Prerequisite of"
 
 
 class CourseTypeAdmin(admin.ModelAdmin):
