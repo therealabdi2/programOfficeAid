@@ -1,4 +1,6 @@
+from django.core.exceptions import ValidationError
 from django.db import models
+from django.utils import timezone
 
 
 # Create your models here.
@@ -40,11 +42,26 @@ class Course(models.Model):
 class Session(models.Model):
     session_name = models.CharField(max_length=20,
                                     help_text="Please use the following format: <em>SPR-2022</em>.")
-    session_start_date = models.DateField(help_text="Please use the following format: <em>YYYY-MM-DD</em>.")
+
+    session_start_date = models.DateField(help_text="Please use the following format: <em>YYYY-MM-DD</em>.",
+                                          default=timezone.now)
+
     session_end_date = models.DateField(help_text="Please use the following format: <em>YYYY-MM-DD</em>.")
     programme = models.ForeignKey('accounts.Programme', on_delete=models.CASCADE)
     batch = models.OneToOneField('accounts.Batch', on_delete=models.CASCADE)
+    joining_date = models.DateField(help_text="Set the start of course joining.", default=timezone.now,
+                                    blank=True, null=True)
+
+    joining_end_date = models.DateField(help_text="Set the end of course joining.", blank=True, null=True)
     courses_offered = models.ManyToManyField(Course, related_name="courses")
+
+    def clean(self):
+        super().clean()
+        if not (self.session_start_date <= self.session_end_date):
+            raise ValidationError('Invalid start and end session datetime')
+
+        if not (self.joining_date <= self.joining_end_date):
+            raise ValidationError('Invalid start and end Joining datetime')
 
     def __str__(self):
         return self.session_name
