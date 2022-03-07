@@ -1,11 +1,11 @@
+from datetime import timedelta
+
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils import timezone
 
 
 # Create your models here.
-
-
 class CourseCategory(models.Model):
     course_category_name = models.CharField(max_length=30)
 
@@ -39,6 +39,14 @@ class Course(models.Model):
         return f"{self.course_code} {self.course_name}"
 
 
+def get_joining_deadline():
+    return timezone.now() + timedelta(days=20)
+
+
+def get_session_end():
+    return timezone.now() + timedelta(days=120)
+
+
 class Session(models.Model):
     session_name = models.CharField(max_length=20,
                                     help_text="Please use the following format: <em>SPR-2022</em>.")
@@ -46,22 +54,24 @@ class Session(models.Model):
     session_start_date = models.DateField(help_text="Please use the following format: <em>YYYY-MM-DD</em>.",
                                           default=timezone.now)
 
-    session_end_date = models.DateField(help_text="Please use the following format: <em>YYYY-MM-DD</em>.")
+    session_end_date = models.DateField(help_text="Please use the following format: <em>YYYY-MM-DD</em>.",
+                                        default=get_session_end)
+
     programme = models.ForeignKey('accounts.Programme', on_delete=models.CASCADE)
     batch = models.OneToOneField('accounts.Batch', on_delete=models.CASCADE)
-    joining_date = models.DateField(help_text="Set the start of course joining.", default=timezone.now,
-                                    blank=True, null=True)
-
-    joining_end_date = models.DateField(help_text="Set the end of course joining.", blank=True, null=True)
+    joining_date = models.DateField(help_text="Set the start of course joining.", default=timezone.now)
+    joining_deadline = models.DateField(help_text="Set the deadline of course joining for this session.", default=get_joining_deadline)
     courses_offered = models.ManyToManyField(Course, related_name="courses")
 
     def clean(self):
         super().clean()
         if not (self.session_start_date <= self.session_end_date):
             raise ValidationError('Invalid start and end session datetime')
-
-        if not (self.joining_date <= self.joining_end_date):
-            raise ValidationError('Invalid start and end Joining datetime')
+        if not (self.joining_date <= self.joining_deadline):
+            raise ValidationError('Invalid start and end joining datetime')
 
     def __str__(self):
         return self.session_name
+
+    # def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+    #     Session.objects.all().update(joining_date=self.joining_date, joining_end_date=self.joining_end_date)
