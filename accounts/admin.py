@@ -1,7 +1,6 @@
 from django.contrib import admin
 from django.contrib.admin import display
 from django.contrib.auth.admin import UserAdmin
-from django.contrib.auth.forms import UserChangeForm, UserCreationForm
 from django.contrib.auth.models import Group
 from django.utils.safestring import mark_safe
 
@@ -49,11 +48,12 @@ class AccountAdmin(UserAdmin):
 
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
-        (('Personal info'), {'fields': ('first_name', 'last_name', 'username',)}),
-        (('Permissions'), {'fields': ('is_active','is_admin' ,'is_staff', 'is_superuser',
-                                      'user_permissions')}),
-        (('Important dates'), {'fields': ('last_login', 'date_joined')}),
+        ('Personal info', {'fields': ('first_name', 'last_name', 'username',)}),
+        ('Permissions', {'fields': ('is_active', 'is_admin', 'is_staff', 'is_superuser',
+                                    'user_permissions')}),
+        ('Important dates', {'fields': ('last_login', 'date_joined')}),
     )
+
     filter_horizontal = ('user_permissions',)
     search_fields = ('email', 'first_name', 'last_name')
 
