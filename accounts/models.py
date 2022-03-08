@@ -1,6 +1,5 @@
 # Create your models here.
-
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin, AbstractUser
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.db import models
@@ -43,7 +42,7 @@ class MyAccountManager(BaseUserManager):
         return user
 
 
-class Account(AbstractBaseUser):
+class Account(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     username = models.CharField(max_length=50, unique=True)
@@ -58,8 +57,10 @@ class Account(AbstractBaseUser):
     date_joined = models.DateTimeField(auto_now_add=True)
     last_login = models.DateTimeField(auto_now_add=True)
     is_admin = models.BooleanField(default=False)
-    is_staff = models.BooleanField(default=False)
-    is_active = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False, help_text=('Designates whether the user can log into this admin '
+                                                             'site.'))
+    is_active = models.BooleanField(default=False, help_text=('Designates whether this user should be treated as '
+                                                              'active. Unselect this instead of deleting accounts.'))
     is_superadmin = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'
@@ -73,11 +74,11 @@ class Account(AbstractBaseUser):
     def __str__(self):
         return self.email
 
-    def has_perm(self, perm, obj=None):
-        return self.is_admin
-
-    def has_module_perms(self, add_label):
-        return True
+    # def has_perm(self, perm, obj=None):
+    #     return self.is_admin
+    #
+    # def has_module_perms(self, add_label):
+    #     return True
 
 
 class Faculty(models.Model):

@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django.contrib.admin import display
 from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.forms import UserChangeForm, UserCreationForm
+from django.contrib.auth.models import Group
 from django.utils.safestring import mark_safe
 
 from accounts.models import Account, Batch, Faculty, Department, Programme, Section, StudentProfile
@@ -38,8 +40,23 @@ class StudentInline(admin.TabularInline):
 
 
 class AccountAdmin(UserAdmin):
-    fieldsets = ()
-    filter_horizontal = ()
+    add_fieldsets = (
+        (None, {
+            'classes': ('wide',),
+            'fields': ('email', 'password1', 'password2')}
+         ),
+    )
+
+    fieldsets = (
+        (None, {'fields': ('email', 'password')}),
+        (('Personal info'), {'fields': ('first_name', 'last_name', 'username',)}),
+        (('Permissions'), {'fields': ('is_active','is_admin' ,'is_staff', 'is_superuser',
+                                      'user_permissions')}),
+        (('Important dates'), {'fields': ('last_login', 'date_joined')}),
+    )
+    filter_horizontal = ('user_permissions',)
+    search_fields = ('email', 'first_name', 'last_name')
+
     list_display = (
         'email',
         'first_name',
@@ -127,6 +144,7 @@ class StudentAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Account, AccountAdmin)
+admin.site.unregister(Group)
 admin.site.register(Batch, BatchAdmin)
 admin.site.register(Department, DepartmentAdmin)
 admin.site.register(Faculty, FacultyAdmin)
