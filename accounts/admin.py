@@ -68,7 +68,6 @@ class AccountAdmin(UserAdmin):
     )
     list_display_links = ('email', 'first_name', 'last_name',)
     list_filter = ()
-    ordering = ('-date_joined',)
     readonly_fields = ('last_login', 'date_joined',)
 
 
