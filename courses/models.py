@@ -57,10 +57,13 @@ class Session(models.Model):
     session_end_date = models.DateField(help_text="Please use the following format: <em>YYYY-MM-DD</em>.",
                                         default=get_session_end)
 
-    programme = models.ForeignKey('accounts.Programme', on_delete=models.CASCADE)
-    batch = models.OneToOneField('accounts.Batch', on_delete=models.CASCADE)
+    programme = models.ForeignKey('accounts.Programme', on_delete=models.CASCADE,
+                                  help_text="Select the programme for which the session is being created.")
+    batch = models.OneToOneField('accounts.Batch', on_delete=models.CASCADE,
+                                 help_text="Select the batch for which this session is being created.")
     joining_date = models.DateField(help_text="Set the start of course joining.", default=timezone.now)
-    joining_deadline = models.DateField(help_text="Set the deadline of course joining for this session.", default=get_joining_deadline)
+    joining_deadline = models.DateField(help_text="Set the deadline of course joining for this session.",
+                                        default=get_joining_deadline)
     courses_offered = models.ManyToManyField(Course, related_name="courses")
 
     def clean(self):
