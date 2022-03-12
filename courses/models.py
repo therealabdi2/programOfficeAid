@@ -66,6 +66,13 @@ class Session(models.Model):
                                         default=get_joining_deadline)
     courses_offered = models.ManyToManyField(Course, related_name="courses")
 
+    # tests to validate dates
+    def valid_session_date(self):
+        return self.session_start_date <= timezone.now() <= self.session_end_date
+
+    def valid_joining_date(self):
+        return self.joining_date <= timezone.now() <= self.joining_deadline
+
     def clean(self):
         super().clean()
         if not (self.session_start_date <= self.session_end_date):
