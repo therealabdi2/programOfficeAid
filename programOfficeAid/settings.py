@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'accounts',
     'courses',
     'submissions',
+    'django_extensions',
     'django.contrib.admin',
     'rest_framework',
 ]
