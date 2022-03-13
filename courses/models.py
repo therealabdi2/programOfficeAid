@@ -105,7 +105,7 @@ class Session(models.Model):
             raise ValidationError('Invalid start and end joining datetime')
 
     def __str__(self):
-        return f"{self.session_name} {self.session_year}"
+        return f"{self.batch} {self.session_name} {self.session_year}"
 
     # def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
     #     Session.objects.all().update(joining_date=self.joining_date, joining_end_date=self.joining_end_date)
