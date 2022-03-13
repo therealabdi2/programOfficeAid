@@ -1,11 +1,12 @@
 from django.db import models
-# Create your models here.
-from polymorphic.models import PolymorphicModel
 
 from courses.models import Course, Session
 
 
-class ParentForm(PolymorphicModel):
+# Create your models here.
+
+
+class ParentForm(models.Model):
     STATUS = (
         ('Pending', 'Pending'),
         ('Accepted', 'Accepted'),
@@ -18,11 +19,14 @@ class ParentForm(PolymorphicModel):
                                    help_text="Change status to 'Accepted' if Student is eligible or 'Rejected' if not")
     submitted_at = models.DateTimeField(auto_now_add=True, )
 
+    class Meta:
+        abstract = True
+
 
 class JoiningForm(ParentForm):
     form_name = models.CharField(max_length=30, default='Joining Form', editable=False)
     semester = models.PositiveSmallIntegerField(default=1)
-    session = models.ForeignKey(Session, on_delete=models.CASCADE)
+    session = models.ForeignKey(Session, on_delete=models.CASCADE, help_text="Click above to get Session Info")
     course = models.ManyToManyField(Course, blank=True)
 
     def __str__(self):
