@@ -149,7 +149,6 @@ class StudentProfile(models.Model):
     batch = models.ForeignKey(Batch, on_delete=models.CASCADE)
     section = models.ForeignKey(Section, on_delete=models.CASCADE)
     profile_picture = models.ImageField(upload_to='profile_pictures', blank=True, validators=[validate_image])
-    course = models.ManyToManyField(Course, blank=True)
 
     class Meta:
         verbose_name_plural = "Student Profiles"
