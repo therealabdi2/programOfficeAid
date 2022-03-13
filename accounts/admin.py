@@ -3,11 +3,12 @@ from django.contrib.admin import display
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import Group
 from django.utils.safestring import mark_safe
+from polymorphic.admin import StackedPolymorphicInline, PolymorphicInlineSupportMixin
 
 from accounts.models import Account, Batch, Faculty, Department, Programme, Section, StudentProfile
-
-
 # Register your models here.
+from submissions.models import ParentForm, JoiningForm
+
 
 class BatchInline(admin.TabularInline):
     model = Batch
@@ -36,6 +37,16 @@ class SectionInline(admin.TabularInline):
 class StudentInline(admin.TabularInline):
     model = StudentProfile
     extra = 1
+
+
+class ParentFormInline(StackedPolymorphicInline):
+    class JoiningFormInline(StackedPolymorphicInline.Child):
+        model = JoiningForm
+
+    model = ParentForm
+    child_inlines = (
+        JoiningFormInline,
+    )
 
 
 class AccountAdmin(UserAdmin):
@@ -120,7 +131,7 @@ class SectionAdmin(admin.ModelAdmin):
     search_help_text = 'Search by section or batch name'
 
 
-class StudentAdmin(admin.ModelAdmin):
+class StudentAdmin(PolymorphicInlineSupportMixin, admin.ModelAdmin):
     autocomplete_fields = ['faculty', 'programme', 'batch', 'section', 'department']
     list_display = 'student_full_name', 'registration_number', 'faculty', 'programme', 'batch', 'section', 'department',
     list_filter = ['batch', 'programme', 'section', 'department', 'faculty']
@@ -128,6 +139,7 @@ class StudentAdmin(admin.ModelAdmin):
     search_fields = ['registration_number', 'student__first_name', 'student__last_name', 'student__email']
     search_help_text = 'Search by student Registration Number, first name, last name, or email'
     readonly_fields = ["profile_picture_image"]
+    inlines = [ParentFormInline]
 
     def profile_picture_image(self, obj):
         return mark_safe('<img src="{url}" width="{width}" height={height} />'.format(
