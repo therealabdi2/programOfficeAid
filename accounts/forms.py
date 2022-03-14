@@ -11,8 +11,14 @@ class RegisterForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper(self)
-        self.helper.form_action = reverse_lazy('accounts:register')
-        self.helper.form_method = 'post'
+        # self.helper.form_action = reverse_lazy('accounts:register')
+        # self.helper.form_method = 'post'
+        self.helper.form_id = 'register-form'
+        self.helper.attrs = {
+            'hx-post': reverse_lazy('accounts:register'),
+            'hx-target': '#register-form',
+            'hx-swap': 'outerHTML'
+        }
         self.helper.add_input(Submit('submit', 'Register'))
 
     class Meta:
