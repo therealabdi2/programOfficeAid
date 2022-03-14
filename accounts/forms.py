@@ -15,10 +15,9 @@ class RegisterForm(forms.ModelForm):
         self.helper.form_method = 'post'
         self.helper.add_input(Submit('submit', 'Register'))
 
-        first_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'First Name'}))
-        last_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Last Name'}))
-        email = forms.EmailField(widget=forms.TextInput(attrs={'placeholder': 'Email'}))
-
     class Meta:
         model = Account
         fields = ('first_name', 'last_name', 'email', 'password')
+        widgets = {
+            'password': forms.PasswordInput(),
+        }
