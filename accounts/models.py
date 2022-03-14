@@ -51,7 +51,7 @@ class Account(AbstractBaseUser, PermissionsMixin):
             regex="^[\w]+[\w.%+-]*@iiu\.edu\.pk$",
             message='Please enter a valid IIUI email address'
         ),
-    ])
+    ], help_text='Enter your IIUI email address')
 
     # required
     date_joined = models.DateTimeField(auto_now_add=True)
