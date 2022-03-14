@@ -22,10 +22,12 @@ from . import views
 from .views import HomeView
 
 urlpatterns = [
-                  path('admin/', admin.site.urls),
-                  path('', HomeView.as_view(), name='home'),
-                  path('api-auth/', include('rest_framework.urls'))
-              ]
+    path('admin/', admin.site.urls),
+    path('', HomeView.as_view(), name='home'),
+    path('api-auth/', include('rest_framework.urls')),
+
+    path('', include('accounts.urls')),
+]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
