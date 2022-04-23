@@ -1,0 +1,216 @@
+{% load static %}
+
+{# header #}
+<!DOCTYPE html>
+<!--[if lt IE 7]>
+<html class="no-js lt-ie10 lt-ie9 lt-ie8 lt-ie7 "> <![endif]-->
+<!--[if IE 7]>
+<html class="no-js lt-ie10 lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html class="no-js lt-ie10 lt-ie9"> <![endif]-->
+<!--[if IE 9]>
+<html class="no-js lt-ie10"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+
+<head>
+
+    <!-- Basic Page Needs -->
+    <meta charset="utf-8">
+
+
+    <title> {% block head_title %}{% endblock %}</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Mobile Specific Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- Favicons -->
+    <link rel="shortcut icon" href="{% static 'images/bright_iiui.png' %}">
+
+    <!-- FONTS -->
+    <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:100,300,400,400italic,700'>
+    <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Patua+One:100,300,400,400italic,700'>
+    <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Lato:400,400italic,700,700italic,900'>
+    <link rel='stylesheet'
+          href='http://fonts.googleapis.com/css?family=Yantramanav:100,300,400,400italic,500,700,700italic'>
+    <link rel='stylesheet'
+          href='http://fonts.googleapis.com/css?family=PT+Serif:100,300,400,400italic,500,700,700italic'>
+
+    <!-- CSS -->
+    {% block css_files %}{% endblock %}
+    <link rel='stylesheet' href='{% static "css/global.css" %}'>
+    <link rel='stylesheet' href='{% static "home/poa_main/css/structure.css" %}'>
+    <link rel='stylesheet' href='{% static "home/poa_main/css/garden3.css" %}'>
+    <link rel='stylesheet' href='{% static "home/poa_main/css/custom.css" %}'>
+    <link href="{% static 'fonts/material-icons/css/materialdesignicons.css' %}" rel="stylesheet" type="text/css"/>
+
+
+    <!-- Revolution Slider -->
+    <link rel="stylesheet" href='{% static "plugins/rs-plugin/css/settings.css" %}'>
+
+    <script src=" {% static 'js/htmx.min.js' %}" defer></script>
+
+</head>
+
+<body class="color-custom style-simple button-default layout-full-width if-border-hide no-content-padding header-transparent minimalist-header-no sticky-header sticky-tb-color ab-hide subheader-both-left menu-highlight menuo-right menuo-no-borders mobile-tb-center mobile-side-slide mobile-mini-mr-ll tablet-sticky mobile-sticky be-reg-2095">
+<div id="Wrapper">
+    <div id="Header_wrapper" class="bg-parallax" data-enllax-ratio="0.3">
+        <header id="Header">
+            <div id="Top_bar">
+                <div class="container">
+                    <div class="column one">
+                        <div class="top_bar_left clearfix">
+                            <div class="logo">
+                                <a id="logo" href="{% url 'home' %}" title="IIUI - logo" data-height="60"
+                                   data-padding="30"><img class="logo-main scale-with-grid"
+                                                          src="{% static 'home/poa_main/images/POA-logo.png' %}"
+                                                          data-retina="{% static 'home/poa_main/images/POA-logo.png' %}"
+                                                          data-height="50" alt="garden3"><img
+                                        class="logo-sticky scale-with-grid"
+                                        src="{% static 'home/poa_main/images/POA-logo.png' %}"
+                                        data-retina="{% static 'home/poa_main/images/POA-logo.png' %}" data-height="50"
+                                        alt="garden3"><img class="logo-mobile scale-with-grid"
+                                                           src="{% static 'home/poa_main/images/POA-logo.png' %}"
+                                                           data-retina="{% static 'home/poa_main/images/POA-logo.png' %}"
+                                                           data-height="50" alt="garden3"><img
+                                        class="logo-mobile-sticky scale-with-grid"
+                                        src="{% static 'home/poa_main/images/POA-logo.png' %}"
+                                        data-retina="{% static 'home/poa_main/images/POA-logo.png' %}" data-height="50"
+                                        alt="garden3"></a>
+                            </div>
+                            <div class="menu_wrapper">
+                                <nav id="menu">
+                                    <ul id="menu-main-menu" class="menu menu-main">
+                                        <li class="{% if '/' == request.path %} current-menu-item  {% endif %}">
+                                            <a href="{% url 'home' %}"><span>Home</span></a>
+                                        </li>
+                                        <li class="{% if '/about/' == request.path %} current-menu-item  {% endif %}">
+                                            <a href="{% url 'about' %}"><span>About</span></a>
+                                        </li>
+                                        <li class="{% if '/services/' == request.path %} current-menu-item  {% endif %}">
+                                            <a href="{% url 'services' %}"><span>Services</span></a>
+                                        </li>
+                                        {% if user.is_authenticated %}
+                                           <li class="{% if '/accounts/logout/' == request.path %} current-menu-item  {% endif %}">
+                                                <a href="{% url 'account_logout' %} "><span>Logout</span></a>
+                                            </li>
+                                        {% else %}
+                                             <li class="{% if '/accounts/login/' == request.path %} current-menu-item  {% endif %}">
+                                                <a href="{% url 'account_login' %} "><span>Login</span></a>
+                                            </li>
+                                            <li class="{% if '/accounts/signup/' == request.path %} current-menu-item  {% endif %}">
+                                                <a href="{% url 'account_signup' %}"><span>Sign up</span></a>
+                                            </li>
+                                        {% endif %}
+
+                                    </ul>
+                                </nav>
+                                <a class="responsive-menu-toggle" href="#"><i class="mdi mdi-filter-variant"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+    </div>
+    {% block content %}
+    {% endblock %}
+    <!-- ========================= FOOTER ========================= -->
+    <footer class="section-footer">
+        <div class="container">
+            <section class="footer-bottom row">
+                <div class="text-center text-md-center m-auto">
+                    <p class="text-muted px-2"> &copy 2021-2022 Program Office Aid </p>
+                    <span class="px-2">Developed by <a href="https://www.linkedin.com/in/abdurrheman-afridi/"
+                                                       target="_blank">Abdurrehman Afridi</a></span>
+                </div>
+            </section>
+        </div><!-- //container -->
+    </footer>
+    <!-- ========================= FOOTER END // ========================= -->
+
+    <!-- side menu -->
+    <div id="Side_slide" class="right dark" data-width="250">
+        <div class="close-wrapper">
+            <a href="#" class="close"><i class="mdi mdi-close"></i></a>
+        </div>
+        <div class="menu_wrapper"></div>
+    </div>
+    <div id="body_overlay"></div>
+
+
+    <!-- JS -->
+
+    <script src="{% static 'js/custom_js/jquery-2.1.4.min.js' %}"></script>
+
+    <script src="{% static 'js/custom_js/mfn.menu.js' %}"></script>
+    <script src="{% static 'js/custom_js/jquery.plugins.js' %}"></script>
+    <script src="{% static 'js/custom_js/jquery.jplayer.min.js' %}"></script>
+    <script src="{% static 'js/custom_js/animations/animations.js' %}"></script>
+    <script src="{% static 'js/custom_js/translate3d.js' %}"></script>
+    <script src="{% static 'js/custom_js/scripts.js' %}"></script>
+
+    <script src="{% static 'plugins/rs-plugin/js/jquery.themepunch.tools.min.js' %}"></script>
+    <script src="{% static 'plugins/rs-plugin/js/jquery.themepunch.revolution.min.js' %}"></script>
+
+    <script src="{% static 'plugins/rs-plugin/js/extensions/revolution.extension.video.min.js' %}"></script>
+    <script src="{% static 'plugins/rs-plugin/js/extensions/revolution.extension.slideanims.min.js' %}"></script>
+    <script src="{% static 'plugins/rs-plugin/js/extensions/revolution.extension.actions.min.js' %}"></script>
+    <script src="{% static 'plugins/rs-plugin/js/extensions/revolution.extension.layeranimation.min.js' %}"></script>
+    <script src="{% static 'plugins/rs-plugin/js/extensions/revolution.extension.kenburn.min.js' %}"></script>
+    <script src="{% static 'plugins/rs-plugin/js/extensions/revolution.extension.navigation.min.js' %}"></script>
+    <script src="{% static 'plugins/rs-plugin/js/extensions/revolution.extension.migration.min.js' %}"></script>
+    <script src="{% static 'plugins/rs-plugin/js/extensions/revolution.extension.parallax.min.js' %}"></script>
+
+    <script>
+        var revapi1, tpj;
+        (function () {
+            if (!/loaded|interactive|complete/.test(document.readyState))
+                document.addEventListener("DOMContentLoaded", onLoad);
+            else
+                onLoad();
+
+            function onLoad() {
+                if (tpj === undefined) {
+                    tpj = jQuery;
+                    if ("off" == "on")
+                        tpj.noConflict();
+                }
+                if (tpj("#rev_slider_1_1").revolution == undefined) {
+                    revslider_showDoubleJqueryError("#rev_slider_1_1");
+                } else {
+                    revapi1 = tpj("#rev_slider_1_1").show().revolution({
+                        sliderType: "hero",
+                        sliderLayout: "auto",
+                        dottedOverlay: "none",
+                        delay: 9000,
+                        visibilityLevels: [1240, 1024, 778, 480],
+                        gridwidth: 1240,
+                        gridheight: 790,
+                        lazyType: "none",
+                        shadow: 0,
+                        spinner: "spinner3",
+                        autoHeight: "off",
+                        disableProgressBar: "on",
+                        hideThumbsOnMobile: "off",
+                        hideSliderAtLimit: 0,
+                        hideCaptionAtLimit: 0,
+                        hideAllCaptionAtLilmit: 0,
+                        debugMode: false,
+                        fallbacks: {
+                            simplifyAll: "off",
+                            disableFocusListener: false,
+                        }
+                    });
+                }
+                ;
+            };
+        }());
+    </script>
+
+</body>
+
+</html>

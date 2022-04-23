@@ -1,36 +1,59 @@
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit
+from allauth.account.forms import LoginForm
+from allauth.account.forms import SignupForm
 from django import forms
-from django.urls import reverse_lazy
-
-from .models import Account
 
 
-class RegisterForm(forms.ModelForm):
+class CustomLoginForm(LoginForm):
+    def __init__(self, *args, **kwargs):
+        super(CustomLoginForm, self).__init__(*args, **kwargs)
+        self.fields['login'].widget = forms.TextInput(attrs={
+            'type': 'email',
+            'class': 'form-control',
+            'placeholder': "Email Address",
+        })
+        self.fields['password'].widget = forms.PasswordInput(attrs={
+            'type': 'password',
+            'class': 'form-control',
+            'placeholder': "Password"
+        })
+
+
+class CustomSignupForm(SignupForm):
+    first_name = forms.CharField(max_length=30, label='First Name')
+    last_name = forms.CharField(max_length=30, label='Last Name')
 
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.helper = FormHelper(self)
-        # self.helper.form_action = reverse_lazy('accounts:register')
-        # self.helper.form_method = 'post'
-        self.helper.form_id = 'register-form'
-        self.helper.attrs = {
-            'hx-post': reverse_lazy('accounts:register'),
-            'hx-target': '#register-form',
-            'hx-swap': 'outerHTML'
-        }
-        self.helper.add_input(Submit('submit', 'Register'))
+        super(CustomSignupForm, self).__init__(*args, **kwargs)
+        self.fields['first_name'].widget = forms.TextInput(attrs={
+            'type': 'text',
+            'class': 'form-control',
+            'placeholder': "First Name",
+        })
+        self.fields['last_name'].widget = forms.PasswordInput(attrs={
+            'type': 'text',
+            'class': 'form-control',
+            'placeholder': "Last Name"
+        })
+        self.fields['email'].widget = forms.TextInput(attrs={
+            'type': 'email',
+            'class': 'form-control',
+            'placeholder': "Email Address",
+        })
+        self.fields['password1'].widget = forms.PasswordInput(attrs={
+            'type': 'password',
+            'class': 'form-control',
+            'placeholder': "Password"
+        })
+        self.fields['password2'].widget = forms.PasswordInput(attrs={
+            'type': 'password',
+            'class': 'form-control',
+            'placeholder': "Password (again)"
+        })
 
-    class Meta:
-        model = Account
-        fields = ('first_name', 'last_name', 'email', 'password')
-        widgets = {
-            'password': forms.PasswordInput(),
-        }
+    def save(self, request):
+        user = super(CustomSignupForm, self).save(request)
 
-    def save(self, commit=True):
-        user = super().save(commit=False)
-        user.set_password(self.cleaned_data['password'])
-        if commit:
-            user.save()
+        user.first_name = self.cleaned_data['first_name']
+        user.last_name = self.cleaned_data['last_name']
+        user.save()
         return user

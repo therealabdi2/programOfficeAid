@@ -1,10 +1,9 @@
 from django.urls import path
 
-from .views import RegisterView
+from .views import DashboardView
 
 app_name = 'accounts'
 
 urlpatterns = [
-    path('register/', RegisterView.as_view(), name='register'),
-
+    path('dashboard/', DashboardView.as_view(), name='dashboard'),
 ]

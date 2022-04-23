@@ -18,12 +18,17 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
-from .views import HomeView
+from programOfficeAid.views import HomeView, AboutView, ServicesView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', HomeView.as_view(), name='home'),
+    path('about/', AboutView.as_view(), name='about'),
+    path('services/', ServicesView.as_view(), name='services'),
+
     path('api-auth/', include('rest_framework.urls')),
+
+    path('accounts/', include('allauth.urls')),
 
     path('accounts/', include(('accounts.urls', 'accounts'), namespace='accounts')),
 ]

@@ -57,7 +57,7 @@ class AccountAdmin(UserAdmin):
 
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
-        ('Personal info', {'fields': ('first_name', 'last_name', 'username',)}),
+        ('Personal info', {'fields': ('first_name', 'last_name',)}),
         ('Permissions', {'fields': ('is_active', 'is_admin', 'is_staff', 'is_superuser',
                                     'user_permissions')}),
         ('Important dates', {'fields': ('last_login', 'date_joined')}),
@@ -70,7 +70,6 @@ class AccountAdmin(UserAdmin):
         'email',
         'first_name',
         'last_name',
-        'username',
         'last_login',
         'date_joined',
         'is_active',
@@ -78,6 +77,7 @@ class AccountAdmin(UserAdmin):
     list_display_links = ('email', 'first_name', 'last_name',)
     list_filter = ()
     readonly_fields = ('last_login', 'date_joined',)
+    ordering = ('email',)
 
 
 class BatchAdmin(admin.ModelAdmin):

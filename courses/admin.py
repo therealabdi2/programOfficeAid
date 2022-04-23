@@ -1,4 +1,6 @@
 from django.contrib import admin
+from import_export import resources
+from import_export.admin import ImportExportModelAdmin
 
 # Register your models here.
 from courses.models import Course, CourseType, CourseCategory, Session
@@ -24,12 +26,19 @@ class CourseTypeInline(admin.TabularInline):
         return False
 
 
-class CourseAdmin(admin.ModelAdmin):
+class CourseResource(resources.ModelResource):
+    class Meta:
+        model = Course
+
+
+class CourseAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     list_display = 'course_code', 'course_name', 'course_credit', 'prerequisite_display'
     list_filter = ['course_type', 'course_programme']
     search_fields = ['course_code', 'course_name']
     search_help_text = 'Search by course code or course name'
     list_per_page = 10
+
+    resource_class = CourseResource
 
     def prerequisite_display(self, obj):
         return ", ".join([
