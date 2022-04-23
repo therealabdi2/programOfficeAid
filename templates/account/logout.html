@@ -1,0 +1,55 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block css_files %}
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" type="text/css"/>
+{% endblock %}
+
+{% block head_title %}{% trans "Sign Out" %}{% endblock %}
+
+
+{% block content %}
+    <div
+            class="section mcb-section"
+            style="
+                    padding-top: 110px;
+                    padding-bottom: 110px;
+                    background-color: #222f1f;
+                    background-image: url({% static "home/poa_main/images/home_poa_sectionbg2.png" %});
+                    background-repeat: no-repeat;
+                    background-position: center top;
+                    "
+    >
+        <div class="section_wrapper mcb-section-inner" id="main_section">
+            <div class="wrap mcb-wrap one valign-top clearfix">
+                <div class="mcb-wrap-inner">
+                    <div class="column mcb-column one column_column">
+                        <div class="column_attr clearfix align_center">
+                            <h2 style="color: #fff">{% trans "Sign Out" %}</h2>
+                            <p class="themecolor"
+                               style="letter-spacing: 3px">{% trans 'Are you sure you want to Logout?' %}</p>
+                        </div>
+                    </div>
+                    <div id="contactWrapper">
+                        <div class="card mx-auto" id="form-card" style="max-width: 375px;">
+
+                            <form method="post" action="{% url 'account_logout' %}">
+                                {% csrf_token %}
+                                {% if redirect_field_value %}
+                                    <input type="hidden" name="{{ redirect_field_name }}"
+                                           value="{{ redirect_field_value }}"/>
+                                {% endif %}
+                                <button class="primaryAction  btn-block" type="submit">{% trans 'Logout' %}</button>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}

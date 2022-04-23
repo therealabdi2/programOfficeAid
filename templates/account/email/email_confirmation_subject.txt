@@ -1,0 +1,6 @@
+{% load i18n %}
+{% autoescape off %}
+{% blocktrans %}
+🙌 Complete your sign up to Program Office Aid!
+{% endblocktrans %}
+{% endautoescape %}

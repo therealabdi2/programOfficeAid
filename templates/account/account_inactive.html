@@ -1,0 +1,37 @@
+{% extends "base/base.html" %}
+
+{% load static %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Account Inactive" %}{% endblock %}
+
+{% block content %}
+    <div
+            class="section mcb-section"
+            style="
+                    padding-top: 110px;
+                    padding-bottom: 110px;
+                    background-color: #222f1f;
+                    background-image: url({% static "home/poa_main/images/home_poa_sectionbg2.png" %});
+                    background-repeat: no-repeat;
+                    background-position: center top;
+                    "
+    >
+        <div class="section_wrapper mcb-section-inner" id="main_section">
+            <div class="wrap mcb-wrap one valign-top clearfix">
+                <div class="mcb-wrap-inner">
+                    <div class="column mcb-column one column_column">
+                        <div class="column_attr clearfix align_center">
+                            <h2 style="color: #fff">{% trans "You are banned" %}</h2>
+                            <p class="themecolor"
+                               style="letter-spacing: 3px">{% trans "Your account has been suspended for violation of terms of service." %}</p>
+                            <p>If you think this is a mistake, please contact Program Office staff</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

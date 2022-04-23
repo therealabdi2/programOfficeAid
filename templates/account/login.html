@@ -1,0 +1,108 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% load i18n %}
+{% load account socialaccount %}
+
+{% block css_files %}
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" type="text/css"/>
+{% endblock %}
+
+{% block head_title %}{% trans "Log In - POA" %}{% endblock %}
+
+{% block content %}
+    {% get_providers as socialaccount_providers %}
+
+    <div
+            class="section mcb-section"
+            style="
+                    padding-top: 110px;
+                    padding-bottom: 110px;
+                    background-color: #222f1f;
+                    background-image: url({% static "home/poa_main/images/home_poa_sectionbg2.png" %});
+                    background-repeat: no-repeat;
+                    background-position: center top;
+                    "
+    >
+        <div class="section_wrapper mcb-section-inner" id="main_section">
+            <div class="wrap mcb-wrap one valign-top clearfix">
+                <div class="mcb-wrap-inner">
+                    <div class="column mcb-column one column_column">
+                        <div class="column_attr clearfix align_center">
+                            <h2 style="color: #fff">Login to your account</h2>
+                            <p class="themecolor" style="letter-spacing: 3px">Welcome back</p>
+                        </div>
+                    </div>
+                    <div id="contactWrapper">
+                        <div class="card mx-auto" id="form-card" style="max-width: 375px; margin-top:5px;">
+                            <div class="card-body"></div>
+                            {% if form.errors %}
+                                <ul class="errorlist alert alert-error">
+                                    {% for key, value in form.errors.items %}
+                                        <li>{% if key != '__all__' %}{{ key }} {% endif %}{{ value }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+
+                            <form class="login" method="POST" action="{% url 'account_login' %}">
+                                {% csrf_token %}
+                                <div class="form-group column one">
+                                    <i class="mdi mdi-account-circle themecolor"></i>
+                                    <label>Email</label>
+                                    {{ form.login }}
+                                </div>
+                                <div class="form-group column one">
+                                    <i class="mdi mdi-lock themecolor"></i>
+                                    <label>Password</label>
+                                    {{ form.password }}
+                                </div>
+                                {% if redirect_field_value %}
+                                    <input type="hidden" name="{{ redirect_field_name }}"
+                                           value="{{ redirect_field_value }}"/>
+                                {% endif %}
+                                <div class="form-group column one">
+                                    <button class="primaryAction  btn-block"
+                                            type="submit">{% trans "Log In" %}</button>
+                                </div>
+                                <div class="form-group column one">
+                                    <a hx-swap="outerHTML" hx-target="#main_section"
+                                       hx-get="{% url 'account_reset_password' %}"
+                                       hx-select="#main_section" hx-push-url="true"
+                                       class="forgot_password secondaryAction float-right "
+                                       href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
+                                </div>
+                            </form>
+                            {% if socialaccount_providers %}
+                                <p>{% blocktrans with site.name as site_name %}Please sign in with one
+                                    of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>
+                                    for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
+
+                                <div class="socialaccount_ballot">
+
+                                    <ul class="socialaccount_providers">
+                                        {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+                                    </ul>
+
+                                    <div class="login-or">{% trans 'or' %}</div>
+
+                                </div>
+
+                                {% include "socialaccount/snippets/login_extra.html" %}
+
+                            {% else %}
+                                <p class="text-center mt-4 text-muted">{% blocktrans %}Dont have an account yet?
+                                    <a hx-swap="outerHTML" hx-target="#main_section" hx-get="{{ signup_url }}"
+                                       hx-select="#main_section" hx-push-url="true" href="{{ signup_url }}"
+                                       class="signup column one btn btn-outline-primary-light btn-default btn-block">Sign
+                                        Up</a>{% endblocktrans %}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends "base/base.html" %}
+
+{% load static %}
+{% load i18n %}
+{% load account %}
+
+{% block css_files %}
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" type="text/css"/>
+{% endblock %}
+
+{% block head_title %}{% trans "Confirm E-mail Address" %}{% endblock %}
+
+
+{% block content %}
+    <div
+            class="section mcb-section"
+            style="
+                    padding-top: 110px;
+                    padding-bottom: 110px;
+                    background-color: #222f1f;
+                    background-image: url({% static "home/poa_main/images/home_poa_sectionbg2.png" %});
+                    background-repeat: no-repeat;
+                    background-position: center top;
+                    "
+    >
+        <div class="section_wrapper mcb-section-inner" id="main_section">
+            <div class="wrap mcb-wrap one valign-top clearfix">
+                <div class="mcb-wrap-inner">
+                    <div class="column mcb-column one column_column">
+                        <div class="column_attr clearfix align_center">
+                            {% if confirmation %}
+
+                                {% user_display confirmation.email_address.user as user_display %}
+                                <h2 style="color: #fff">{% trans "Confirm E-mail Address" %}</h2>
+                                <p class="themecolor" style="letter-spacing: 3px">
+                                    {% blocktrans with confirmation.email_address.email as email %}Just one more step,
+                                        Please confirm that
+                                        <em><u><a href="mailto:{{ email }}">{{ email }}</a></u></em> is your e-mail address
+                                        .{% endblocktrans %}</p>
+                                </div>
+                                </div>
+                                <div id="contactWrapper">
+                                <div class="card mx-auto" id="form-card" style="max-width: 375px;">
+                                <form method="post" action="{% url 'account_confirm_email' confirmation.key %}">
+                                    {% csrf_token %}
+                                        <button class="primaryAction btn btn-success btn-block" type="submit">{% trans 'Confirm' %}</button>
+                                </form>
+                            {% else %}
+
+                                {% url 'account_email' as email_url %}
+                                <h2 style="color: #fff">{% trans "Link Error" %}</h2>
+
+                                <p class="themecolor" style="letter-spacing: 3px">{% blocktrans %}This e-mail confirmation link expired or is invalid. Please
+                                    <a href="{{ email_url }}"><em><u>issue a new e-mail confirmation request</u></em></a>
+                                    .{% endblocktrans %}</p>
+
+                            {% endif %}
+
+                            </div>
+                            </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

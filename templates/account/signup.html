@@ -1,0 +1,100 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block css_files %}
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" type="text/css"/>
+{% endblock %}
+{% block head_title %}{% trans "Register - POA" %}{% endblock %}
+
+{% block content %}
+    <div
+            class="section mcb-section"
+            style="
+                    padding-top: 110px;
+                    padding-bottom: 110px;
+                    background-color: #222f1f;
+                    background-image: url({% static "home/poa_main/images/home_poa_sectionbg2.png" %});
+                    background-repeat: no-repeat;
+                    background-position: center top;
+                    "
+    >
+        <div class="section_wrapper mcb-section-inner" id="main_section">
+            <div class="wrap mcb-wrap one valign-top clearfix">
+                <div class="mcb-wrap-inner">
+                    <div class="column mcb-column one column_column">
+                        <div class="column_attr clearfix align_center">
+                            <h2 style="color: #fff">Register your account</h2>
+                            <p class="themecolor" style="letter-spacing: 3px">And leave Manual in the past</p>
+                        </div>
+                    </div>
+                    <div id="contactWrapper">
+                        <div class="card mx-auto" id="form-card" style="max-width: 420px; margin-top:5px;">
+                            <div class="card-body">
+
+                                {% if form.errors %}
+                                    {% for field in form %}
+                                        {% for error in field.errors %}
+                                            <div class="alert alert-error">
+                                                <strong>{{ error|escape }}</strong>
+                                            </div>
+                                        {% endfor %}
+                                    {% endfor %}
+                                    {% for error in form.non_field_errors %}
+                                        <div class="alert alert-error">
+                                            <strong>{{ error|escape }}</strong>
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+                                <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+                                    {% csrf_token %}
+                                    <div class="form-group column one-second">
+                                        <i class="mdi mdi-file-account themecolor"></i>
+                                        <label>First Name</label>
+                                        {{ form.first_name }}
+                                    </div>
+                                    <div class="form-group column one-second">
+                                        <i class="mdi mdi-file-account-outline themecolor"></i>
+                                        <label>Last Name</label>
+                                        {{ form.last_name }}
+                                    </div>
+
+                                    <div class="form-group column one">
+                                        <i class="mdi mdi-email themecolor"></i>
+                                        <label>Email</label>
+                                        {{ form.email }}
+                                    </div>
+                                    <div class="form-group column one-second">
+                                        <i class="mdi mdi-lock themecolor"></i>
+                                        <label>Password</label>
+                                        {{ form.password1 }}
+                                    </div>
+                                    <div class="form-group column one-second">
+                                        <i class="mdi mdi-lock-outline themecolor"></i>
+                                        <label>Confirm Password</label>
+                                        {{ form.password2 }}
+                                    </div>
+                                    {% if redirect_field_value %}
+                                        <input type="hidden" name="{{ redirect_field_name }}"
+                                               value="{{ redirect_field_value }}"/>
+                                    {% endif %}
+                                    <button class="primaryAction btn btn-primary btn-block"
+                                            type="submit">{% trans "Sign Up" %} &raquo;
+                                    </button>
+                                </form>
+                                <p class="text-center mt-4 text-muted">{% blocktrans %}Already have an account?
+                                    <a hx-swap="outerHTML" hx-target="#main_section" hx-get="{{ login_url }}"
+                                       hx-select="#main_section" hx-push-url="true"
+                                       class="login btn btn-outline-success btn-default btn-block" href="{{ login_url }}">Log
+                                        In</a>
+                                    .{% endblocktrans %}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
