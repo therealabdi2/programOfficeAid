@@ -43,7 +43,7 @@
                                 <div class="card mx-auto" id="form-card" style="max-width: 375px;">
                                 <form method="post" action="{% url 'account_confirm_email' confirmation.key %}">
                                     {% csrf_token %}
-                                        <button class="primaryAction btn btn-success btn-block" type="submit">{% trans 'Confirm' %}</button>
+                                        <button class="primaryAction  btn-block" type="submit">{% trans 'Confirm' %}</button>
                                 </form>
                             {% else %}
 
