@@ -36,7 +36,7 @@
                         <div class="card mx-auto" id="form-card" style="max-width: 375px; margin-top:5px;">
                             <div class="card-body"></div>
                             {% if form.errors %}
-                                <ul class="errorlist alert alert-error">
+                                <ul class="errorlist alert alert-error alert-danger">
                                     {% for key, value in form.errors.items %}
                                         <li>{% if key != '__all__' %}{{ key }} {% endif %}{{ value }}</li>
                                     {% endfor %}
