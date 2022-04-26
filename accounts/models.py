@@ -129,20 +129,20 @@ class StudentProfile(models.Model):
             raise ValidationError("Max file size is %sMB" % str(megabyte_limit))
 
     student = models.OneToOneField(Account, on_delete=models.CASCADE, related_name='student_account')
-    phone_number = models.CharField(max_length=20, default=None, validators=[
+    phone_number = models.CharField(max_length=20, validators=[
         RegexValidator(
             regex='^((\+92)?(0092)?(92)?(0)?)(3)([0-9]{9})$',
             message='Please enter a valid Pakistan phone number'
         ),
     ])
-    registration_number = models.CharField(max_length=6, default=None, unique=True,
+    registration_number = models.CharField(max_length=6, unique=True,
                                            help_text="Please use the following format: <em>3958</em>.")
-    faculty = models.ForeignKey(Faculty, default=None, on_delete=models.CASCADE)
-    department = models.ForeignKey(Department, default=None, on_delete=models.CASCADE)
+    faculty = models.ForeignKey(Faculty, on_delete=models.CASCADE)
+    department = models.ForeignKey(Department, on_delete=models.CASCADE)
     fatherName = models.CharField(max_length=50, null=True)
-    programme = models.ForeignKey(Programme, default=None, on_delete=models.CASCADE)
-    batch = models.ForeignKey(Batch, default=None, on_delete=models.CASCADE)
-    section = models.ForeignKey(Section, default=None, on_delete=models.CASCADE)
+    programme = models.ForeignKey(Programme, on_delete=models.CASCADE)
+    batch = models.ForeignKey(Batch, on_delete=models.CASCADE)
+    section = models.ForeignKey(Section, on_delete=models.CASCADE)
     profile_picture = models.ImageField(upload_to='profile_pictures', blank=True, null=True,
                                         validators=[validate_image])
 

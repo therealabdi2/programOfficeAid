@@ -17,7 +17,9 @@ class ProfileMiddleware:
         # the view is called.
         user = request.user
         if user.is_authenticated:
-            if not user.profile_completion:
+            if user.is_admin or user.is_staff or user.is_superadmin:
+                return response
+            elif not user.profile_completion:
                 while not (request.path == reverse('accounts:create_profile')):
                     return HttpResponseRedirect(reverse('accounts:create_profile'))
 
