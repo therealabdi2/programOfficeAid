@@ -56,7 +56,7 @@ class AccountAdmin(UserAdmin):
     )
 
     fieldsets = (
-        (None, {'fields': ('email', 'password')}),
+        (None, {'fields': ('email', 'password', 'profile_completion')}),
         ('Personal info', {'fields': ('first_name', 'last_name',)}),
         ('Permissions', {'fields': ('is_active', 'is_admin', 'is_staff', 'is_superuser',
                                     'user_permissions')}),
