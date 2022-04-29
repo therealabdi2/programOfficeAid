@@ -135,8 +135,7 @@ class StudentProfile(models.Model):
             message='Please enter a valid Pakistan phone number'
         ),
     ])
-    registration_number = models.CharField(max_length=6, unique=True,
-                                           help_text="Please use the following format: <em>3958</em>.")
+    registration_number = models.CharField(max_length=6, unique=True)
     faculty = models.ForeignKey(Faculty, on_delete=models.CASCADE)
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
     fatherName = models.CharField(max_length=50, null=True)

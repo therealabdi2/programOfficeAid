@@ -1,6 +1,11 @@
 from allauth.account.forms import LoginForm
 from allauth.account.forms import SignupForm
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, Submit, Row, Column
 from django import forms
+from django.forms import ModelForm
+
+from accounts.models import StudentProfile
 
 
 class CustomLoginForm(LoginForm):
@@ -57,3 +62,15 @@ class CustomSignupForm(SignupForm):
         user.last_name = self.cleaned_data['last_name']
         user.save()
         return user
+
+
+class StudentProfileForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(StudentProfileForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.add_input(Submit('submit', 'Submit'))
+
+
+    class Meta:
+        model = StudentProfile
+        exclude = ['student']
