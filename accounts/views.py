@@ -67,7 +67,7 @@ class EditProfileView(View):
         if form.is_valid():
             form.save()
             messages.success(request, 'Your profile has been updated.')
-            return redirect('accounts:edit_profile')
+            return redirect('accounts:dashboard')
 
         context = {'form': form}
         return render(request, 'accounts/edit_profile.html', context)
