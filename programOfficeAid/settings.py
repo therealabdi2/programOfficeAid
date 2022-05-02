@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'django.contrib.admin',
     'rest_framework',
+    'imagekit',
 
     'django.contrib.sites',  # make sure sites is included
     'allauth',

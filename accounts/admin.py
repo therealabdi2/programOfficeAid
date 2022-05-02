@@ -3,11 +3,13 @@ from django.contrib.admin import display
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import Group
 from django.utils.safestring import mark_safe
+from imagekit.admin import AdminThumbnail
 
 from accounts.models import Account, Batch, Faculty, Department, Programme, Section, StudentProfile
 from submissions.models import JoiningForm
-# Register your models here.
 
+
+# Register your models here.
 
 
 class BatchInline(admin.TabularInline):
@@ -44,7 +46,6 @@ class JoiningFormInline(admin.StackedInline):
     extra = 0
     filter_horizontal = ('course',)
     show_change_link = True
-
 
 
 class AccountAdmin(UserAdmin):
@@ -130,8 +131,12 @@ class SectionAdmin(admin.ModelAdmin):
 
 
 class StudentAdmin(admin.ModelAdmin):
+
     autocomplete_fields = ['faculty', 'programme', 'batch', 'section', 'department']
-    list_display = 'student_full_name', 'registration_number', 'faculty', 'programme', 'batch', 'section', 'department',
+    list_display = (
+        'student_full_name', 'registration_number', 'faculty', 'programme', 'batch', 'section', 'department',
+        'admin_thumbnail')
+    admin_thumbnail = AdminThumbnail(image_field='profile_picture_thumbnail')
     list_filter = ['batch', 'programme', 'section', 'department', 'faculty']
     list_per_page = 10
     search_fields = ['registration_number', 'student__first_name', 'student__last_name', 'student__email']

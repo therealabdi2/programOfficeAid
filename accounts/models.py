@@ -3,6 +3,8 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Permis
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.db import models
+from imagekit.models import ImageSpecField
+from pilkit.processors import ResizeToFill
 
 from courses.models import Course
 
@@ -124,7 +126,7 @@ class Section(models.Model):
 class StudentProfile(models.Model):
     def validate_image(fieldfile_obj):
         filesize = fieldfile_obj.file.size
-        megabyte_limit = 2.0
+        megabyte_limit = 1.0
         if filesize > megabyte_limit * 1024 * 1024:
             raise ValidationError("Max file size is %sMB" % str(megabyte_limit))
 
@@ -142,8 +144,13 @@ class StudentProfile(models.Model):
     programme = models.ForeignKey(Programme, on_delete=models.CASCADE)
     batch = models.ForeignKey(Batch, on_delete=models.CASCADE)
     section = models.ForeignKey(Section, on_delete=models.CASCADE)
+
     profile_picture = models.ImageField(upload_to='profile_pictures', blank=True, null=True,
                                         validators=[validate_image])
+    profile_picture_thumbnail = ImageSpecField(source='profile_picture',
+                                               processors=[ResizeToFill(100, 50)],
+                                               format='JPEG',
+                                               options={'quality': 60})
 
     class Meta:
         verbose_name_plural = "Student Profiles"
