@@ -94,11 +94,11 @@
                                             <a href="{% url 'services' %}"><span>Services</span></a>
                                         </li>
                                         {% if user.is_authenticated %}
-                                           <li class="{% if '/accounts/logout/' == request.path %} current-menu-item  {% endif %}">
+                                            <li class="{% if '/accounts/logout/' == request.path %} current-menu-item  {% endif %}">
                                                 <a href="{% url 'account_logout' %} "><span>Logout</span></a>
                                             </li>
                                         {% else %}
-                                             <li class="{% if '/accounts/login/' == request.path %} current-menu-item  {% endif %}">
+                                            <li class="{% if '/accounts/login/' == request.path %} current-menu-item  {% endif %}">
                                                 <a href="{% url 'account_login' %} "><span>Login</span></a>
                                             </li>
                                             <li class="{% if '/accounts/signup/' == request.path %} current-menu-item  {% endif %}">
@@ -152,6 +152,7 @@
     <script src="{% static 'js/custom_js/animations/animations.js' %}"></script>
     <script src="{% static 'js/custom_js/translate3d.js' %}"></script>
     <script src="{% static 'js/custom_js/scripts.js' %}"></script>
+    <script src="{% static 'js/script.js' %}"></script>
 
     <script src="{% static 'plugins/rs-plugin/js/jquery.themepunch.tools.min.js' %}"></script>
     <script src="{% static 'plugins/rs-plugin/js/jquery.themepunch.revolution.min.js' %}"></script>

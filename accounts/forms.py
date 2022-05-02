@@ -1,7 +1,7 @@
 from allauth.account.forms import LoginForm
 from allauth.account.forms import SignupForm
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Submit, Row, Column
+from crispy_forms.layout import Submit
 from django import forms
 from django.forms import ModelForm
 
@@ -70,7 +70,23 @@ class StudentProfileForm(ModelForm):
         self.helper = FormHelper()
         self.helper.add_input(Submit('submit', 'Submit'))
 
+    class Meta:
+        model = StudentProfile
+        exclude = ['student']
+        labels = {
+            'fatherName': 'Parent / Guardian Name',
+        }
+
+
+class StudentUpdateProfileForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(StudentUpdateProfileForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.add_input(Submit('submit', 'Submit'))
 
     class Meta:
         model = StudentProfile
         exclude = ['student']
+        labels = {
+            'fatherName': 'Parent / Guardian Name',
+        }
