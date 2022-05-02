@@ -94,9 +94,13 @@
                                             <a href="{% url 'services' %}"><span>Services</span></a>
                                         </li>
                                         {% if user.is_authenticated %}
+                                            <li class="{% if '/accounts/dashboard/' == request.path %} current-menu-item  {% endif %}">
+                                                <a href="{% url 'accounts:dashboard' %} "><span>Dashboard</span></a>
+                                            </li>
                                             <li class="{% if '/accounts/logout/' == request.path %} current-menu-item  {% endif %}">
                                                 <a href="{% url 'account_logout' %} "><span>Logout</span></a>
                                             </li>
+
                                         {% else %}
                                             <li class="{% if '/accounts/login/' == request.path %} current-menu-item  {% endif %}">
                                                 <a href="{% url 'account_login' %} "><span>Login</span></a>
