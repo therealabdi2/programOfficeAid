@@ -1,3 +1,12 @@
 .mcb-section-inner {
-  transition: all ease-in 1s ;
+    transition: all ease-in 1s;
+}
+
+.list-group-item.active {
+    background-color: #68bc52 !important;
+    border-color: #68bc52 !important;
+}
+
+.asteriskField {
+    display: none;
 }
