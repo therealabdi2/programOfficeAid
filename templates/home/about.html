@@ -1,282 +1,322 @@
 {% extends "base/base.html" %}
 {% load static %}
 
-{% block head_title  %}About - POA{% endblock %}
+{% block head_title %}About - POA{% endblock %}
 
 {% block content %}
-<div class="mfn-main-slider" id="mfn-rev-slider">
-                <div id="rev_slider_1_1_wrapper" class="rev_slider_wrapper fullwidthbanner-container"
-                     data-source="gallery"
-                     style="margin:0px auto;background:transparent;padding:0px;margin-top:0px;margin-bottom:0px">
-                    <div id="rev_slider_1_1" class="rev_slider fullwidthabanner" style="display:none;"
-                         data-version="5.4.7.2">
-                        <ul>
-                            <li data-index="rs-1" data-transition="fade" data-slotamount="default"
-                                data-hideafterloop="0" data-hideslideonmobile="off" data-easein="default"
-                                data-easeout="default" data-masterspeed="300" data-rotate="0" data-saveperformance="off"
-                                data-title="Slide"
-                                data-param1="" data-param2="" data-param3="" data-param4="" data-param5=""
-                                data-param6="" data-param7="" data-param8="" data-param9="" data-param10=""
-                                data-description="">
-                                <img src="{% static 'home/poa_main/images/home_poa_slider_bg.jpg' %}"
-                                     title="home_garden3_slider_bg" width="1920" height="790"
-                                     data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat"
-                                     class="rev-slidebg" data-no-retina>
-                                <div class="tp-caption tp-resizeme" id="slide-1-layer-1" data-x="150" data-y="359"
-                                     data-width="['auto']" data-height="['auto']" data-type="text"
-                                     data-responsive_offset="on"
-                                     data-frames='[{"delay":0,"speed":300,"frame":"0","from":"opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"opacity:0;","ease":"Power3.easeInOut"}]'
-                                     data-textAlign="['inherit','inherit','inherit','inherit']"
-                                     data-paddingtop="[0,0,0,0]" data-paddingright="[0,0,0,0]"
-                                     data-paddingbottom="[0,0,0,0]" data-paddingleft="[0,0,0,0]"
-                                     style="z-index: 5; white-space: nowrap; font-size: 65px; line-height: 65px; font-weight: 700; color: #ffffff; letter-spacing: 0px;font-family:PT Serif">
-                                    About Program Office Aid
-                                </div>
-                                <div class="tp-caption tp-shape tp-shapewrapper  tp-resizeme" id="slide-1-layer-2"
-                                     data-x="40" data-y="395" data-width="['75']" data-height="['6']" data-type="shape"
-                                     data-responsive_offset="on"
-                                     data-frames='[{"delay":0,"speed":300,"frame":"0","from":"opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"opacity:0;","ease":"Power3.easeInOut"}]'
-                                     data-textAlign="['inherit','inherit','inherit','inherit']"
-                                     data-paddingtop="[0,0,0,0]" data-paddingright="[0,0,0,0]"
-                                     data-paddingbottom="[0,0,0,0]" data-paddingleft="[0,0,0,0]"
-                                     style="z-index: 6;background-color:rgb(110,198,86)"></div>
-                                <div class="tp-caption tp-resizeme" id="slide-1-layer-3" data-x="150" data-y="531"
-                                     data-width="['auto']" data-height="['auto']" data-type="text"
-                                     data-responsive_offset="on"
-                                     data-frames='[{"delay":0,"speed":300,"frame":"0","from":"opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"opacity:0;","ease":"Power3.easeInOut"}]'
-                                     data-textAlign="['inherit','inherit','inherit','inherit']"
-                                     data-paddingtop="[0,0,0,0]" data-paddingright="[0,0,0,0]"
-                                     data-paddingbottom="[0,0,0,0]" data-paddingleft="[0,0,0,0]"
-                                     style="z-index: 7; white-space: nowrap; font-size: 15px; line-height: 22px; font-weight: 500; color: #6ec656; letter-spacing: 4px;font-family:Yantramanav">
-                                    A leap towards digitalization
-                                </div>
-                                <div class="tp-caption tp-resizeme" id="slide-1-layer-4" data-x="150" data-y="600"
-                                     data-width="['none','none','none','none']"
-                                     data-height="['none','none','none','none']" data-type="image"
-                                     data-actions='[{"event":"click","action":"scrollbelow","offset":"-60px","delay":"","speed":"300","ease":"Power2.easeInOut"}]'
-                                     data-responsive_offset="on"
-                                     data-frames='[{"delay":0,"speed":300,"frame":"0","from":"opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"opacity:0;","ease":"Power3.easeInOut"}]'
-                                     data-textAlign="['inherit','inherit','inherit','inherit']"
-                                     data-paddingtop="[0,0,0,0]" data-paddingright="[0,0,0,0]"
-                                     data-paddingbottom="[0,0,0,0]" data-paddingleft="[0,0,0,0]"
-                                     style="z-index: 8;cursor:pointer"><img
-                                        src="{% static 'home/poa_main/images/home_poa_slider_pic1.png' %}"
-                                        data-ww="12px"
-                                        data-hh="20px" width="12" height="20" data-no-retina>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+    <div class="mfn-main-slider" id="mfn-rev-slider">
+        <div id="rev_slider_1_1_wrapper" class="rev_slider_wrapper fullwidthbanner-container"
+             data-source="gallery"
+             style="margin:0px auto;background:transparent;padding:0px;margin-top:0px;margin-bottom:0px">
+            <div id="rev_slider_1_1" class="rev_slider fullwidthabanner" style="display:none;"
+                 data-version="5.4.7.2">
+                <ul>
+                    <li data-index="rs-1" data-transition="fade" data-slotamount="default"
+                        data-hideafterloop="0" data-hideslideonmobile="off" data-easein="default"
+                        data-easeout="default" data-masterspeed="300" data-rotate="0" data-saveperformance="off"
+                        data-title="Slide"
+                        data-param1="" data-param2="" data-param3="" data-param4="" data-param5=""
+                        data-param6="" data-param7="" data-param8="" data-param9="" data-param10=""
+                        data-description="">
+                        <img src="{% static 'home/poa_main/images/home_poa_slider_bg.jpg' %}"
+                             title="home_garden3_slider_bg" width="1920" height="790"
+                             data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat"
+                             class="rev-slidebg" data-no-retina>
+                        <div class="tp-caption tp-resizeme" id="slide-1-layer-1" data-x="150" data-y="359"
+                             data-width="['auto']" data-height="['auto']" data-type="text"
+                             data-responsive_offset="on"
+                             data-frames='[{"delay":0,"speed":300,"frame":"0","from":"opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"opacity:0;","ease":"Power3.easeInOut"}]'
+                             data-textAlign="['inherit','inherit','inherit','inherit']"
+                             data-paddingtop="[0,0,0,0]" data-paddingright="[0,0,0,0]"
+                             data-paddingbottom="[0,0,0,0]" data-paddingleft="[0,0,0,0]"
+                             style="z-index: 5; white-space: nowrap; font-size: 65px; line-height: 65px; font-weight: 700; color: #ffffff; letter-spacing: 0px;font-family:PT Serif">
+                            About Program Office Aid
+                        </div>
+                        <div class="tp-caption tp-shape tp-shapewrapper  tp-resizeme" id="slide-1-layer-2"
+                             data-x="40" data-y="395" data-width="['75']" data-height="['6']" data-type="shape"
+                             data-responsive_offset="on"
+                             data-frames='[{"delay":0,"speed":300,"frame":"0","from":"opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"opacity:0;","ease":"Power3.easeInOut"}]'
+                             data-textAlign="['inherit','inherit','inherit','inherit']"
+                             data-paddingtop="[0,0,0,0]" data-paddingright="[0,0,0,0]"
+                             data-paddingbottom="[0,0,0,0]" data-paddingleft="[0,0,0,0]"
+                             style="z-index: 6;background-color:rgb(110,198,86)"></div>
+                        <div class="tp-caption tp-resizeme" id="slide-1-layer-3" data-x="150" data-y="531"
+                             data-width="['auto']" data-height="['auto']" data-type="text"
+                             data-responsive_offset="on"
+                             data-frames='[{"delay":0,"speed":300,"frame":"0","from":"opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"opacity:0;","ease":"Power3.easeInOut"}]'
+                             data-textAlign="['inherit','inherit','inherit','inherit']"
+                             data-paddingtop="[0,0,0,0]" data-paddingright="[0,0,0,0]"
+                             data-paddingbottom="[0,0,0,0]" data-paddingleft="[0,0,0,0]"
+                             style="z-index: 7; white-space: nowrap; font-size: 15px; line-height: 22px; font-weight: 500; color: #6ec656; letter-spacing: 4px;font-family:Yantramanav">
+                            A leap towards digitalization
+                        </div>
+                        <div class="tp-caption tp-resizeme" id="slide-1-layer-4" data-x="150" data-y="600"
+                             data-width="['none','none','none','none']"
+                             data-height="['none','none','none','none']" data-type="image"
+                             data-actions='[{"event":"click","action":"scrollbelow","offset":"-60px","delay":"","speed":"300","ease":"Power2.easeInOut"}]'
+                             data-responsive_offset="on"
+                             data-frames='[{"delay":0,"speed":300,"frame":"0","from":"opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"opacity:0;","ease":"Power3.easeInOut"}]'
+                             data-textAlign="['inherit','inherit','inherit','inherit']"
+                             data-paddingtop="[0,0,0,0]" data-paddingright="[0,0,0,0]"
+                             data-paddingbottom="[0,0,0,0]" data-paddingleft="[0,0,0,0]"
+                             style="z-index: 8;cursor:pointer"><img
+                                src="{% static 'home/poa_main/images/home_poa_slider_pic1.png' %}"
+                                data-ww="12px"
+                                data-hh="20px" width="12" height="20" data-no-retina>
+                        </div>
+                    </li>
+                </ul>
             </div>
-        <div id="Content">
-            <div class="content_wrapper clearfix">
-                <div class="sections_group">
-                    <div class="entry-content">
-                        <div class="section mcb-section" style="padding-top:0px; padding-bottom:80px">
-                            <div class="section_wrapper mcb-section-inner">
-                                <div class="wrap mcb-wrap one-second valign-top clearfix" style="padding:100px 2% 0">
-                                    <div class="mcb-wrap-inner">
-                                        <div class="column mcb-column one column_image">
-                                            <div class="image_frame image_item no_link scale-with-grid no_border">
-                                                <div class="image_wrapper">
-                                                    <img class="scale-with-grid" src="{% static 'home/poa_main/images/magnify.png' %}">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="column mcb-column one column_column">
-                                            <div class="column_attr clearfix">
-                                                <h4>Web Portals are not new in Universities, but they always have space for more features. The workflow of each tool is quite dependent according to the one’s need. With IIUI, each year thousands of students go through the process of submitting forms, getting answers to queries, but due to the lack of a suitable system, the university is forced to use paperwork.</h4>
-                                                <p>
-                                                    This web application, as the name suggests will aid Program Office Staff and Students. The web app can be used by authorized Program Office Staff to review different kinds of forms as well as verify all the documents and make announcements; all online and on the go, whereas students can enroll in courses or drop courses etc. and It can also be used to monitor student queries and their feedback.
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="column mcb-column one column_divider">
-                                            <hr class="no_line" style="margin:0 auto 50px">
-                                        </div>
-                                        <div class="column mcb-column one column_image">
-                                            <div class="image_frame image_item no_link scale-with-grid aligncenter no_border">
-                                                <div class="image_wrapper">
-                                                    <img class="scale-with-grid" src="{% static 'home/poa_main/images/digitalization.jpg' %}">
-                                                </div>
+        </div>
+    </div>
+    <div id="Content">
+        <div class="content_wrapper clearfix">
+            <div class="sections_group">
+                <div class="entry-content">
+                    <div class="section mcb-section" style="padding-top:0px; padding-bottom:80px">
+                        <div class="section_wrapper mcb-section-inner">
+                            <div class="wrap mcb-wrap one-second valign-top clearfix" style="padding:100px 2% 0">
+                                <div class="mcb-wrap-inner">
+                                    <div class="column mcb-column one column_image">
+                                        <div class="image_frame image_item no_link scale-with-grid no_border">
+                                            <div class="image_wrapper">
+                                                <img class="scale-with-grid"
+                                                     src="{% static 'home/poa_main/images/magnify.png' %}">
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="wrap mcb-wrap one-second valign-top move-up clearfix" style="padding:0 2%; margin-top:-30px" data-mobile="no-up">
-                                    <div class="mcb-wrap-inner">
-                                        <div class="column mcb-column one column_image">
-                                            <div class="image_frame image_item no_link scale-with-grid aligncenter no_border">
-                                                <div class="image_wrapper">
-                                                    <img class="scale-with-grid" src="{% static 'home/poa_main/images/web.jpg' %}">
-                                                </div>
-                                            </div>
+                                    <div class="column mcb-column one column_column">
+                                        <div class="column_attr clearfix">
+                                            <h4>Web Portals are not new in Universities, but they always have space for
+                                                more features. The workflow of each tool is quite dependent according to
+                                                the one’s need. With IIUI, each year thousands of students go through
+                                                the process of submitting forms, getting answers to queries, but due to
+                                                the lack of a suitable system, the university is forced to use
+                                                paperwork.</h4>
+                                            <p>
+                                                This web application, as the name suggests will aid Program Office Staff
+                                                and Students. The web app can be used by authorized Program Office Staff
+                                                to review different kinds of forms as well as verify all the documents
+                                                and make announcements; all online and on the go, whereas students can
+                                                enroll in courses or drop courses etc. and It can also be used to
+                                                monitor student queries and their feedback.
+                                            </p>
                                         </div>
-                                        <div class="column mcb-column one column_divider">
-                                            <hr class="no_line" style="margin:0 auto 40px">
-                                        </div>
-                                        <div class="column mcb-column one column_column">
-                                            <div class="column_attr clearfix" style="background-image:url('{% static 'home/poa_main/images/poa_about4.png' %}'); background-repeat:no-repeat; background-position:left top; padding:0 0 0 70px">
-                                                <h3>Every step taken towards digitalization over paperwork is a step towards future development. With the use of this portal, management and records handling will be just one click away.</h3>
-                                            </div>
-                                        </div>
-                                        <div class="column mcb-column one column_divider">
-                                            <hr class="no_line" style="margin:0 auto 25px">
-                                        </div>
-                                        <div class="column mcb-column one column_column">
-                                            <div class="column_attr clearfix" style="background-color:#6ec656; padding:50px 50px 35px">
-                                                <p style="color:#fff">
-Program Office Aid is specifically designed for International Islamic University, Islamabad, and aims for less paperwork and goals to move more towards digitalization.
-
-                                              <p style="color:#fff">
-                                                    This web application can help by automating half the process and remove chances of human error by implementing proper authentication of form before the student can submit. It can also be used to monitor student queries and their feedback on staff. Moreover, an announcements panel can be used as one centralized location to update students                                                </p>
-  </p>
+                                    </div>
+                                    <div class="column mcb-column one column_divider">
+                                        <hr class="no_line" style="margin:0 auto 50px">
+                                    </div>
+                                    <div class="column mcb-column one column_image">
+                                        <div class="image_frame image_item no_link scale-with-grid aligncenter no_border">
+                                            <div class="image_wrapper">
+                                                <img class="scale-with-grid"
+                                                     src="{% static 'home/poa_main/images/digitalization.jpg' %}">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="section mcb-section" style="padding-top:120px; padding-bottom:80px; background-color:#f5f9f4">
-                            <div class="section_wrapper mcb-section-inner">
-                                <div class="wrap mcb-wrap one valign-top clearfix">
-                                    <div class="mcb-wrap-inner">
-                                        <div class="column mcb-column one column_column">
-                                            <div class="column_attr clearfix align_center">
-                                                <h2>Why is Program Office Aid worth it?</h2>
-                                                <p class="themecolor" style="letter-spacing: 3px">
-                                                    GET TO KNOW THE GOOD SIDES
-                                                </p>
+                            <div class="wrap mcb-wrap one-second valign-top move-up clearfix"
+                                 style="padding:0 2%; margin-top:-30px" data-mobile="no-up">
+                                <div class="mcb-wrap-inner">
+                                    <div class="column mcb-column one column_image">
+                                        <div class="image_frame image_item no_link scale-with-grid aligncenter no_border">
+                                            <div class="image_wrapper">
+                                                <img class="scale-with-grid"
+                                                     src="{% static 'home/poa_main/images/web.jpg' %}">
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="wrap mcb-wrap one-fourth valign-top clearfix" style="padding:0 1%">
-                                    <div class="mcb-wrap-inner">
-                                        <div class="column mcb-column one column_column">
-                                            <div class="column_attr clearfix align_center" style="background-color:#fff; padding:70px 50px 55px">
-                                                <div class="image_frame image_item no_link scale-with-grid alignnone no_border">
-                                                    <div class="image_wrapper">
-                                                        <img class="scale-with-grid" src="{% static 'home/poa_main/images/poa_about5.png' %}">
-                                                    </div>
-                                                </div>
-                                                <hr class="no_line" style="margin:0 auto 30px">
-                                                <h3>Save the environment</h3>
-                                                <p>
-                                                    No more paper wastage, and throwing out thousands of forms
-                                                </p>
-                                            </div>
+                                    <div class="column mcb-column one column_divider">
+                                        <hr class="no_line" style="margin:0 auto 40px">
+                                    </div>
+                                    <div class="column mcb-column one column_column">
+                                        <div class="column_attr clearfix"
+                                             style="background-image:url('{% static 'home/poa_main/images/poa_about4.png' %}'); background-repeat:no-repeat; background-position:left top; padding:0 0 0 70px">
+                                            <h3>Every step taken towards digitalization over paperwork is a step towards
+                                                future development. With the use of this portal, management and records
+                                                handling will be just one click away.</h3>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="wrap mcb-wrap one-fourth valign-top clearfix" style="padding:0 1%">
-                                    <div class="mcb-wrap-inner">
-                                        <div class="column mcb-column one column_column">
-                                            <div class="column_attr clearfix align_center" style="background-color:#fff; padding:70px 50px 55px">
-                                                <div class="image_frame image_item no_link scale-with-grid alignnone no_border">
-                                                    <div class="image_wrapper">
-                                                        <img class="scale-with-grid" src="{% static 'home/poa_main/images/student.png' %}">
-                                                    </div>
-                                                </div>
-                                                <hr class="no_line" style="margin:0 auto 30px">
-                                                <h3>Inconvenience no more</h3>
-                                                <p>
-                                                    Get things done from the comfort of your home
-                                                </p>
-                                            </div>
-                                        </div>
+                                    <div class="column mcb-column one column_divider">
+                                        <hr class="no_line" style="margin:0 auto 25px">
                                     </div>
-                                </div>
-                                <div class="wrap mcb-wrap one-fourth valign-top clearfix" style="padding:0 1%">
-                                    <div class="mcb-wrap-inner">
-                                        <div class="column mcb-column one column_column">
-                                            <div class="column_attr clearfix align_center" style="background-color:#fff; padding:70px 50px 55px">
-                                                <div class="image_frame image_item no_link scale-with-grid alignnone no_border">
-                                                    <div class="image_wrapper">
-                                                        <img class="scale-with-grid" src="{% static 'home/poa_main/images/data.png' %}">
-                                                    </div>
-                                                </div>
-                                                <hr class="no_line" style="margin:0 auto 30px">
-                                                <h3>Data Integrity and Security</h3>
-                                                <p>
-                                                    Well-maintained secure cloud database for all your forms
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="wrap mcb-wrap one-fourth valign-top clearfix" style="padding:0 1%">
-                                    <div class="mcb-wrap-inner">
-                                        <div class="column mcb-column one column_column">
-                                            <div class="column_attr clearfix align_center" style="background-color:#fff; padding:70px 50px 55px">
-                                                <div class="image_frame image_item no_link scale-with-grid alignnone no_border">
-                                                    <div class="image_wrapper">
-                                                        <img class="scale-with-grid" src="{% static 'home/poa_main/images/automated.png' %}">
-                                                    </div>
-                                                </div>
-                                                <hr class="no_line" style="margin:0 auto 30px">
-                                                <h3>Outdated to Automated</h3>
-                                                <p>
-                                                    Manual is now a thing of the past... We should move on as well
-                                                </p>
-                                            </div>
+                                    <div class="column mcb-column one column_column">
+                                        <div class="column_attr clearfix"
+                                             style="background-color:#6ec656; padding:50px 50px 35px">
+                                            <p style="color:#fff">
+                                                Program Office Aid is specifically designed for International Islamic
+                                                University, Islamabad, and aims for less paperwork and goals to move
+                                                more towards digitalization.
+
+                                            <p style="color:#fff">
+                                                This web application can help by automating half the process and remove
+                                                chances of human error by implementing proper authentication of form
+                                                before the student can submit. It can also be used to monitor student
+                                                queries and their feedback on staff. Moreover, an announcements panel
+                                                can be used as one centralized location to update students </p>
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="section mcb-section" style="padding-top:0px; padding-bottom:80px">
-                            <div class="section_wrapper mcb-section-inner">
-                                <div class="wrap mcb-wrap one-second valign-top clearfix" style="padding:120px 2% 0 0">
-                                    <div class="mcb-wrap-inner">
-                                        <div class="column mcb-column one column_column">
-                                            <div class="column_attr clearfix">
-                                                <h2>Register your account to get started now</h2>
-                                            </div>
-                                        </div>
-                                        <div class="column mcb-column one-second column_column">
-                                            <div class="column_attr clearfix" style="padding:0 8% 0 0">
-                                                <p>
-We aim to completely eliminate manual system, and give students and staff members an easy to use and accessible web app which consists of many quality of life improvements and gives a much needed overall convenience to students and staff.
-                                                </p>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div class="wrap mcb-wrap one-second valign-top move-up clearfix" style="margin-top:-100px" data-mobile="no-up">
-                                    <div class="mcb-wrap-inner">
-                                        <div class="column mcb-column one column_image">
-                                            <div class="image_frame image_item no_link scale-with-grid aligncenter no_border">
-                                                <div class="image_wrapper">
-                                                    <img class="scale-with-grid" src="{% static 'home/poa_main/images/start_780x965.jpg' %}">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="section mcb-section no-margin-h no-margin-v full-width" style="padding-top:0px; padding-bottom:30px">
-                            <div class="section_wrapper mcb-section-inner">
-                                <div class="wrap mcb-wrap one valign-top clearfix">
-                                    <div class="mcb-wrap-inner">
-                                        <div class="column mcb-column one column_image">
-                                            <div class="image_frame image_item no_link scale-with-grid aligncenter no_border">
-                                                <div class="image_wrapper">
-                                                    <img class="scale-with-grid" src="{% static 'home/poa_main/images/POA_Banner.png' %}">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
+                    <div class="section mcb-section"
+                         style="padding-top:120px; padding-bottom:80px; background-color:#f5f9f4">
+                        <div class="section_wrapper mcb-section-inner">
+                            <div class="wrap mcb-wrap one valign-top clearfix">
+                                <div class="mcb-wrap-inner">
+                                    <div class="column mcb-column one column_column">
+                                        <div class="column_attr clearfix align_center">
+                                            <h2>Why is Program Office Aid worth it?</h2>
+                                            <p class="themecolor" style="letter-spacing: 3px">
+                                                GET TO KNOW THE GOOD SIDES
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="wrap mcb-wrap one-fourth valign-top clearfix" style="padding:0 1%">
+                                <div class="mcb-wrap-inner">
+                                    <div class="column mcb-column one column_column">
+                                        <div class="column_attr clearfix align_center"
+                                             style="background-color:#fff; padding:70px 50px 55px">
+                                            <div class="image_frame image_item no_link scale-with-grid alignnone no_border">
+                                                <div class="image_wrapper">
+                                                    <img class="scale-with-grid"
+                                                         src="{% static 'home/poa_main/images/poa_about5.png' %}">
+                                                </div>
+                                            </div>
+                                            <hr class="no_line" style="margin:0 auto 30px">
+                                            <h3>Save the environment</h3>
+                                            <p>
+                                                No more paper wastage, and throwing out thousands of forms
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="wrap mcb-wrap one-fourth valign-top clearfix" style="padding:0 1%">
+                                <div class="mcb-wrap-inner">
+                                    <div class="column mcb-column one column_column">
+                                        <div class="column_attr clearfix align_center"
+                                             style="background-color:#fff; padding:70px 50px 55px">
+                                            <div class="image_frame image_item no_link scale-with-grid alignnone no_border">
+                                                <div class="image_wrapper">
+                                                    <img class="scale-with-grid"
+                                                         src="{% static 'home/poa_main/images/student.png' %}">
+                                                </div>
+                                            </div>
+                                            <hr class="no_line" style="margin:0 auto 30px">
+                                            <h3>Inconvenience no more</h3>
+                                            <p>
+                                                Get things done from the comfort of your home
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="wrap mcb-wrap one-fourth valign-top clearfix" style="padding:0 1%">
+                                <div class="mcb-wrap-inner">
+                                    <div class="column mcb-column one column_column">
+                                        <div class="column_attr clearfix align_center"
+                                             style="background-color:#fff; padding:70px 50px 55px">
+                                            <div class="image_frame image_item no_link scale-with-grid alignnone no_border">
+                                                <div class="image_wrapper">
+                                                    <img class="scale-with-grid"
+                                                         src="{% static 'home/poa_main/images/data.png' %}">
+                                                </div>
+                                            </div>
+                                            <hr class="no_line" style="margin:0 auto 30px">
+                                            <h3>Data Integrity and Security</h3>
+                                            <p>
+                                                Well-maintained secure cloud database for all your forms
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="wrap mcb-wrap one-fourth valign-top clearfix" style="padding:0 1%">
+                                <div class="mcb-wrap-inner">
+                                    <div class="column mcb-column one column_column">
+                                        <div class="column_attr clearfix align_center"
+                                             style="background-color:#fff; padding:70px 50px 55px">
+                                            <div class="image_frame image_item no_link scale-with-grid alignnone no_border">
+                                                <div class="image_wrapper">
+                                                    <img class="scale-with-grid"
+                                                         src="{% static 'home/poa_main/images/automated.png' %}">
+                                                </div>
+                                            </div>
+                                            <hr class="no_line" style="margin:0 auto 30px">
+                                            <h3>Outdated to Automated</h3>
+                                            <p>
+                                                Manual is now a thing of the past... We should move on as well
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section mcb-section" style="padding-top:0px; padding-bottom:80px">
+                        <div class="section_wrapper mcb-section-inner">
+                            <div class="wrap mcb-wrap one-second valign-top clearfix" style="padding:120px 2% 0 0">
+                                <div class="mcb-wrap-inner">
+                                    <div class="column mcb-column one column_column">
+                                        <div class="column_attr clearfix">
+                                            <h2>Register your account to get started now</h2>
+                                        </div>
+                                    </div>
+                                    <div class="column mcb-column one-second column_column">
+                                        <div class="column_attr clearfix" style="padding:0 8% 0 0">
+                                            <p>
+                                                We aim to completely eliminate manual system, and give students and
+                                                staff members an easy to use and accessible web app which consists of
+                                                many quality of life improvements and gives a much needed overall
+                                                convenience to students and staff.
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="wrap mcb-wrap one-second valign-top move-up clearfix" style="margin-top:-100px"
+                                 data-mobile="no-up">
+                                <div class="mcb-wrap-inner">
+                                    <div class="column mcb-column one column_image">
+                                        <div class="image_frame image_item no_link scale-with-grid aligncenter no_border">
+                                            <div class="image_wrapper">
+                                                <img class="scale-with-grid"
+                                                     src="{% static 'home/poa_main/images/start_780x965.jpg' %}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="section mcb-section no-margin-h no-margin-v full-width"
+                         style="padding-top:0px; padding-bottom:30px">
+                        <div class="section_wrapper mcb-section-inner">
+                            <div class="wrap mcb-wrap one valign-top clearfix">
+                                <div class="mcb-wrap-inner">
+                                    <div class="column mcb-column one column_image">
+                                        <div class="image_frame image_item no_link scale-with-grid aligncenter no_border">
+                                            <div class="image_wrapper">
+                                                <img class="scale-with-grid"
+                                                     src="{% static 'home/poa_main/images/POA_Banner.png' %}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
+    </div>
 {% endblock %}

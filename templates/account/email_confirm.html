@@ -35,26 +35,30 @@
                                 <p class="themecolor" style="letter-spacing: 3px">
                                     {% blocktrans with confirmation.email_address.email as email %}Just one more step,
                                         Please confirm that
-                                        <em><u><a href="mailto:{{ email }}">{{ email }}</a></u></em> is your e-mail address
+                                        <em><u><a href="mailto:{{ email }}">{{ email }}</a></u></em> is your e-mail
+                                        address
                                         .{% endblocktrans %}</p>
-                                 {% include 'includes/alerts.html' %}
+                                {% include 'includes/alerts.html' %}
                                 </div>
                                 </div>
                                 <div id="contactWrapper">
                                 <div class="card mx-auto" id="form-card" style="max-width: 375px;">
                                 <form method="post" action="{% url 'account_confirm_email' confirmation.key %}">
                                     {% csrf_token %}
-                                        <button class="primaryAction  btn-block" type="submit">{% trans 'Confirm' %}</button>
+                                    <button class="primaryAction  btn-block"
+                                            type="submit">{% trans 'Confirm' %}</button>
                                 </form>
                             {% else %}
 
                                 {% url 'account_email' as email_url %}
                                 <h2 style="color: #fff">{% trans "Link Error" %}</h2>
 
-                                <p class="themecolor" style="letter-spacing: 3px">{% blocktrans %}This e-mail confirmation link expired or is invalid. Please
-                                    <a href="{{ email_url }}"><em><u>issue a new e-mail confirmation request</u></em></a>
+                                <p class="themecolor" style="letter-spacing: 3px">{% blocktrans %}This e-mail
+                                    confirmation link expired or is invalid. Please
+                                    <a href="{{ email_url }}"><em><u>issue a new e-mail confirmation
+                                        request</u></em></a>
                                     .{% endblocktrans %}</p>
-                                 {% include 'includes/alerts.html' %}
+                                {% include 'includes/alerts.html' %}
 
                             {% endif %}
 

@@ -1,197 +1,222 @@
 {% extends "base/base.html" %}
 {% load static %}
 
-{% block head_title  %}Services - POA{% endblock %}
+{% block head_title %}Services - POA{% endblock %}
 
 {% block content %}
-<div class="mfn-main-slider" id="mfn-rev-slider">
-                <div id="rev_slider_1_1_wrapper" class="rev_slider_wrapper fullwidthbanner-container"
-                     data-source="gallery"
-                     style="margin:0px auto;background:transparent;padding:0px;margin-top:0px;margin-bottom:0px">
-                    <div id="rev_slider_1_1" class="rev_slider fullwidthabanner" style="display:none;"
-                         data-version="5.4.7.2">
-                        <ul>
-                            <li data-index="rs-1" data-transition="fade" data-slotamount="default"
-                                data-hideafterloop="0" data-hideslideonmobile="off" data-easein="default"
-                                data-easeout="default" data-masterspeed="300" data-rotate="0" data-saveperformance="off"
-                                data-title="Slide"
-                                data-param1="" data-param2="" data-param3="" data-param4="" data-param5=""
-                                data-param6="" data-param7="" data-param8="" data-param9="" data-param10=""
-                                data-description="">
-                                <img src="{% static 'home/poa_main/images/home_poa_slider_bg.jpg' %}"
-                                     title="home_garden3_slider_bg" width="1920" height="790"
-                                     data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat"
-                                     class="rev-slidebg" data-no-retina>
-                                <div class="tp-caption tp-resizeme" id="slide-1-layer-1" data-x="150" data-y="359"
-                                     data-width="['auto']" data-height="['auto']" data-type="text"
-                                     data-responsive_offset="on"
-                                     data-frames='[{"delay":0,"speed":300,"frame":"0","from":"opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"opacity:0;","ease":"Power3.easeInOut"}]'
-                                     data-textAlign="['inherit','inherit','inherit','inherit']"
-                                     data-paddingtop="[0,0,0,0]" data-paddingright="[0,0,0,0]"
-                                     data-paddingbottom="[0,0,0,0]" data-paddingleft="[0,0,0,0]"
-                                     style="z-index: 5; white-space: nowrap; font-size: 65px; line-height: 65px; font-weight: 700; color: #ffffff; letter-spacing: 0px;font-family:PT Serif">
-                                    See what POA has to offer...
-                                </div>
-                                <div class="tp-caption tp-shape tp-shapewrapper  tp-resizeme" id="slide-1-layer-2"
-                                     data-x="40" data-y="395" data-width="['75']" data-height="['6']" data-type="shape"
-                                     data-responsive_offset="on"
-                                     data-frames='[{"delay":0,"speed":300,"frame":"0","from":"opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"opacity:0;","ease":"Power3.easeInOut"}]'
-                                     data-textAlign="['inherit','inherit','inherit','inherit']"
-                                     data-paddingtop="[0,0,0,0]" data-paddingright="[0,0,0,0]"
-                                     data-paddingbottom="[0,0,0,0]" data-paddingleft="[0,0,0,0]"
-                                     style="z-index: 6;background-color:rgb(110,198,86)"></div>
-                                <div class="tp-caption tp-resizeme" id="slide-1-layer-3" data-x="150" data-y="531"
-                                     data-width="['auto']" data-height="['auto']" data-type="text"
-                                     data-responsive_offset="on"
-                                     data-frames='[{"delay":0,"speed":300,"frame":"0","from":"opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"opacity:0;","ease":"Power3.easeInOut"}]'
-                                     data-textAlign="['inherit','inherit','inherit','inherit']"
-                                     data-paddingtop="[0,0,0,0]" data-paddingright="[0,0,0,0]"
-                                     data-paddingbottom="[0,0,0,0]" data-paddingleft="[0,0,0,0]"
-                                     style="z-index: 7; white-space: nowrap; font-size: 15px; line-height: 22px; font-weight: 500; color: #6ec656; letter-spacing: 4px;font-family:Yantramanav">
-                                    Leave manual behind
-                                </div>
-                                <div class="tp-caption tp-resizeme" id="slide-1-layer-4" data-x="150" data-y="600"
-                                     data-width="['none','none','none','none']"
-                                     data-height="['none','none','none','none']" data-type="image"
-                                     data-actions='[{"event":"click","action":"scrollbelow","offset":"-60px","delay":"","speed":"300","ease":"Power2.easeInOut"}]'
-                                     data-responsive_offset="on"
-                                     data-frames='[{"delay":0,"speed":300,"frame":"0","from":"opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"opacity:0;","ease":"Power3.easeInOut"}]'
-                                     data-textAlign="['inherit','inherit','inherit','inherit']"
-                                     data-paddingtop="[0,0,0,0]" data-paddingright="[0,0,0,0]"
-                                     data-paddingbottom="[0,0,0,0]" data-paddingleft="[0,0,0,0]"
-                                     style="z-index: 8;cursor:pointer"><img
-                                        src="{% static 'home/poa_main/images/home_poa_slider_pic1.png' %}"
-                                        data-ww="12px"
-                                        data-hh="20px" width="12" height="20" data-no-retina>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+    <div class="mfn-main-slider" id="mfn-rev-slider">
+        <div id="rev_slider_1_1_wrapper" class="rev_slider_wrapper fullwidthbanner-container"
+             data-source="gallery"
+             style="margin:0px auto;background:transparent;padding:0px;margin-top:0px;margin-bottom:0px">
+            <div id="rev_slider_1_1" class="rev_slider fullwidthabanner" style="display:none;"
+                 data-version="5.4.7.2">
+                <ul>
+                    <li data-index="rs-1" data-transition="fade" data-slotamount="default"
+                        data-hideafterloop="0" data-hideslideonmobile="off" data-easein="default"
+                        data-easeout="default" data-masterspeed="300" data-rotate="0" data-saveperformance="off"
+                        data-title="Slide"
+                        data-param1="" data-param2="" data-param3="" data-param4="" data-param5=""
+                        data-param6="" data-param7="" data-param8="" data-param9="" data-param10=""
+                        data-description="">
+                        <img src="{% static 'home/poa_main/images/home_poa_slider_bg.jpg' %}"
+                             title="home_garden3_slider_bg" width="1920" height="790"
+                             data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat"
+                             class="rev-slidebg" data-no-retina>
+                        <div class="tp-caption tp-resizeme" id="slide-1-layer-1" data-x="150" data-y="359"
+                             data-width="['auto']" data-height="['auto']" data-type="text"
+                             data-responsive_offset="on"
+                             data-frames='[{"delay":0,"speed":300,"frame":"0","from":"opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"opacity:0;","ease":"Power3.easeInOut"}]'
+                             data-textAlign="['inherit','inherit','inherit','inherit']"
+                             data-paddingtop="[0,0,0,0]" data-paddingright="[0,0,0,0]"
+                             data-paddingbottom="[0,0,0,0]" data-paddingleft="[0,0,0,0]"
+                             style="z-index: 5; white-space: nowrap; font-size: 65px; line-height: 65px; font-weight: 700; color: #ffffff; letter-spacing: 0px;font-family:PT Serif">
+                            See what POA has to offer...
+                        </div>
+                        <div class="tp-caption tp-shape tp-shapewrapper  tp-resizeme" id="slide-1-layer-2"
+                             data-x="40" data-y="395" data-width="['75']" data-height="['6']" data-type="shape"
+                             data-responsive_offset="on"
+                             data-frames='[{"delay":0,"speed":300,"frame":"0","from":"opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"opacity:0;","ease":"Power3.easeInOut"}]'
+                             data-textAlign="['inherit','inherit','inherit','inherit']"
+                             data-paddingtop="[0,0,0,0]" data-paddingright="[0,0,0,0]"
+                             data-paddingbottom="[0,0,0,0]" data-paddingleft="[0,0,0,0]"
+                             style="z-index: 6;background-color:rgb(110,198,86)"></div>
+                        <div class="tp-caption tp-resizeme" id="slide-1-layer-3" data-x="150" data-y="531"
+                             data-width="['auto']" data-height="['auto']" data-type="text"
+                             data-responsive_offset="on"
+                             data-frames='[{"delay":0,"speed":300,"frame":"0","from":"opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"opacity:0;","ease":"Power3.easeInOut"}]'
+                             data-textAlign="['inherit','inherit','inherit','inherit']"
+                             data-paddingtop="[0,0,0,0]" data-paddingright="[0,0,0,0]"
+                             data-paddingbottom="[0,0,0,0]" data-paddingleft="[0,0,0,0]"
+                             style="z-index: 7; white-space: nowrap; font-size: 15px; line-height: 22px; font-weight: 500; color: #6ec656; letter-spacing: 4px;font-family:Yantramanav">
+                            Leave manual behind
+                        </div>
+                        <div class="tp-caption tp-resizeme" id="slide-1-layer-4" data-x="150" data-y="600"
+                             data-width="['none','none','none','none']"
+                             data-height="['none','none','none','none']" data-type="image"
+                             data-actions='[{"event":"click","action":"scrollbelow","offset":"-60px","delay":"","speed":"300","ease":"Power2.easeInOut"}]'
+                             data-responsive_offset="on"
+                             data-frames='[{"delay":0,"speed":300,"frame":"0","from":"opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"opacity:0;","ease":"Power3.easeInOut"}]'
+                             data-textAlign="['inherit','inherit','inherit','inherit']"
+                             data-paddingtop="[0,0,0,0]" data-paddingright="[0,0,0,0]"
+                             data-paddingbottom="[0,0,0,0]" data-paddingleft="[0,0,0,0]"
+                             style="z-index: 8;cursor:pointer"><img
+                                src="{% static 'home/poa_main/images/home_poa_slider_pic1.png' %}"
+                                data-ww="12px"
+                                data-hh="20px" width="12" height="20" data-no-retina>
+                        </div>
+                    </li>
+                </ul>
             </div>
+        </div>
+    </div>
 
 
-        <div id="Content">
-            <div class="content_wrapper clearfix">
-                <div class="sections_group">
-                    <div class="entry-content">
-                        <div class="section mcb-section" style="padding-top:120px; padding-bottom:80px;background-image:url({% static 'home/poa_main/images/home_poa_offer3.jpg' %}); background-repeat:no-repeat; background-position:center bottom">
-                            <div class="section_wrapper mcb-section-inner">
-                                <div class="wrap mcb-wrap one-second valign-top clearfix" style="padding:0 2%">
-                                    <div class="mcb-wrap-inner">
-                                        <div class="column mcb-column one column_image">
-                                            <div class="image_frame image_item no_link scale-with-grid aligncenter no_border">
-                                                <div class="image_wrapper">
-                                                    <img class="scale-with-grid" src="{% static 'home/poa_main/images/paper_waste.jpg' %}">
-                                                </div>
+    <div id="Content">
+        <div class="content_wrapper clearfix">
+            <div class="sections_group">
+                <div class="entry-content">
+                    <div class="section mcb-section"
+                         style="padding-top:120px; padding-bottom:80px;background-image:url({% static 'home/poa_main/images/home_poa_offer3.jpg' %}); background-repeat:no-repeat; background-position:center bottom">
+                        <div class="section_wrapper mcb-section-inner">
+                            <div class="wrap mcb-wrap one-second valign-top clearfix" style="padding:0 2%">
+                                <div class="mcb-wrap-inner">
+                                    <div class="column mcb-column one column_image">
+                                        <div class="image_frame image_item no_link scale-with-grid aligncenter no_border">
+                                            <div class="image_wrapper">
+                                                <img class="scale-with-grid"
+                                                     src="{% static 'home/poa_main/images/paper_waste.jpg' %}">
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="wrap mcb-wrap one-second valign-top clearfix" style="padding:0 2%">
-                                    <div class="mcb-wrap-inner">
-                                        <div class="column mcb-column one column_image">
-                                            <div class="image_frame image_item no_link scale-with-grid no_border">
-                                                <div class="image_wrapper">
-                                                    <img class="scale-with-grid" src="{% static 'home/poa_main/images/one.png' %}">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="column mcb-column one column_column column-margin-20px">
-                                            <div class="column_attr clearfix">
-                                                <h2>An Online System for all your submission</h2>
-                                                    <p>Say goodbye to the hassle of filling up forms, photocopying all documents and submitting them manually.</p>
-                                                    <p>Eliminate wastage of paper, time, effort and manual labour by using Program Office Aid.</p>
-                                                    <p>Just Submit your forms, queries or feedback and let POA do the rest.</p>
-                                            </div>
-                                        </div>
-                                        <div class="column mcb-column one column_button">
-                                            <a class="button  button_left button_size_2 button_js" href="{% url 'about' %}"><span class="button_icon"><i class="mdi mdi-book-open-blank-variant"></i></span><span class="button_label">READ MORE</span></a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="section mcb-section  highlight-left" style="padding-top:0px; padding-bottom:0px; background-color:#1b1716; background-image:url({% static 'home/poa_main/images/question_960x1045.jpg' %}); background-repeat:no-repeat; background-position:right top">
-                            <div class="section_wrapper mcb-section-inner">
-                                <div class="wrap mcb-wrap one-second valign-top clearfix" style="padding:120px 4% 70px">
-                                    <div class="mcb-wrap-inner">
-                                        <div class="column mcb-column one column_image">
-                                            <div class="image_frame image_item no_link scale-with-grid no_border">
-                                                <div class="image_wrapper">
-                                                    <img class="scale-with-grid" src="{% static 'home/poa_main/images/two.png' %}">
-                                                </div>
+                            <div class="wrap mcb-wrap one-second valign-top clearfix" style="padding:0 2%">
+                                <div class="mcb-wrap-inner">
+                                    <div class="column mcb-column one column_image">
+                                        <div class="image_frame image_item no_link scale-with-grid no_border">
+                                            <div class="image_wrapper">
+                                                <img class="scale-with-grid"
+                                                     src="{% static 'home/poa_main/images/one.png' %}">
                                             </div>
-                                        </div>
-                                        <div class="column mcb-column one column_column column-margin-20px">
-                                            <div class="column_attr clearfix">
-                                                <h2>Queries and Feedback have never been this easier</h2>
-                                                    <p>We can all relate to standing in long queues only for our burning questions or complaints to be left unanswered...</p>
-                                                    <p>
-                                                        but not anymore with POA. Just login to your account and submit your queries and feedback and get your response in just a few minutes by other
-                                                        students or staff members.
-                                                    </p>
-                                            </div>
-                                        </div>
-                                        <div class="column mcb-column one column_button">
-                                            <a class="button  button_left button_size_2 button_js" href="{% url 'about' %}"><span class="button_icon"><i class="mdi mdi-book-open-blank-variant"></i></span><span class="button_label">READ MORE</span></a>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="wrap mcb-wrap one-second valign-top clearfix" style="padding:0 2%">
-                                    <div class="mcb-wrap-inner">
-                                        <div class="column mcb-column one column_divider">
-                                            <hr class="no_line" style="margin:0 auto 400px">
+                                    <div class="column mcb-column one column_column column-margin-20px">
+                                        <div class="column_attr clearfix">
+                                            <h2>An Online System for all your submission</h2>
+                                            <p>Say goodbye to the hassle of filling up forms, photocopying all documents
+                                                and submitting them manually.</p>
+                                            <p>Eliminate wastage of paper, time, effort and manual labour by using
+                                                Program Office Aid.</p>
+                                            <p>Just Submit your forms, queries or feedback and let POA do the rest.</p>
                                         </div>
+                                    </div>
+                                    <div class="column mcb-column one column_button">
+                                        <a class="button  button_left button_size_2 button_js" href="{% url 'about' %}"><span
+                                                class="button_icon"><i
+                                                class="mdi mdi-book-open-blank-variant"></i></span><span
+                                                class="button_label">READ MORE</span></a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="section mcb-section" style="padding-top:120px; padding-bottom:80px;background-image:url({% static 'home/poa_main/images/home_poa_offer3.jpg' %}); background-repeat:no-repeat; background-position:center bottom">
-                            <div class="section_wrapper mcb-section-inner">
-                                <div class="wrap mcb-wrap one-second valign-top clearfix" style="padding:0 2%">
-                                    <div class="mcb-wrap-inner">
-                                        <div class="column mcb-column one column_image">
-                                            <div class="image_frame image_item no_link scale-with-grid aligncenter no_border">
-                                                <div class="image_wrapper">
-                                                    <img class="scale-with-grid" src="{% static 'home/poa_main/images/announcement.jpg' %}">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="wrap mcb-wrap one-second valign-top clearfix" style="padding:0 2%">
-                                    <div class="mcb-wrap-inner">
-                                        <div class="column mcb-column one column_image">
-                                            <div class="image_frame image_item no_link scale-with-grid no_border">
-                                                <div class="image_wrapper">
-                                                    <img class="scale-with-grid" src="{% static 'home/poa_main/images/three.png' %}">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="column mcb-column one column_column column-margin-20px">
-                                            <div class="column_attr clearfix">
-                                                <h2>An official dispatch was long overdue</h2>
-                                                    <p>
-                                                        Official Announcements made through Whatsapp, Notice Boards, Messages easily get lost in a sea of unofficial and confusing messages which can
-                                                        lead to discrepancies and confusion among students in authenticity of the announcement.
-                                                    </p>
-                                                    <p>
-                                                        POA solves all that by being one central location for all official announcements and students can get updated on latest timetable,deadline
-                                                        reminders, change in policies etc
-                                                    </p>
-                                            </div>
-                                        </div>
-                                        <div class="column mcb-column one column_button">
-                                            <a class="button  button_left button_size_2 button_js" href="#"><span class="button_icon"><i class="mdi mdi-book-open-blank-variant"></i></span><span class="button_label">READ MORE</span></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
+                    <div class="section mcb-section  highlight-left"
+                         style="padding-top:0px; padding-bottom:0px; background-color:#1b1716; background-image:url({% static 'home/poa_main/images/question_960x1045.jpg' %}); background-repeat:no-repeat; background-position:right top">
+                        <div class="section_wrapper mcb-section-inner">
+                            <div class="wrap mcb-wrap one-second valign-top clearfix" style="padding:120px 4% 70px">
+                                <div class="mcb-wrap-inner">
+                                    <div class="column mcb-column one column_image">
+                                        <div class="image_frame image_item no_link scale-with-grid no_border">
+                                            <div class="image_wrapper">
+                                                <img class="scale-with-grid"
+                                                     src="{% static 'home/poa_main/images/two.png' %}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="column mcb-column one column_column column-margin-20px">
+                                        <div class="column_attr clearfix">
+                                            <h2>Queries and Feedback have never been this easier</h2>
+                                            <p>We can all relate to standing in long queues only for our burning
+                                                questions or complaints to be left unanswered...</p>
+                                            <p>
+                                                but not anymore with POA. Just login to your account and submit your
+                                                queries and feedback and get your response in just a few minutes by
+                                                other
+                                                students or staff members.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="column mcb-column one column_button">
+                                        <a class="button  button_left button_size_2 button_js" href="{% url 'about' %}"><span
+                                                class="button_icon"><i
+                                                class="mdi mdi-book-open-blank-variant"></i></span><span
+                                                class="button_label">READ MORE</span></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="wrap mcb-wrap one-second valign-top clearfix" style="padding:0 2%">
+                                <div class="mcb-wrap-inner">
+                                    <div class="column mcb-column one column_divider">
+                                        <hr class="no_line" style="margin:0 auto 400px">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="section mcb-section"
+                         style="padding-top:120px; padding-bottom:80px;background-image:url({% static 'home/poa_main/images/home_poa_offer3.jpg' %}); background-repeat:no-repeat; background-position:center bottom">
+                        <div class="section_wrapper mcb-section-inner">
+                            <div class="wrap mcb-wrap one-second valign-top clearfix" style="padding:0 2%">
+                                <div class="mcb-wrap-inner">
+                                    <div class="column mcb-column one column_image">
+                                        <div class="image_frame image_item no_link scale-with-grid aligncenter no_border">
+                                            <div class="image_wrapper">
+                                                <img class="scale-with-grid"
+                                                     src="{% static 'home/poa_main/images/announcement.jpg' %}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="wrap mcb-wrap one-second valign-top clearfix" style="padding:0 2%">
+                                <div class="mcb-wrap-inner">
+                                    <div class="column mcb-column one column_image">
+                                        <div class="image_frame image_item no_link scale-with-grid no_border">
+                                            <div class="image_wrapper">
+                                                <img class="scale-with-grid"
+                                                     src="{% static 'home/poa_main/images/three.png' %}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="column mcb-column one column_column column-margin-20px">
+                                        <div class="column_attr clearfix">
+                                            <h2>An official dispatch was long overdue</h2>
+                                            <p>
+                                                Official Announcements made through Whatsapp, Notice Boards, Messages
+                                                easily get lost in a sea of unofficial and confusing messages which can
+                                                lead to discrepancies and confusion among students in authenticity of
+                                                the announcement.
+                                            </p>
+                                            <p>
+                                                POA solves all that by being one central location for all official
+                                                announcements and students can get updated on latest timetable,deadline
+                                                reminders, change in policies etc
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="column mcb-column one column_button">
+                                        <a class="button  button_left button_size_2 button_js" href="#"><span
+                                                class="button_icon"><i
+                                                class="mdi mdi-book-open-blank-variant"></i></span><span
+                                                class="button_label">READ MORE</span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
- {% endblock %}
+    </div>
+{% endblock %}
