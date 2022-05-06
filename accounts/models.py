@@ -148,7 +148,7 @@ class StudentProfile(models.Model):
     profile_picture = models.ImageField(upload_to='profile_pictures', blank=True, null=True,
                                         validators=[validate_image])
     profile_picture_thumbnail = ImageSpecField(source='profile_picture',
-                                               processors=[ResizeToFill(100, 50)],
+                                               processors=[ResizeToFill(100, 100)],
                                                format='JPEG',
                                                options={'quality': 60})
 
