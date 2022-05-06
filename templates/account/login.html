@@ -13,7 +13,7 @@
     {% get_providers as socialaccount_providers %}
 
     <div
-            class="section mcb-section"
+            class="section mcb-section first-section"
             style="
                     padding-top: 110px;
                     padding-bottom: 110px;
@@ -44,7 +44,7 @@
                                 </ul>
                             {% endif %}
 
-                            <form class="login" method="POST" action="{% url 'account_login' %}">
+                            <form class="login">
                                 {% csrf_token %}
                                 <div class="form-group column one">
                                     <i class="mdi mdi-account-circle themecolor"></i>
@@ -61,8 +61,13 @@
                                            value="{{ redirect_field_value }}"/>
                                 {% endif %}
                                 <div class="form-group column one">
-                                    <button class="primaryAction btn-block"
-                                            type="submit">{% trans "Log In" %}</button>
+                                    <button hx-post="{% url 'account_login' %}"
+                                            hx-swap="outerHTML" hx-target="#Wrapper"
+                                            hx-select="#Wrapper" hx-push-url="true"
+                                            class="primaryAction btn-block"
+                                            type="submit">{% trans "Log In" %}
+                                        <img class="htmx-indicator" src="{% static "svg-loaders/circles.svg" %}">
+                                    </button>
                                 </div>
                                 <div class="form-group column one">
                                     <a hx-swap="outerHTML" hx-target="#main_section"

@@ -2,11 +2,18 @@
     transition: all ease-in 1s;
 }
 
-.list-group-item.active {
-    background-color: #68bc52 !important;
-    border-color: #68bc52 !important;
-}
 
 .asteriskField {
     display: none;
 }
+
+.htmx-indicator{
+    height: 20px;
+
+}
+/*.htmx-request .my-indicator{*/
+/*    display:inline;*/
+/*}*/
+/*.htmx-request.my-indicator{*/
+/*    display:inline;*/
+/*}*/

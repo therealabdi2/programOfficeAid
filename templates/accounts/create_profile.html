@@ -30,7 +30,8 @@
                                 <h2 style="color: #fff">Your profile is complete</h2>
                                 <p class="themecolor" style="letter-spacing: 3px">You can now use Program Office Aid</p>
                                 <p>Contact Program Office if you need to make changes to your profile
-                                or make partial changes at <a href="{% url 'accounts:edit_profile' %}"><em>here</em></a></p>
+                                    or make partial changes at <a href="{% url 'accounts:edit_profile' %}"><em>here</em></a>
+                                </p>
 
                             {% else %}
                                 <h2 style="color: #fff">Welcome {{ user.first_name }}</h2>
@@ -40,53 +41,61 @@
                                 </div>
                                 </div>
                                 <div id="contactWrapper">
-                                    <div class="card mx-auto" id="form-card" style="max-width: 375px; margin-top:5px;">
-                                        <div class="card-body"></div>
-                                        <form action="{% url 'accounts:create_profile' %}" method="post"
-                                              enctype='multipart/form-data'>
-                                            {% csrf_token %}
-                                            <div class="form-group column one-second">
-                                                <i class="mdi mdi-file-account themecolor"></i>
-                                                {{ form.registration_number | as_crispy_field }}
-                                            </div>
-                                            <div class="form-group column one-second">
-                                                <i class="mdi mdi-file-account-outline themecolor"></i>
-                                                {{ form.phone_number | as_crispy_field }}
-                                            </div>
-
-                                            <div class="form-group column one">
-                                                <i class="mdi mdi-account-child-circle themecolor"></i>
-                                                {{ form.fatherName | as_crispy_field }}
-                                            </div>
-                                            <div class="form-group column one-second">
-                                                <i class="mdi mdi-hospital-building themecolor"></i>
-                                                {{ form.faculty | as_crispy_field }}
-                                            </div>
-                                            <div class="form-group column one-second">
-                                                <i class="mdi mdi-office-building themecolor"></i>
-                                                {{ form.department | as_crispy_field }}
-                                            </div>
-                                            <div class="form-group column one">
-                                                <i class="mdi mdi-notebook themecolor"></i>
-                                                {{ form.programme | as_crispy_field }}
-                                            </div>
-                                            <div class="form-group column one-second">
-                                                <i class="mdi mdi-form-dropdown themecolor"></i>
-                                                {{ form.batch | as_crispy_field }}
-                                            </div>
-                                            <div class="form-group column one-second">
-                                                <i class="mdi mdi-format-section themecolor"></i>
-                                                {{ form.section | as_crispy_field }}
-                                            </div>
-                                            <div class="form-group column one">
-                                                <i class="mdi mdi-face-recognition  themecolor"></i>
-                                                {{ form.profile_picture | as_crispy_field }}
-                                            </div>
-                                            <input type="submit">
-                                        </form>
-                                        {% endif %}
+                                <div class="card mx-auto" id="form-card" style="max-width: 375px; margin-top:5px;">
+                                <div class="card-body"></div>
+                                <form hx-encoding='multipart/form-data'>
+                                    {% csrf_token %}
+                                    <div class="form-group column one-second">
+                                        <i class="mdi mdi-file-account themecolor"></i>
+                                        {{ form.registration_number | as_crispy_field }}
                                     </div>
-                                </div>
+                                    <div class="form-group column one-second">
+                                        <i class="mdi mdi-file-account-outline themecolor"></i>
+                                        {{ form.phone_number | as_crispy_field }}
+                                    </div>
+
+                                    <div class="form-group column one">
+                                        <i class="mdi mdi-account-child-circle themecolor"></i>
+                                        {{ form.fatherName | as_crispy_field }}
+                                    </div>
+                                    <div class="form-group column one-second">
+                                        <i class="mdi mdi-hospital-building themecolor"></i>
+                                        {{ form.faculty | as_crispy_field }}
+                                    </div>
+                                    <div class="form-group column one-second">
+                                        <i class="mdi mdi-office-building themecolor"></i>
+                                        {{ form.department | as_crispy_field }}
+                                    </div>
+                                    <div class="form-group column one">
+                                        <i class="mdi mdi-notebook themecolor"></i>
+                                        {{ form.programme | as_crispy_field }}
+                                    </div>
+                                    <div class="form-group column one-second">
+                                        <i class="mdi mdi-form-dropdown themecolor"></i>
+                                        {{ form.batch | as_crispy_field }}
+                                    </div>
+                                    <div class="form-group column one-second">
+                                        <i class="mdi mdi-format-section themecolor"></i>
+                                        {{ form.section | as_crispy_field }}
+                                    </div>
+                                    <div class="form-group column one">
+                                        <i class="mdi mdi-face-recognition  themecolor"></i>
+                                        {{ form.profile_picture | as_crispy_field }}
+                                    </div>
+                                    <div class="form-group column one">
+                                        <button hx-post="{% url 'accounts:create_profile' %}"
+                                                hx-swap="outerHTML" hx-target=".mcb-section"
+                                                hx-select=".mcb-section" hx-push-url="true"
+                                                hx-confirm="Please make sure the submission is correct as it can't be changed later"
+                                                class="primaryAction btn-block"
+                                                type="submit">Submit
+                                            <img class="htmx-indicator" src="{% static "svg-loaders/circles.svg" %}">
+                                        </button>
+                                    </div>
+                                </form>
+                            {% endif %}
+                            </div>
+                            </div>
 
                 </div>
             </div>
