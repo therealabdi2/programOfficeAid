@@ -44,7 +44,11 @@
                                 </ul>
                             {% endif %}
 
-                            <form class="login">
+                            <form class="login"
+                                  hx-post="{% url 'account_login' %}"
+                                  hx-swap="outerHTML" hx-target="#Wrapper"
+                                  hx-select="#Wrapper" hx-push-url="true"
+                                  hx-indicator=".spinner-cl">
                                 {% csrf_token %}
                                 <div class="form-group column one">
                                     <i class="mdi mdi-account-circle themecolor"></i>
@@ -60,13 +64,13 @@
                                     <input type="hidden" name="{{ redirect_field_name }}"
                                            value="{{ redirect_field_value }}"/>
                                 {% endif %}
-                                <div class="form-group column one">
-                                    <button hx-post="{% url 'account_login' %}"
-                                            hx-swap="outerHTML" hx-target="#Wrapper"
-                                            hx-select="#Wrapper" hx-push-url="true"
+                                <div class="form-group column one frm-btn">
+                                    <button
+                                            data-loading-disable
                                             class="primaryAction btn-block"
                                             type="submit">{% trans "Log In" %}
-                                        <img class="htmx-indicator" src="{% static "svg-loaders/circles.svg" %}">
+                                        <img class="htmx-indicator spinner-cl"
+                                             src="{% static "svg-loaders/circles.svg" %}">
                                     </button>
                                 </div>
                                 <div class="form-group column one">

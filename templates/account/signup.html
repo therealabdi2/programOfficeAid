@@ -1,5 +1,6 @@
 {% extends "base/base.html" %}
 {% load static %}
+{% load crispy_forms_filters %}
 {% load i18n %}
 
 {% block css_files %}
@@ -32,60 +33,42 @@
                     <div id="contactWrapper">
                         <div class="card mx-auto" id="form-card" style="max-width: 420px; margin-top:5px;">
                             <div class="card-body">
-
-                                {% if form.errors %}
-                                    {% for field in form %}
-                                        {% for error in field.errors %}
-                                            <div class="alert alert-error alert-danger">
-                                                <strong>{{ error|escape }}</strong>
-                                            </div>
-                                        {% endfor %}
-                                    {% endfor %}
-                                    {% for error in form.non_field_errors %}
-                                        <div class="alert alert-error alert-danger">
-                                            <strong>{{ error|escape }}</strong>
-                                        </div>
-                                    {% endfor %}
-                                {% endif %}
-                                <form class="signup" id="signup_form">
+                                <form class="signup" id="signup_form"
+                                      hx-post="{% url 'account_signup' %}"
+                                      hx-swap="outerHTML" hx-target="#main_section"
+                                      hx-select="#main_section" hx-push-url="true"
+                                      hx-indicator=".spinner-cl"
+                                      hx-confirm="Please make sure the submission is correct as it can't be changed later">
                                     {% csrf_token %}
                                     <div class="form-group column one-second">
                                         <i class="mdi mdi-file-account themecolor"></i>
-                                        <label>First Name</label>
-                                        {{ form.first_name }}
+                                        {{ form.first_name | as_crispy_field }}
                                     </div>
                                     <div class="form-group column one-second">
                                         <i class="mdi mdi-file-account-outline themecolor"></i>
-                                        <label>Last Name</label>
-                                        {{ form.last_name }}
+                                        {{ form.last_name | as_crispy_field }}
                                     </div>
 
                                     <div class="form-group column one">
                                         <i class="mdi mdi-email themecolor"></i>
-                                        <label>Email</label>
-                                        {{ form.email }}
+                                        {{ form.email | as_crispy_field }}
                                     </div>
                                     <div class="form-group column one-second">
                                         <i class="mdi mdi-lock themecolor"></i>
-                                        <label>Password</label>
-                                        {{ form.password1 }}
+                                        {{ form.password1 | as_crispy_field }}
                                     </div>
                                     <div class="form-group column one-second">
                                         <i class="mdi mdi-lock-outline themecolor"></i>
-                                        <label>Confirm Password</label>
-                                        {{ form.password2 }}
+                                        {{ form.password2 | as_crispy_field }}
                                     </div>
                                     {% if redirect_field_value %}
                                         <input type="hidden" name="{{ redirect_field_name }}"
                                                value="{{ redirect_field_value }}"/>
                                     {% endif %}
-                                    <button hx-post="{% url 'account_signup' %}"
-                                            hx-swap="outerHTML" hx-target="#main_section"
-                                            hx-select="#main_section" hx-push-url="true"
-                                            hx-confirm="Please make sure the submission is correct as it can't be changed later"
-                                            class="primaryAction btn btn-primary btn-block"
+                                    <button class="primaryAction btn btn-primary btn-block"
                                             type="submit">{% trans "Sign Up" %}
-                                        <img class="htmx-indicator" src="{% static "svg-loaders/circles.svg" %}">
+                                        <img class="htmx-indicator spinner-cl"
+                                             src="{% static "svg-loaders/circles.svg" %}">
                                     </button>
                                 </form>
                                 <p class="text-center mt-4 text-muted">{% blocktrans %}Already have an account?

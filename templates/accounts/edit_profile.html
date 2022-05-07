@@ -35,7 +35,12 @@
                     <div id="contactWrapper">
                         <div class="card mx-auto" id="form-card" style="max-width: 420px; margin-top:5px;">
                             <div class="card-body">
-                                <form class="signup" id="signup_form" hx-encoding='multipart/form-data'>
+                                <form class="signup" id="signup_form"
+                                      hx-post="{% url 'accounts:edit_profile' %}"
+                                      hx-swap="outerHTML" hx-target=".first-section"
+                                      hx-select=".first-section" hx-push-url="true"
+                                      hx-indicator=".spinner-cl"
+                                      hx-encoding='multipart/form-data'>
                                     {% csrf_token %}
                                     <div class="form-group column one-second">
                                         <i class="mdi mdi-account-child-circle themecolor"></i>
@@ -50,12 +55,11 @@
                                         <i class="mdi mdi-face-recognition  themecolor"></i>
                                         {{ form.profile_picture | as_crispy_field }}
                                     </div>
-                                    <button hx-post="{% url 'accounts:edit_profile' %}"
-                                            hx-swap="outerHTML" hx-target=".first-section"
-                                            hx-select=".first-section" hx-push-url="true"
+                                    <button
                                             class="primaryAction  btn-info btn-block"
                                             type="submit">{% trans "Update" %}
-                                        <img class="htmx-indicator" src="{% static "svg-loaders/circles.svg" %}">
+                                        <img class="htmx-indicator spinner-cl"
+                                             src="{% static "svg-loaders/circles.svg" %}">
                                     </button>
                                 </form>
 
