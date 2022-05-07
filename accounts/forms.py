@@ -29,6 +29,8 @@ class CustomSignupForm(SignupForm):
 
     def __init__(self, *args, **kwargs):
         super(CustomSignupForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.disable_csrf = True
         self.fields['first_name'].widget = forms.TextInput(attrs={
             'type': 'text',
             'class': 'form-control',
@@ -69,20 +71,7 @@ class StudentProfileForm(ModelForm):
         super(StudentProfileForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.add_input(Submit('submit', 'Submit'))
-
-    class Meta:
-        model = StudentProfile
-        exclude = ['student']
-        labels = {
-            'fatherName': 'Parent / Guardian Name',
-        }
-
-
-class StudentUpdateProfileForm(ModelForm):
-    def __init__(self, *args, **kwargs):
-        super(StudentUpdateProfileForm, self).__init__(*args, **kwargs)
-        self.helper = FormHelper()
-        self.helper.add_input(Submit('submit', 'Submit'))
+        self.helper.disable_csrf = True
 
     class Meta:
         model = StudentProfile
