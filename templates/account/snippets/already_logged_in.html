@@ -2,5 +2,6 @@
 {% load account %}
 
 {% user_display user as user_display %}
-<p><strong>{% trans "Note" %}:</strong> {% blocktrans %}you are already logged in as {{ user_display }}
+<p class="alert alert-warning text-center" role="alert"><strong>{% trans "Note" %}:</strong> {% blocktrans %}You are logged
+    on <strong>{{ user_display }}</strong>
     .{% endblocktrans %}</p>
