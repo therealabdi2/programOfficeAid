@@ -59,11 +59,10 @@ class CourseCategoryAdmin(admin.ModelAdmin):
 
 
 class SessionAdmin(admin.ModelAdmin):
-    filter_horizontal = ('courses_offered',)
     search_fields = ['session_name', 'session_year']
     search_help_text = 'Search by session name e.g SPR 2022'
-    list_display = 'batch', 'session_name', 'session_year', 'session_start_date', 'session_end_date'
-    list_filter = ['session_year', 'batch']
+    list_display = 'session_name', 'session_year', 'session_start_date', 'session_end_date'
+    list_filter = ['session_name', 'session_year', ]
     list_per_page = 10
 
 

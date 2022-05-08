@@ -3,9 +3,6 @@ from django.db import models
 from courses.models import Course, Session
 
 
-# Create your models here.
-
-
 class ParentForm(models.Model):
     STATUS = (
         ('Pending', 'Pending'),
@@ -19,15 +16,24 @@ class ParentForm(models.Model):
                                    help_text="Change status to 'Accepted' if Student is eligible or 'Rejected' if not")
     submitted_at = models.DateTimeField(auto_now_add=True, )
 
+    reason = models.TextField(blank=True, null=True, help_text="Mention reason if rejected")
+
     class Meta:
         abstract = True
 
 
-class JoiningForm(ParentForm):
-    form_name = models.CharField(max_length=30, default='Joining Form', editable=False)
+def get_latest_session():
+    return Session.objects.latest('session_start_date')
+
+
+class Joining(ParentForm):
     semester = models.PositiveSmallIntegerField(default=1)
-    session = models.ForeignKey(Session, on_delete=models.CASCADE, help_text="Click above to get Session Info")
-    course = models.ManyToManyField(Course, blank=True)
+    session = models.ForeignKey(Session, on_delete=models.CASCADE, related_name='session', default=get_latest_session)
+    course = models.ManyToManyField(Course, related_name='courses')
+    fee_slip = models.ImageField(upload_to='forms/',
+                                 help_text="<strong>Note:</strong> Your form might get rejected if your fee slip is "
+                                           "not attached",
+                                 blank=True, null=True)
 
     def __str__(self):
-        return f"{self.form_name}"
+        return f"{self.student}'s joining form"

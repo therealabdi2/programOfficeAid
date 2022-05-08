@@ -6,7 +6,8 @@ from django.utils.safestring import mark_safe
 from imagekit.admin import AdminThumbnail
 
 from accounts.models import Account, Batch, Faculty, Department, Programme, Section, StudentProfile
-from submissions.models import JoiningForm
+from submissions.admin import JoiningForm
+from submissions.models import Joining
 
 
 # Register your models here.
@@ -42,7 +43,8 @@ class StudentInline(admin.TabularInline):
 
 
 class JoiningFormInline(admin.StackedInline):
-    model = JoiningForm
+    model = Joining
+    form = JoiningForm
     extra = 0
     filter_horizontal = ('course',)
     show_change_link = True

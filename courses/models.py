@@ -48,7 +48,7 @@ class Course(models.Model):
 
 
 def get_joining_deadline():
-    return timezone.now() + timedelta(days=20)
+    return timezone.now() + timedelta(days=25)
 
 
 def get_session_end():
@@ -68,7 +68,7 @@ class Session(models.Model):
     session_start_date = models.DateField(help_text="Please use the following format: <em>YYYY-MM-DD</em>.",
                                           default=timezone.now)
 
-    session_year = models.PositiveSmallIntegerField(default=timezone.now().year,validators=[
+    session_year = models.PositiveSmallIntegerField(default=timezone.now().year, validators=[
         RegexValidator(
             regex="^20[1-9][0-9]$",
             message='Please enter a valid year'
@@ -78,34 +78,17 @@ class Session(models.Model):
     session_end_date = models.DateField(help_text="Please use the following format: <em>YYYY-MM-DD</em>.",
                                         default=get_session_end)
 
-    programme = models.ForeignKey('accounts.Programme', on_delete=models.CASCADE,
-                                  help_text="Select the programme for which the session is being created.")
-
-    batch = models.OneToOneField('accounts.Batch', on_delete=models.CASCADE,
-                                 help_text="Select the batch for which this session is being created.")
-
-    joining_date = models.DateField(help_text="Set the start of course joining.", default=timezone.now)
-    joining_deadline = models.DateField(help_text="Set the deadline of course joining for this session.",
-                                        default=get_joining_deadline)
-
-    courses_offered = models.ManyToManyField(Course, related_name="courses")
+    joining_deadline = models.DateField(default=get_joining_deadline,
+                                        help_text="Please use the following format: <em>YYYY-MM-DD</em>.")
 
     # tests to validate dates
     def valid_session_date(self):
         return self.session_start_date <= timezone.now() <= self.session_end_date
 
-    def valid_joining_date(self):
-        return self.joining_date <= timezone.now() <= self.joining_deadline
-
     def clean(self):
         super().clean()
         if not (self.session_start_date <= self.session_end_date):
             raise ValidationError('Invalid start and end session datetime')
-        if not (self.joining_date <= self.joining_deadline):
-            raise ValidationError('Invalid start and end joining datetime')
 
     def __str__(self):
-        return f"{self.batch} {self.session_name} {self.session_year}"
-
-    # def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
-    #     Session.objects.all().update(joining_date=self.joining_date, joining_end_date=self.joining_end_date)
+        return f"{self.session_name} {self.session_year}"
