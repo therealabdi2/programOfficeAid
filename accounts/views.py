@@ -5,6 +5,7 @@ from django.views.generic import DetailView
 
 from accounts.forms import StudentProfileForm
 from accounts.models import Account, StudentProfile
+from submissions.models import Joining
 
 
 class DashboardView(DetailView):
@@ -17,6 +18,7 @@ class DashboardView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['student'] = self.get_object()
+        context['form_count'] = Joining.objects.filter(student=self.get_object()).count()
         return context
 
 
