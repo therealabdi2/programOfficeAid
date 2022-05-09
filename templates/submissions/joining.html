@@ -1,6 +1,183 @@
-Hello
-{% for joining in joiningforms   %}
-    <tr>
-        <td>{{ joining}}</td>
-    </tr>
-{% endfor %}
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block css_files %}
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" type="text/css"/>
+{% endblock %}
+
+{% block content %}
+    <div class="section mcb-section"
+         style="padding-top:110px; background-color:#222f1f; background-image:url(/static/home/poa_main/images/home_poa_sectionbg2.png); background-repeat:no-repeat; background-position:center top">
+        <div class="section_wrapper mcb-section-inner">
+            <div class="wrap mcb-wrap one valign-top clearfix">
+                <div class="mcb-wrap-inner">
+                    <div class="column mcb-column one column_column">
+                        <div class="column_attr clearfix align_center">
+                            <h2 style="color:#fff">Your one stop for all your joining form submissions</h2>
+                            <p class="themecolor" style="letter-spacing: 3px">
+                                Please refrain from submitting multiple forms per session.
+                            </p>
+                        </div>
+                        <div class="wrap mcb-wrap mcb-wrap-an38kgu73 one-fourth valign-top clearfix"
+                             style="padding:0 3% 0 0">
+                            <div class="mcb-wrap-inner">
+                                <div class="column mcb-column mcb-item-qn807ide8 one column_image">
+                                    <div class="image_frame image_item no_link scale-with-grid no_border">
+                                        <div class="image_wrapper"><img class="scale-with-grid"
+                                                                        src="{% static 'submissions/images/step1.png' %}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="column mcb-column mcb-item-0g11up227 one column_column">
+                                    <div class="column_attr clearfix" style="">
+                                        <h4 style="color: #fff;">Instant</h4>
+                                        <h4 class="themecolor">Submit your form</h4>
+                                        <p>
+                                            After submission changes can be made by editing the form submitted.
+                                            <span class="alert-info">Note:- You can only edit your form if it is still pending. </span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="wrap mcb-wrap mcb-wrap-an38kgu73 one-fourth valign-top clearfix"
+                             style="padding:0 3% 0 0">
+                            <div class="mcb-wrap-inner">
+                                <div class="column mcb-column mcb-item-qn807ide8 one column_image">
+                                    <div class="image_frame image_item no_link scale-with-grid no_border">
+                                        <div class="image_wrapper"><img class="scale-with-grid"
+                                                                        src="{% static 'submissions/images/step2.png' %}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="column mcb-column mcb-item-0g11up227 one column_column">
+                                    <div class="column_attr clearfix" style="">
+                                        <h4 style="color: #fff;">2-7 days</h4>
+                                        <h4 class="themecolor">Wait for review</h4>
+                                        <p>
+                                            Program office staff will review your form and check if it is
+                                            legitimate. <span class="alert-warning">Warning:- Violating TOS will result in account suspension</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="wrap mcb-wrap mcb-wrap-an38kgu73 one-fourth valign-top clearfix"
+                             style="padding:0 3% 0 0">
+                            <div class="mcb-wrap-inner">
+                                <div class="column mcb-column mcb-item-qn807ide8 one column_image">
+                                    <div class="image_frame image_item no_link scale-with-grid no_border">
+                                        <div class="image_wrapper"><img class="scale-with-grid"
+                                                                        src="{% static 'submissions/images/step3.png' %}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="column mcb-column mcb-item-0g11up227 one column_column">
+                                    <div class="column_attr clearfix" style="">
+                                        <h4 style="color: #fff;">1 day</h4>
+                                        <h4 class="themecolor">Joining accepted</h4>
+                                        <p>
+                                            After the form is accepted you will soon be successfully enrolled in your
+                                            courses.
+                                            <span class="alert-info">Note:- Your enrolled courses can be found by logging into university LMS. </span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="wrap mcb-wrap mcb-wrap-an38kgu73 one-fourth valign-top clearfix"
+                             style="padding:0 3% 0 0">
+                            <div class="mcb-wrap-inner">
+                                <div class="column mcb-column mcb-item-qn807ide8 one column_image">
+                                    <div class="image_frame image_item no_link scale-with-grid no_border">
+                                        <div class="image_wrapper"><img class="scale-with-grid"
+                                                                        src="{% static 'submissions/images/step4.png' %}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="column mcb-column mcb-item-0g11up227 one column_column">
+                                    <div class="column_attr clearfix" style="">
+                                        <h4 style="color: #fff;">Instant</h4>
+                                        <h4 class="themecolor">View Form</h4>
+                                        <p>
+                                            All the forms you submitted can be accessed below.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section"
+         style="padding-top:30px; background-color:#57545b; background-image:url({% static 'submissions/images/form_section_bg.jpg' %}); background-repeat:no-repeat; background-position:center top; ">
+        <div class="section_wrapper clearfix">
+            <div class="items_group clearfix">
+                <!-- One full width row-->
+                <div class="column one column_column">
+                    <div class="column_attr align_center">
+                        <h2 class="dark">LATEST FORMS</h2>
+                        <p style="color: #dfdedf;">
+                            Select a form to see more details or add a new one
+                        </p>
+                    </div>
+                </div>
+                <div class="column one-fourth column_hover_color">
+                    <div class="hover_color" style="background:#e8e8e8;">
+                        <div class="hover_color_bg" style="background:#fbfbfb;">
+                            <div class="hover_color_wrapper">
+                                <div style="text-align: left; margin: 0 4%;">
+                                    <div class="image_frame no_link scale-with-grid alignnone no_border">
+                                        <div class="image_wrapper"><img class="scale-with-grid"
+                                                                        src="{% static 'submissions/images/submit_pic.png' %}"
+                                                                        alt="">
+                                        </div>
+                                    </div>
+
+                                    <hr class="no_line hrmargin_b_20">
+
+                                    <h4>New form</h4>
+                                    <p style="color: #818181;">
+                                        Submit a new joining form for the current session
+                                    </p>
+                                    <a class="mfn-link mfn-link-4 " href="#" data-hover="MORE ..."><span
+                                            data-hover="SUBMIT ...">SUBMIT ...</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- One full width row-->
+                {% for joining in joiningforms %}
+                    <div class="column mcb-column one-fifth column_trailer_box">
+                        <div class="trailer_box">
+                            <a href="#">
+                                <img class="scale-with-grid"
+                                     src="{% static 'submissions/images/form_bg.png' %}">
+                                <div class="desc">
+                                    <p>Semester {{ joining.semester }}</p>
+                                    <div class="subtitle">
+                                        {{ joining.session }}
+                                    </div>
+                                    <h2>{{ joining.form_status }}</h2>
+                                    <div class="line"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+                <!-- One full width row-->
+                <div class="column one column_column">
+                    <div class="column_attr align_center">
+                        <a class="button button_stroke_custom button_js themecolor" href="#" style=" border-color:#fff"><span
+                                class="button_label">SEE MORE</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %} %}

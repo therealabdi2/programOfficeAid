@@ -13,4 +13,4 @@ class JoiningFormView(ListView):
 
     def get_queryset(self):
         profile = get_object_or_404(StudentProfile, student_id=self.request.user.id)
-        return self.model.objects.filter(student=profile)
+        return self.model.objects.filter(student=profile).order_by('-id')[:3]

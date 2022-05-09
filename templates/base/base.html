@@ -94,6 +94,9 @@
                                             <a href="{% url 'services' %}"><span>Services</span></a>
                                         </li>
                                         {% if user.is_authenticated %}
+                                            <li class="{% if '/submissions/joining_form/' == request.path %} current-menu-item  {% endif %}">
+                                                <a href="{% url 'submissions:joining_form' %} "><span>Joining</span></a>
+                                            </li>
                                             <li class="{% if '/accounts/dashboard/' == request.path %} current-menu-item  {% endif %}">
                                                 <a href="{% url 'accounts:dashboard' %} "><span>Dashboard</span></a>
                                             </li>
