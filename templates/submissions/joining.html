@@ -155,7 +155,7 @@
                 {% for joining in joiningforms %}
                     <div class="column mcb-column one-fifth column_trailer_box">
                         <div class="trailer_box">
-                            <a href="#">
+                            <a href="{% url 'submissions:joining_detail' joining.pk %}">
                                 <img class="scale-with-grid"
                                      src="{% static 'submissions/images/form_bg.png' %}">
                                 <div class="desc">
