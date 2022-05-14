@@ -1,4 +1,5 @@
 # Create your views here.
+from django.db.models import Sum
 from django.shortcuts import get_object_or_404
 from django.views.generic import ListView, DetailView
 
@@ -24,4 +25,13 @@ class JoiningDetailView(DetailView):
     def get_queryset(self):
         profile = get_object_or_404(StudentProfile, student_id=self.request.user.id)
         return Joining.objects.filter(student=profile)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        total_courses = self.get_object().course.all()
+        total_credits = total_courses.aggregate(total_credits=Sum('course_credit'))['total_credits']
+        context['total_credits'] = total_credits
+        return context
+
+
 

@@ -12,35 +12,112 @@
 {% block content %}
 
 
-    <div
-            class="section mcb-section"
-            style="
-                    padding-top: 110px;
-                    padding-bottom: 110px;
-                    background-color: #222f1f;
-                    background-image: url({% static "home/poa_main/images/home_poa_sectionbg2.png" %});
-                    background-repeat: no-repeat;
-                    background-position: center top;
-                    "
+    <div id="section-to-print"
+         class="section mcb-section"
+         style="
+                 padding-top: 110px;
+                 padding-bottom: 110px;
+                 background-color: #222f1f;
+                 background-image: url({% static "home/poa_main/images/home_poa_sectionbg2.png" %});
+                 background-repeat: no-repeat;
+                 background-position: center top;
+                 "
     >
         <div class="section_wrapper mcb-section-inner" id="main_section">
             <div class="wrap mcb-wrap one valign-top clearfix">
                 <div class="mcb-wrap-inner">
                     <div class="column mcb-column one column_column">
                         <div class="column_attr clearfix align_center">
-                            <h2 style="color: #fff">{{ joiningform.session }}</h2>
-                            <p class="themecolor"
-                               style="letter-spacing: 3px">{% blocktrans %}We have sent an e-mail to you for
-                                verification. Follow the
-                                link provided to finalize the
-                                signup process.{% endblocktrans %}</p>
-                            <p>If you do not see the verification e-mail in your main inbox, check your
-                                spam folder.
-                                Please
-                                contact us if you do not receive the verification e-mail within a few
-                                minutes.</p>
+                            <h2 style="color: #fff">International Islamic University Islamabad</h2>
+                            <h3 class="themecolor"
+                                style="letter-spacing: 3px">Department of {{ joiningform.student.department }}</h3>
+                            <h4 class="themecolor"
+                                style="letter-spacing: 3px">Faculty of {{ joiningform.student.faculty }}</h4>
+                            <h5 class="themecolor">Semester/Course registraion form</h5>
+                            <button class="d-print-none" onclick="window.print()"><span
+                                    class="mdi mdi-cloud-print"></span> Print this form
+                            </button>
                             {% include 'includes/alerts.html' %}
                         </div>
+                    </div>
+                    <div id="contactWrapper">
+                        <div class="card mx-auto " style="max-width: 675px; margin-top:5px;">
+                            <div class="card-body">
+                                <div class="column one-second">
+                                    <i class="mdi mdi-google-classroom themecolor"></i>
+                                    <strong>Session:</strong> {{ joiningform.session }}
+                                </div>
+                                <div class="column one-second">
+                                    <i class="mdi mdi-clock themecolor"></i>
+                                    <strong>Joining Date:</strong> {{ joiningform.submitted_at }}
+                                </div>
+                                <div class="column one-second">
+                                    <i class="mdi mdi-file-account themecolor"></i>
+                                    <strong>Semester:</strong> {{ joiningform.semester }}
+                                </div>
+                                <div class="column one-second">
+                                    <i class="mdi mdi-account themecolor"></i>
+                                    <strong>Registration:</strong> {{ joiningform.student.registration_number }}
+                                    {{ joiningform.student.section }}
+                                </div>
+                                <div class="column one-second">
+                                    <i class="mdi mdi-rename-box themecolor"></i>
+                                    <strong>Name:</strong> {{ joiningform.student.student.first_name }} {{ joiningform.student.student.last_name }}
+                                </div>
+                                <div class="column one-second">
+                                    <i class="mdi mdi-phone-dial themecolor"></i>
+                                    <strong>Contact:</strong> {{ joiningform.student.phone_number }}
+                                </div>
+                                <div class="column one-second">
+                                    <i class="mdi mdi-account-group themecolor"></i>
+                                    <strong>Nationality:</strong> {{ joiningform.student.nationality }}
+                                </div>
+                                <div class="column one-second">
+                                    <i class="mdi mdi-identifier themecolor"></i>
+                                    <strong>CNIC/Passport No:</strong> {{ joiningform.student.cnic }}
+                                </div>
+                                <div class="column one-second">
+                                    <i class="mdi mdi-account-child-circle themecolor"></i>
+                                    <strong>Parent/Guardian:</strong> {{ joiningform.student.fatherName }}
+                                </div>
+                                <div class="column one-second">
+                                    <i class="mdi mdi-list-status themecolor"></i>
+                                    <strong>Form Status:</strong> {{ joiningform.form_status }}
+                                </div>
+
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">Course Code</th>
+                                        <th scope="col">Course Name</th>
+                                        <th scope="col">Credit Hours</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for course in joiningform.course.all %}
+                                        <tr>
+                                            <td>{{ course.course_code }}</td>
+                                            <td>{{ course.course_name }}</td>
+                                            <td>{{ course.course_credit }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                                <div class="column one-third">
+                                    <i class="mdi mdi-file-account themecolor"></i>
+                                    <strong>Courses Registered:</strong> {{ joiningform.course.count }}
+                                </div>
+                                <div class="column one-third">
+                                    <i class="mdi mdi-file-account themecolor"></i>
+                                    <strong>Total Credit Hours:</strong> {{ total_credits }}
+                                </div>
+                                <div class="column one-third">
+                                    <i class="mdi mdi-file-account themecolor"></i>
+                                    <strong>Max Credit Allowed:</strong> 21
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
