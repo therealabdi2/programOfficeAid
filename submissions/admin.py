@@ -2,6 +2,7 @@ from django import forms
 from django.contrib import admin
 # Register your models here.
 from django.core.exceptions import ValidationError
+from django.utils.safestring import mark_safe
 
 from submissions.models import Joining
 
@@ -25,11 +26,19 @@ class JoiningAdmin(admin.ModelAdmin):
     list_display = ['session', 'get_reg_num', 'semester', 'form_status']
     filter_horizontal = ['course']
     list_filter = ['form_status', 'session__session_name', 'student__batch', 'semester', ]
-    readonly_fields = ('session',)
+    readonly_fields = ('session', 'fee_slip_image')
 
     @admin.display(description='Student Reg Num')
     def get_reg_num(self, obj):
         return obj.student.registration_number
+
+    def fee_slip_image(self, obj):
+        return mark_safe('<img src="{url}" width="{width}" height={height} />'.format(
+            url=obj.fee_slip.url,
+            width=obj.fee_slip.width,
+            height=obj.fee_slip.height,
+        )
+        )
 
 
 admin.site.register(Joining, JoiningAdmin)
