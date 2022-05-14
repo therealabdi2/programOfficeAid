@@ -144,7 +144,8 @@ class StudentProfile(models.Model):
     programme = models.ForeignKey(Programme, on_delete=models.CASCADE)
     batch = models.ForeignKey(Batch, on_delete=models.CASCADE)
     section = models.ForeignKey(Section, on_delete=models.CASCADE)
-
+    nationality = models.CharField(max_length=20,)
+    cnic = models.CharField(max_length=30,)
     profile_picture = models.ImageField(upload_to='profile_pictures', blank=True, null=True,
                                         validators=[validate_image])
     profile_picture_thumbnail = ImageSpecField(source='profile_picture',

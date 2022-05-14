@@ -77,5 +77,5 @@ class StudentProfileForm(ModelForm):
         model = StudentProfile
         exclude = ['student']
         labels = {
-            'fatherName': 'Parent / Guardian Name',
+            'fatherName': 'Parent/Guardian Name',
         }
