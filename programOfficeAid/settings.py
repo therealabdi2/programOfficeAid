@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     'rest_framework',
     'imagekit',
+    'ajax_select',
 
     'django.contrib.sites',  # make sure sites is included
     'allauth',
