@@ -2,7 +2,7 @@
 from django.db.models import Sum
 from django.shortcuts import get_object_or_404, render, redirect
 from django.views import View
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView
 
 from accounts.models import StudentProfile
 from submissions.forms import StudentJoiningForm
@@ -37,7 +37,6 @@ class JoiningDetailView(DetailView):
 
 
 class JoiningCreateView(View):
-
     def get(self, request):
         form = StudentJoiningForm()
         context = {'form': form}

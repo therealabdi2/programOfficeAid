@@ -21,6 +21,34 @@
     opacity: 1
 }
 
+.selector {
+    float: none;
+    display: block;
+    height: 330px;
+}
+
+.selector input[type="submit"] {
+    display: block;
+    clear: both;
+}
+
+.selector h2 {
+    font-size: 15px;
+}
+
+.selector select {
+    margin: 2px 0;
+    padding: 2px 3px;
+    font-weight: normal;
+    width: 270px !important;
+    height: 17.2em;
+}
+
+textarea {
+    display: block;
+    width: 450px;
+}
+
 @media print {
     body * {
         visibility: hidden;
@@ -47,3 +75,9 @@
         border-width: 0 1px 1px 0 !important;
     }
 }
+
+.ui-icon-trash {
+    background-color: lightcoral;
+    background-image: url("/programOfficeAid/static/home/poa_main/css/images/ui-icons_cd0a0a_256x240.png");
+}
+

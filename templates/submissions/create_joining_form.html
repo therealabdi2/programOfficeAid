@@ -7,6 +7,7 @@
 
 {% block css_files %}
     <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" type="text/css"/>
+    {{ form.media }}
 {% endblock %}
 
 {% block content %}
@@ -34,35 +35,33 @@
                         </div>
                     </div>
                     <div id="contactWrapper">
-                        <div class="card mx-auto" id="form-card" style="max-width: 375px; margin-top:5px;">
+                        <div class="card mx-auto" id="form-card" style="max-width: 325px; margin-top:5px;">
                             <div class="card-body"></div>
                             {% if form.errors %}
                                 <ul class="errorlist alert alert-error alert-danger">
                                     {% for key, value in form.errors.items %}
-                                        <li>{% if key != '__all__' %}<strong>{{ key }}</strong>{% endif %}{{ value }}</li>
+                                        <li>{% if key != '__all__' %}<strong>{{ key }}</strong>{% endif %}{{ value }}
+                                        </li>
                                     {% endfor %}
                                 </ul>
                             {% endif %}
-                            <form hx-post="{% url 'submissions:create_joining_form' %}"
-                                  hx-swap="outerHTML" hx-target="#Wrapper"
-                                  hx-select="#Wrapper" hx-push-url="true"
-                                  hx-indicator=".spinner-cl"
-                                  hx-confirm="Please make sure the submission is correct as it can't be changed later if accepted"
-                                  hx-encoding='multipart/form-data'>
+                            <form action="{% url 'submissions:create_joining_form' %}"
+                                  method="post"
+                                  enctype="multipart/form-data">
                                 {% csrf_token %}
                                 <div class="form-group column one">
                                     <i class="mdi mdi-file-account themecolor"></i>
                                     {{ form.semester | as_crispy_field }}
                                 </div>
                                 <div class="form-group column one">
-                                    <i class="mdi mdi-file-account-outline themecolor"></i>
+                                    <i class="mdi mdi-book themecolor"></i>
                                     {{ form.course | as_crispy_field }}
                                 </div>
-
                                 <div class="form-group column one">
-                                    <i class="mdi mdi-face-recognition  themecolor"></i>
-                                    {{ form.fee_slip | as_crispy_field }}
+                                    <i class="mdi mdi-note-text themecolor"></i>
+                                    {{ form.fee_slip  | as_crispy_field }}
                                 </div>
+
                                 <div class="form-group column one">
                                     <button
                                             class="primaryAction btn-block"
