@@ -1,8 +1,6 @@
 {% extends 'base/base.html' %}
 {% load static %}
 
-{% block title %}Dashboard{% endblock %}
-
 {% block css_files %}
     <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" type="text/css"/>
 {% endblock %}
@@ -10,7 +8,7 @@
 
 {% block content %}
     <div class="section mcb-section"
-         style="padding-top:110px; background-color:#222f1f; background-image:url(/static/home/poa_main/images/home_poa_sectionbg2.png); background-repeat:no-repeat; background-position:center top">
+         style="padding-top:110px; background-color:#222f1f; background-image:url({% static "home/poa_main/images/home_poa_sectionbg2.png" %}); background-repeat:no-repeat; background-position:center top">
         <div class="section_wrapper mcb-section-inner">
             <div class="wrap mcb-wrap one valign-top clearfix">
                 <div class="mcb-wrap-inner">
@@ -123,7 +121,7 @@
                     <div class="column_attr align_center">
                         <h2 class="dark">LATEST FORMS</h2>
                         <p style="color: #dfdedf;">
-                            Select a form to see more details or add a new one
+                            Click on a form to see more details or add a new one
                         </p>
                     </div>
                 </div>
@@ -140,13 +138,24 @@
                                     </div>
 
                                     <hr class="no_line hrmargin_b_20">
+                                    {% if session_deadline.is_deadline %}
+                                        <h4>Joining closed</h4>
+                                        <p style="color: #818181;">The joining deadline has passed.
+                                            Please contact Program Office Staff if you wish to submit a new joining
+                                            form.</p>
 
-                                    <h4>New form</h4>
-                                    <p style="color: #818181;">
-                                        Submit a new joining form for the current session
-                                    </p>
-                                    <a class="mfn-link mfn-link-4 " href="{% url 'submissions:create_joining_form' %}" data-hover="MORE ..."><span
-                                            data-hover="SUBMIT ...">SUBMIT ...</span></a>
+                                    {% else %}
+                                        <h4>New form</h4>
+                                        <p style="color: #818181;">
+
+                                            Submit a new joining form for the current session
+
+                                        </p>
+                                        <a class="mfn-link mfn-link-4 "
+                                           href="{% url 'submissions:create_joining_form' %}"
+                                           data-hover="MORE ..."><span
+                                                data-hover="SUBMIT ...">SUBMIT ...</span></a>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
@@ -174,8 +183,9 @@
                 <!-- One full width row-->
                 <div class="column one column_column">
                     <div class="column_attr align_center">
-                        <a class="button button_stroke_custom button_js themecolor" href="#" style=" border-color:#fff"><span
-                                class="button_label">SEE MORE</span></a>
+                        <a class="button button_stroke_custom button_js themecolor"
+                           href="{% url 'submissions:all_joining' %}" style=" border-color:#fff"><span
+                                class="button_label">SEE All FORMS</span></a>
                     </div>
                 </div>
             </div>

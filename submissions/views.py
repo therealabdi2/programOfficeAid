@@ -5,6 +5,7 @@ from django.views import View
 from django.views.generic import ListView, DetailView
 
 from accounts.models import StudentProfile
+from courses.models import Session
 from submissions.forms import StudentJoiningForm
 from submissions.models import Joining
 
@@ -14,9 +15,25 @@ class JoiningFormView(ListView):
     template_name = 'submissions/joining.html'
     context_object_name = 'joiningforms'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['session_deadline'] = Session.objects.latest('session_start_date')
+        return context
+
     def get_queryset(self):
         profile = get_object_or_404(StudentProfile, student_id=self.request.user.id)
         return self.model.objects.filter(student=profile).order_by('-id')[:3]
+
+
+class AllJoiningView(ListView):
+    paginate_by = 10
+    model = Joining
+    template_name = 'submissions/all_joining.html'
+    context_object_name = 'joiningforms'
+
+    def get_queryset(self):
+        profile = get_object_or_404(StudentProfile, student_id=self.request.user.id)
+        return self.model.objects.filter(student=profile).order_by('-id')
 
 
 class JoiningDetailView(DetailView):
@@ -39,7 +56,11 @@ class JoiningDetailView(DetailView):
 class JoiningCreateView(View):
     def get(self, request):
         form = StudentJoiningForm()
-        context = {'form': form}
+        session_deadline = Session.objects.latest('session_start_date')
+
+        context = {'form': form,
+                   'session_deadline': session_deadline
+                   }
         return render(request, 'submissions/create_joining_form.html', context)
 
     def post(self, request):
