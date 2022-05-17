@@ -39,5 +39,10 @@ class Joining(ParentForm):
                                            "not attached",
                                  blank=True, null=True)
 
+    def is_rejected(self):
+        if self.form_status == 'Rejected':
+            return True
+        return False
+
     def __str__(self):
         return f"{self.student}'s joining form"

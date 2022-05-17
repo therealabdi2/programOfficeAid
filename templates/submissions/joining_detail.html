@@ -28,15 +28,21 @@
                 <div class="mcb-wrap-inner">
                     <div class="column mcb-column one column_column">
                         <div class="column_attr clearfix align_center">
-                            <h2 style="color: #fff">International Islamic University Islamabad</h2>
-                            <h3 class="themecolor"
-                                style="letter-spacing: 3px">Department of {{ joiningform.student.department }}</h3>
-                            <h4 class="themecolor"
-                                style="letter-spacing: 3px">Faculty of {{ joiningform.student.faculty }}</h4>
-                            <h5 class="themecolor">Semester/Course registraion form</h5>
-                            <button class="d-print-none" onclick="window.print()"><span
-                                    class="mdi mdi-cloud-print"></span> Print this form
-                            </button>
+                            {% if joiningform.is_rejected %}
+                                <h2 style="color: #fff">Your form was rejected for the following reason(s)</h2>
+                                <p class="themecolor">{{ joiningform.reason }}</p>
+                                <p>If you think this is a mistake, please contact Program Office Staff</p>
+                            {% else %}
+                                <h2 style="color: #fff">International Islamic University Islamabad</h2>
+                                <h3 class="themecolor"
+                                    style="letter-spacing: 3px">Department of {{ joiningform.student.department }}</h3>
+                                <h4 class="themecolor"
+                                    style="letter-spacing: 3px">Faculty of {{ joiningform.student.faculty }}</h4>
+                                <h5 class="themecolor">Semester/Course registraion form</h5>
+                                <button class="d-print-none" onclick="window.print()"><span
+                                        class="mdi mdi-cloud-print"></span> Print this form
+                                </button>
+                            {% endif %}
                             {% include 'includes/alerts.html' %}
                         </div>
                     </div>
@@ -86,7 +92,7 @@
                                 </div>
 
                                 <table class="table table-hover ">
-                                <caption>List of courses to enroll in</caption>
+                                    <caption>List of courses to enroll in</caption>
                                     <thead>
                                     <tr class="table-primary">
                                         <th scope="col">Course Code</th>
