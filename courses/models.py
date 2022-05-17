@@ -1,3 +1,4 @@
+import datetime
 from datetime import timedelta
 
 from django.core.exceptions import ValidationError
@@ -80,6 +81,9 @@ class Session(models.Model):
 
     joining_deadline = models.DateField(default=get_joining_deadline,
                                         help_text="Please use the following format: <em>YYYY-MM-DD</em>.")
+
+    def is_deadline(self):
+        return self.joining_deadline <= datetime.datetime.today().date()
 
     # tests to validate dates
     def valid_session_date(self):
