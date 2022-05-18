@@ -1,8 +1,9 @@
 # Create your views here.
 from django.db.models import Sum
 from django.shortcuts import get_object_or_404, render, redirect
+from django.urls import reverse
 from django.views import View
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, UpdateView
 
 from accounts.models import StudentProfile
 from courses.models import Session
@@ -74,3 +75,13 @@ class JoiningCreateView(View):
             return redirect('submissions:joining_form')
         else:
             return render(request, 'submissions/create_joining_form.html', {'form': form})
+
+
+class JoiningUpdateView(UpdateView):
+    model = Joining
+    form_class = StudentJoiningForm
+    template_name = "submissions/update_joining.html"
+    context_object_name = 'joining'
+
+    def get_success_url(self):
+        return reverse("submissions:joining_form")

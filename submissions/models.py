@@ -44,5 +44,10 @@ class Joining(ParentForm):
             return True
         return False
 
+    def is_pending(self):
+        if self.form_status == 'Pending':
+            return True
+        return False
+
     def __str__(self):
         return f"{self.student}'s joining form"

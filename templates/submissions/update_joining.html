@@ -1,0 +1,89 @@
+{% extends 'base/base.html' %}
+{% load crispy_forms_filters %}
+{% load static %}
+
+
+{% block head_title %}Update Joining Form{% endblock %}
+
+{% block css_files %}
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" type="text/css"/>
+    {{ form.media }}
+{% endblock %}
+
+{% block content %}
+    <div
+            class="section mcb-section"
+            style="
+                    padding-top: 110px;
+                    padding-bottom: 110px;
+                    background-color: #222f1f;
+                    background-image: url({% static "home/poa_main/images/home_poa_sectionbg2.png" %});
+                    background-repeat: no-repeat;
+                    background-position: center top;
+                    "
+    >
+    <div class="section_wrapper mcb-section-inner" id="main_section">
+    <div class="wrap mcb-wrap one valign-top clearfix">
+        <div class="mcb-wrap-inner">
+            <div class="column mcb-column one column_column">
+                <div class="column_attr clearfix align_center">
+
+
+                    {% if joining.is_pending %}
+                        <h2 style="color: #fff">Update Joining</h2>
+                        <p class="themecolor" style="letter-spacing: 3px">You can update your joining form for
+                            the
+                            current session below</p>
+
+                        <div id="contactWrapper">
+                        <div class="card mx-auto" id="form-card" style="max-width: 325px; margin-top:5px;">
+                        <div class="card-body"></div>
+                        {% if form.errors %}
+                            <ul class="errorlist alert alert-error alert-danger">
+                                {% for key, value in form.errors.items %}
+                                    <li>{% if key != '__all__' %}
+                                        <strong>{{ key }}</strong>{% endif %}{{ value }}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                        <form method="post"
+                              enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="form-group column one">
+                                <i class="mdi mdi-file-account themecolor"></i>
+                                {{ form.semester | as_crispy_field }}
+                            </div>
+                            <div class="form-group column one">
+                                <i class="mdi mdi-book themecolor"></i>
+                                {{ form.course | as_crispy_field }}
+                            </div>
+                            <div class="form-group column one">
+                                <i class="mdi mdi-note-text themecolor"></i>
+                                {{ form.fee_slip  | as_crispy_field }}
+                            </div>
+
+                            <div class="form-group column one">
+                                <button
+                                        class="primaryAction btn-block"
+                                        type="submit">Submit
+                                </button>
+                            </div>
+                        </form>
+                    {% else %}
+                        <h2 style="color: #fff">Can not update Joining</h2>
+                        <p class="themecolor" style="letter-spacing: 3px">Your form has
+                            been {{ joining.form_status }}.</p>
+
+                    {% endif %}
+                    </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

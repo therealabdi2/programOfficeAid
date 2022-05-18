@@ -42,6 +42,12 @@
                                 <button class="d-print-none" onclick="window.print()"><span
                                         class="mdi mdi-cloud-print"></span> Print this form
                                 </button>
+                                {% if joiningform.is_pending %}
+                                    <a href="{% url 'submissions:update_joining' joiningform.pk %}"
+                                       class="d-print-none"><span
+                                            class="mdi mdi-cloud-print"></span> Edit this form
+                                    </a>
+                                {% endif %}
                             {% endif %}
                             {% include 'includes/alerts.html' %}
                         </div>
