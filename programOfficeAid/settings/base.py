@@ -1,7 +1,6 @@
 import os
 from pathlib import Path
 
-import dj_database_url
 from decouple import config
 from dotenv import load_dotenv, find_dotenv
 
@@ -116,10 +115,6 @@ else:
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
-
-# import dj_database_url
-#
-# DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 
 AUTH_PASSWORD_VALIDATORS = [
     {
