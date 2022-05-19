@@ -1,9 +1,8 @@
 import os
 from pathlib import Path
 
-import dj_database_url
 from decouple import config
-from dotenv import load_dotenv
+from dotenv import load_dotenv, find_dotenv
 
 load_dotenv()
 
@@ -85,30 +84,37 @@ WSGI_APPLICATION = 'programOfficeAid.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-# if 'DATABASE_DEV' in os.environ:
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': os.environ.get('ENGINE'),
-#             'NAME': os.environ.get('NAME'),
-#             'USER': os.environ.get('USER'),
-#             'PASSWORD': os.environ.get('PASSWORD'),
-#             'HOST': os.environ.get('HOST'),
-#             'PORT': os.environ.get('PORT'),
-#         }
-#     }
-# elif 'DATABASE_PROD' in os.environ:
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': os.environ.get('PROD_ENGINE'),
-#             'NAME': os.environ.get('PROD_NAME'),
-#             'USER': os.environ.get('PROD_USER'),
-#             'PASSWORD': os.environ.get('PROD_PASSWORD'),
-#             'HOST': os.environ.get('PROD_HOST'),
-#             'PORT': os.environ.get('PROD_PORT'),
-#         }
-#     }
+if 'DATABASE_DEV' in os.environ:
+    DATABASES = {
+        'default': {
+            'ENGINE': os.environ.get('ENGINE'),
+            'NAME': os.environ.get('NAME'),
+            'USER': os.environ.get('USER'),
+            'PASSWORD': os.environ.get('PASSWORD'),
+            'HOST': os.environ.get('HOST'),
+            'PORT': os.environ.get('PORT'),
+        }
+    }
+elif 'DATABASE_PROD' in os.environ:
+    DATABASES = {
+        'default': {
+            'ENGINE': os.environ.get('PROD_ENGINE'),
+            'NAME': os.environ.get('PROD_NAME'),
+            'USER': os.environ.get('PROD_USER'),
+            'PASSWORD': os.environ.get('PROD_PASSWORD'),
+            'HOST': os.environ.get('PROD_HOST'),
+            'PORT': os.environ.get('PROD_PORT'),
+        }
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
-DATABASES = {'default': dj_database_url.config(default='sqlite:///db.sqlite3', conn_max_age=600)}
+load_dotenv(find_dotenv())
 
 AUTH_PASSWORD_VALIDATORS = [
     {
