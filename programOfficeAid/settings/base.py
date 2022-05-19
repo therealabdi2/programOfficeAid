@@ -98,7 +98,7 @@ if 'DATABASE_DEV' in os.environ:
             'PORT': os.environ.get('PORT'),
         }
     }
-elif 'DATABASE_PROD' in os.environ:
+else:
     DATABASES = {'default': dj_database_url.config()}
 
 
