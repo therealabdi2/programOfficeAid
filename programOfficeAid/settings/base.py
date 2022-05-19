@@ -84,7 +84,7 @@ WSGI_APPLICATION = 'programOfficeAid.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-if 'DATABASE_UR' in os.environ:
+if 'DATABASE_DEV' in os.environ:
     DATABASES = {
         'default': {
             'ENGINE': os.environ.get('ENGINE'),
@@ -95,11 +95,15 @@ if 'DATABASE_UR' in os.environ:
             'PORT': 5432,
         }
     }
-else:
+elif 'DATABASE_PROD' in os.environ:
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
+            'PROD_ENGINE': os.environ.get('ENGINE'),
+            'PROD_NAME': os.environ.get('NAME'),
+            'PROD_USER': os.environ.get('USER'),
+            'PROD_PASSWORD': os.environ.get('PASSWORD'),
+            'PROD_HOST': os.environ.get('HOST'),
+            'PROD_PORT': 5432,
         }
     }
 
@@ -130,7 +134,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # static files
 STATIC_URL = '/static/'

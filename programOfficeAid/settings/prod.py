@@ -9,7 +9,7 @@ DEBUG = False
 ALLOWED_HOSTS = [
     'programofficeaid.herokuapp.com'
 ]
-
+# heroku config:set DJANGO_SETTING_MODULE=programOfficeAid.setting.prod
 # Amazon S3 settings
 
 AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
