@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 
+import dj_database_url
 from decouple import config
 from dotenv import load_dotenv
 
@@ -84,28 +85,30 @@ WSGI_APPLICATION = 'programOfficeAid.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-if 'DATABASE_DEV' in os.environ:
-    DATABASES = {
-        'default': {
-            'ENGINE': os.environ.get('ENGINE'),
-            'NAME': os.environ.get('NAME'),
-            'USER': os.environ.get('USER'),
-            'PASSWORD': os.environ.get('PASSWORD'),
-            'HOST': os.environ.get('HOST'),
-            'PORT': 5432,
-        }
-    }
-elif 'DATABASE_PROD' in os.environ:
-    DATABASES = {
-        'default': {
-            'PROD_ENGINE': os.environ.get('ENGINE'),
-            'PROD_NAME': os.environ.get('NAME'),
-            'PROD_USER': os.environ.get('USER'),
-            'PROD_PASSWORD': os.environ.get('PASSWORD'),
-            'PROD_HOST': os.environ.get('HOST'),
-            'PROD_PORT': 5432,
-        }
-    }
+# if 'DATABASE_DEV' in os.environ:
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': os.environ.get('ENGINE'),
+#             'NAME': os.environ.get('NAME'),
+#             'USER': os.environ.get('USER'),
+#             'PASSWORD': os.environ.get('PASSWORD'),
+#             'HOST': os.environ.get('HOST'),
+#             'PORT': os.environ.get('PORT'),
+#         }
+#     }
+# elif 'DATABASE_PROD' in os.environ:
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': os.environ.get('PROD_ENGINE'),
+#             'NAME': os.environ.get('PROD_NAME'),
+#             'USER': os.environ.get('PROD_USER'),
+#             'PASSWORD': os.environ.get('PROD_PASSWORD'),
+#             'HOST': os.environ.get('PROD_HOST'),
+#             'PORT': os.environ.get('PROD_PORT'),
+#         }
+#     }
+
+DATABASES = {'default': dj_database_url.config(default='sqlite:///db.sqlite3', conn_max_age=600)}
 
 AUTH_PASSWORD_VALIDATORS = [
     {
