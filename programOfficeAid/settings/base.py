@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 
+import dj_database_url
 from decouple import config
 from dotenv import load_dotenv, find_dotenv
 
@@ -84,6 +85,8 @@ WSGI_APPLICATION = 'programOfficeAid.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+load_dotenv(find_dotenv())
+
 if 'DATABASE_DEV' in os.environ:
     DATABASES = {
         'default': {
@@ -96,25 +99,8 @@ if 'DATABASE_DEV' in os.environ:
         }
     }
 elif 'DATABASE_PROD' in os.environ:
-    DATABASES = {
-        'default': {
-            'ENGINE': os.environ.get('PROD_ENGINE'),
-            'NAME': os.environ.get('PROD_NAME'),
-            'USER': os.environ.get('PROD_USER'),
-            'PASSWORD': os.environ.get('PROD_PASSWORD'),
-            'HOST': os.environ.get('PROD_HOST'),
-            'PORT': os.environ.get('PROD_PORT'),
-        }
-    }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
+    DATABASES = {'default': dj_database_url.config()}
 
-load_dotenv(find_dotenv())
 
 AUTH_PASSWORD_VALIDATORS = [
     {
