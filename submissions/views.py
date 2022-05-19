@@ -1,4 +1,5 @@
 # Create your views here.
+from django.contrib import messages
 from django.db.models import Sum
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
@@ -84,4 +85,5 @@ class JoiningUpdateView(UpdateView):
     context_object_name = 'joining'
 
     def get_success_url(self):
+        messages.success(self.request, 'Your form has been updated.')
         return reverse("submissions:joining_form")
