@@ -99,7 +99,16 @@ if 'DATABASE_DEV' in os.environ:
         }
     }
 elif 'DATABASE_PROD' in os.environ:
-    DATABASES = {'default': dj_database_url.config()}
+    DATABASES = {
+        'default': {
+            'ENGINE': os.environ.get('PROD_ENGINE'),
+            'NAME': os.environ.get('PROD_NAME'),
+            'USER': os.environ.get('PROD_USER'),
+            'PASSWORD': os.environ.get('PROD_PASSWORD'),
+            'HOST': os.environ.get('PROD_HOST'),
+            'PORT': os.environ.get('PROD_PORT'),
+        }
+    }
 else:
     DATABASES = {
         'default': {
@@ -108,6 +117,9 @@ else:
         }
     }
 
+# import dj_database_url
+#
+# DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 
 AUTH_PASSWORD_VALIDATORS = [
     {
