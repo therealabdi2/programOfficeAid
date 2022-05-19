@@ -64,6 +64,8 @@ class EditProfileView(View):
         POST['programme'] = student_profile.programme
         POST['batch'] = student_profile.batch
         POST['section'] = student_profile.section
+        POST['nationality'] = student_profile.nationality
+        POST['cnic'] = student_profile.cnic
 
         form = StudentProfileForm(POST, request.FILES, instance=student_profile)
         if form.is_valid():
