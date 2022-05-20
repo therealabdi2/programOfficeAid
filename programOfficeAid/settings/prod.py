@@ -31,7 +31,7 @@ STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/static/'
 MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/media/'
 
-# Heroku Logging
+# Heroku Logging required settings
 DEBUG_PROPAGATE_EXCEPTIONS = True
 
 LOGGING = {
