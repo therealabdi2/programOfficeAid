@@ -84,6 +84,14 @@ class JoiningUpdateView(UpdateView):
     template_name = "submissions/update_joining.html"
     context_object_name = 'joining'
 
+    def form_valid(self, form):
+        # check status of the joining object
+        if self.object.form_status != 'Pending':
+            messages.error(self.request, f'You cannot update this form as it has already been {self.object.form_status},'
+                                         f' by Program Office Staff')
+            return redirect('submissions:joining_form')
+        return super().form_valid(form)
+
     def get_success_url(self):
         messages.success(self.request, 'Your form has been updated.')
         return reverse("submissions:joining_form")

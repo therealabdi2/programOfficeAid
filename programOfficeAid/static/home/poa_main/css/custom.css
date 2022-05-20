@@ -81,3 +81,8 @@ textarea {
     background-image: url("/programOfficeAid/static/home/poa_main/css/images/ui-icons_cd0a0a_256x240.png");
 }
 
+.alert-error {
+    background-color: #f2dede;
+    border-color: #eed3d7;
+    color: #b94a48;
+}
