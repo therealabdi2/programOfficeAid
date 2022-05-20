@@ -182,7 +182,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, '../static')
 # DEFAULT_FILE_STORAGE = 'storages.backend.s3boto3.S3Boto3Storage'
 # STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 # STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/static/'
-# COLLECTFAST_STRATEGY = "collectfast.strategies.boto3.Boto3Strategy"
+COLLECTFAST_STRATEGY = "collectfast.strategies.boto3.Boto3Strategy"
 
 STATICFILES_DIRS = [
     'programOfficeAid/static',
