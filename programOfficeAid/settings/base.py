@@ -38,20 +38,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
 ]
 
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-    },
-    'collectfast': {
-        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
-        'LOCATION': 'collectfast_cache',
-        'TIMEOUT': 60,
-        'OPTIONS': {
-            'MAX_ENTRIES': 10000
-        },
-    },
-}
-COLLECTFAST_CACHE = 'collectfast'
+
 
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
@@ -131,6 +118,21 @@ else:
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+    },
+    'collectfast': {
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': 'collectfast_cache',
+        'TIMEOUT': 60,
+        'OPTIONS': {
+            'MAX_ENTRIES': 10000
+        },
+    },
+}
+COLLECTFAST_CACHE = 'collectfast'
 
 AUTH_PASSWORD_VALIDATORS = [
     {
