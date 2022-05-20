@@ -117,20 +117,20 @@ else:
         }
     }
 
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-    },
-    'collectfast': {
-        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
-        'LOCATION': 'collectfast_cache',
-        'TIMEOUT': 60,
-        'OPTIONS': {
-            'MAX_ENTRIES': 10000
-        },
-    },
-}
-COLLECTFAST_CACHE = 'collectfast'
+# CACHES = {
+#     'default': {
+#         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+#     },
+#     'collectfast': {
+#         'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+#         'LOCATION': 'collectfast_cache',
+#         'TIMEOUT': 60,
+#         'OPTIONS': {
+#             'MAX_ENTRIES': 10000
+#         },
+#     },
+# }
+# COLLECTFAST_CACHE = 'collectfast'
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -182,7 +182,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, '../static')
 # DEFAULT_FILE_STORAGE = 'storages.backend.s3boto3.S3Boto3Storage'
 # STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 # STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/static/'
-COLLECTFAST_STRATEGY = "collectfast.strategies.boto3.Boto3Strategy"
+# COLLECTFAST_STRATEGY = "collectfast.strategies.boto3.Boto3Strategy"
 
 STATICFILES_DIRS = [
     'programOfficeAid/static',
