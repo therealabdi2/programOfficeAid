@@ -29,7 +29,6 @@ INSTALLED_APPS = [
     'imagekit',
     'ajax_select',
     'storages',
-    'collectfast',
     'django.contrib.staticfiles',
 
     'django.contrib.sites',  # make sure sites is included
