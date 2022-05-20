@@ -16,7 +16,6 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
     'admin_interface',
     'colorfield',
     'accounts',
@@ -30,12 +29,29 @@ INSTALLED_APPS = [
     'imagekit',
     'ajax_select',
     'storages',
+    'collectfast',
+    'django.contrib.staticfiles',
 
     'django.contrib.sites',  # make sure sites is included
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
 ]
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+    },
+    'collectfast': {
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': 'collectfast_cache',
+        'TIMEOUT': 60,
+        'OPTIONS': {
+            'MAX_ENTRIES': 10000
+        },
+    },
+}
+COLLECTFAST_CACHE = 'collectfast'
 
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
