@@ -136,9 +136,7 @@ class StudentAdmin(admin.ModelAdmin):
 
     autocomplete_fields = ['faculty', 'programme', 'batch', 'section', 'department']
     list_display = (
-        'student_full_name', 'registration_number', 'faculty', 'programme', 'batch', 'section', 'department',
-        'admin_thumbnail')
-    admin_thumbnail = AdminThumbnail(image_field='profile_picture_thumbnail')
+        'student_full_name', 'registration_number', 'faculty', 'programme', 'batch', 'section', 'department',)
     list_filter = ['batch', 'programme', 'section', 'department', 'faculty']
     list_per_page = 10
     search_fields = ['registration_number', 'student__first_name', 'student__last_name', 'student__email']
