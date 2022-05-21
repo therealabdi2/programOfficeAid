@@ -131,9 +131,9 @@ class StudentProfile(models.Model):
             raise ValidationError("Max file size is %sMB" % str(megabyte_limit))
 
     student = models.OneToOneField(Account, on_delete=models.CASCADE, related_name='student_account')
-    phone_number = models.CharField(max_length=20, validators=[
+    phone_number = models.CharField(max_length=20, help_text='Please use the format: "+923456789121"', validators=[
         RegexValidator(
-            regex='^((\+92)?(0092)?(92)?(0)?)(3)([0-9]{9})$',
+            regex='^((\+92))(3)([0-9]{9})$',
             message='Please enter a valid Pakistan phone number'
         ),
     ])
@@ -157,4 +157,4 @@ class StudentProfile(models.Model):
         verbose_name_plural = "Student Profiles"
 
     def __str__(self):
-        return f"{self.registration_number} {self.student.first_name} {self.student.last_name}"
+        return f"{self.registration_number} {self.student.first_name} {self.student.last_name} {self.batch.batch_name}"
