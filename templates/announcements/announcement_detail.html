@@ -98,7 +98,7 @@
 
                                                 <ol class="commentlist">
                                                     {% for comment in comments %}
-                                                        <li class="comment byuser comment-author-admin bypostauthor even thread-even depth-1 parent"
+                                                        <li class="comment commentbyuser comment-author-admin bypostauthor even thread-even depth-1 parent"
                                                             id="comment-2">
                                                             <div id="div-comment-2" class="comment-body">
                                                                 <div class="comment-author vcard">
@@ -117,9 +117,31 @@
                                                                 </p>
                                                                 {% if user.is_authenticated %}
                                                                     <div class="post-footer liked_comment-{{ comment.pk }}">
+                                                                        {% if user == comment.user %}
+                                                                            <div class="post-links">
+                                                                                <form
+                                                                                        hx-post="{% url 'announcements:delete_comment' comment.pk %}"
+                                                                                        hx-swap="outerHTML"
+                                                                                        hx-swap="outerHTML"
+                                                                                        hx-target="#Wrapper"
+                                                                                        hx-select="#Wrapper"
+                                                                                        hx-confirm="Are you sure you want to delete this comment?">
+                                                                                    {% csrf_token %}
+                                                                                    <button class="btn btn-outline-light btn-sm"
+                                                                                            type="submit">
+                                                                                    <span class="icons-wrapper">
+                                                                                            <i class="mdi mdi-delete-forever-outline themecolor"></i>
+                                                                                    </span>
+                                                                                    </button>
+                                                                                </form>
+                                                                            </div>
+
+                                                                        {% endif %}
+
                                                                         <form
                                                                                 hx-post="{% url 'announcements:like_comment' comment.pk %}"
-                                                                                hx-swap="outerHTML" hx-target=".liked_comment-{{ comment.pk }}"
+                                                                                hx-swap="outerHTML"
+                                                                                hx-target=".liked_comment-{{ comment.pk }}"
                                                                                 hx-select=".liked_comment-{{ comment.pk }}">
                                                                             {% csrf_token %}
 
@@ -131,16 +153,16 @@
                                                             <span class="love-text"></span><a href="#"
                                                                                               class="mfn-love "
                                                                                               data-id="2283">
-                                            <span class="icons-wrapper">
-                                                {% if user in comment.liked.all %}
-                                                    <i class="mdi mdi-heart"></i>
-                                                    <i class="mdi mdi-heart-outline"></i>
-                                                {% else %}
-                                                    <i class="mdi mdi-heart-outline"></i>
-                                                    <i class="mdi mdi-heart"></i>
+                                                                                        <span class="icons-wrapper">
+                                                                                            {% if user in comment.liked.all %}
+                                                                                                <i class="mdi mdi-heart"></i>
+                                                                                                <i class="mdi mdi-heart-outline"></i>
+                                                                                            {% else %}
+                                                                                                <i class="mdi mdi-heart-outline"></i>
+                                                                                                <i class="mdi mdi-heart"></i>
 
-                                                {% endif %}
-                                                                       </span>
+                                                                                            {% endif %}
+                                                                                            </span>
                                                                         <span class="label">{{ comment.num_like }}</span></a>
 
 
@@ -150,14 +172,15 @@
                                                                     </div>
                                                                 {% else %}
 
-                                                                    <span class="love-text"></span><a href="{% url 'account_login' %}?next={{ request.path }}"
-                                                                                                      class="mfn-love "
-                                                                                                      data-id="2283">
+                                                                    <span class="love-text"></span>
+                                                                    <a href="{% url 'account_login' %}?next={{ request.path }}"
+                                                                       class="mfn-love "
+                                                                       data-id="2283">
                                                                 <span class="icons-wrapper">
 
                                                                         <i class="mdi mdi-heart-outline"></i>
                                                                     </span>
-                                                                    <span class="label">{{ comment.num_like }}</span></a>
+                                                                        <span class="label">{{ comment.num_like }}</span></a>
 
                                                                 {% endif %}
 
@@ -183,7 +206,29 @@
                                                                                 {{ reply.text }}
                                                                             </p>
                                                                             {% if user.is_authenticated %}
+
                                                                                 <div class="post-footer liked_reply-{{ reply.pk }}">
+                                                                                    {% if user == reply.user %}
+                                                                                        <div class="post-links">
+                                                                                            <form
+                                                                                                    hx-post="{% url 'announcements:delete_comment' reply.pk %}"
+                                                                                                    hx-swap="outerHTML"
+                                                                                                    hx-swap="outerHTML"
+                                                                                                    hx-target="#Wrapper"
+                                                                                                    hx-select="#Wrapper"
+                                                                                                    hx-confirm="Are you sure you want to delete this reply?">
+                                                                                                {% csrf_token %}
+                                                                                                <button class="btn btn-outline-light btn-sm"
+                                                                                                        type="submit">
+                                                                                    <span class="icons-wrapper">
+                                                                                            <i class="mdi mdi-delete-forever-outline themecolor"></i>
+                                                                                    </span>
+                                                                                                </button>
+                                                                                            </form>
+                                                                                        </div>
+                                                                                    {% endif %}
+
+
                                                                                     <form
                                                                                             hx-post="{% url 'announcements:like_comment' reply.pk %}"
                                                                                             hx-swap="outerHTML"
@@ -213,6 +258,7 @@
                                                                     </button>
                                                                      </span>
                                                                                     </form>
+
                                                                                 </div>
                                                                             {% else %}
 
@@ -228,6 +274,7 @@
 
 
                                                                             {% endif %}
+
                                                                         </div>
 
                                                                     </li>

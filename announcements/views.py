@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.views import View
-from django.views.generic import ListView
+from django.views.generic import ListView, DeleteView
 
 from announcements.forms import CommentForm
 from announcements.models import Announcement, Comment
@@ -45,6 +45,17 @@ class AnnouncementDetailView(View):
                 form.save()
                 messages.success(request, 'Reply posted successfully')
         return redirect('announcements:announcement_detail', pk=pk)
+
+
+class DeleteCommentView(DeleteView):
+    model = Comment
+    template_name = 'announcements/announcement_detail.html'
+    context_object_name = 'comment'
+
+    def get_success_url(self):
+        messages.success(self.request, 'Comment deleted successfully')
+        return reverse('announcements:announcement_detail', kwargs={'pk': self.object.post.id})
+
 
 
 class LikeAnnouncementView(View):
