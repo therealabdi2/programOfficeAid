@@ -57,7 +57,6 @@ class DeleteCommentView(DeleteView):
         return reverse('announcements:announcement_detail', kwargs={'pk': self.object.post.id})
 
 
-
 class LikeAnnouncementView(View):
     def get(self, request, pk):
         return HttpResponseRedirect(reverse('announcements:announcement_detail', args=[pk]))
