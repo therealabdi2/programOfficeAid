@@ -19,6 +19,7 @@ INSTALLED_APPS = [
     'admin_interface',
     'colorfield',
     'accounts',
+    'announcements',
     'courses',
     'submissions',
     'crispy_forms',

@@ -34,10 +34,11 @@ def get_latest_session():
 
 
 class Joining(ParentForm):
-    semester = models.PositiveSmallIntegerField(default=1, validators=[
-        MaxValueValidator(14),
-        MinValueValidator(1)
-    ])
+    semester = models.PositiveSmallIntegerField(default=1, choices=list(zip(range(1, 10), range(1, 10))),
+                                                validators=[
+                                                    MaxValueValidator(9),
+                                                    MinValueValidator(1)
+                                                ])
     session = models.ForeignKey(Session, on_delete=models.CASCADE, related_name='session', default=get_latest_session)
     course = models.ManyToManyField(Course, related_name='courses')
     fee_slip = models.ImageField(upload_to='forms/',
@@ -96,8 +97,8 @@ class Joining(ParentForm):
         return
 
     def save(self, *args, **kwargs):
-        self.send_sms()
-        self.send_email()
+        # self.send_sms()
+        # self.send_email()
         super().save(*args, **kwargs)
 
     def is_rejected(self):

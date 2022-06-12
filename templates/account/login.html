@@ -85,6 +85,7 @@
                                        class="forgot_password secondaryAction float-right "
                                        href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
                                 </div>
+                            <input type="hidden" name="next" value="{{ request.GET.next }}" />
                             </form>
                             {% if socialaccount_providers %}
                                 <p>{% blocktrans with site.name as site_name %}Please sign in with one

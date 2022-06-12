@@ -36,6 +36,8 @@ urlpatterns = [
 
     path('accounts/', include(('accounts.urls', 'accounts'), namespace='accounts')),
 
+    path('announcements/', include(('announcements.urls', 'announcements'), namespace='announcements')),
+
     path('submissions/', include(('submissions.urls', 'submissions'), namespace='submissions')),
 
     path(r'^ajax_select/', include(ajax_select_urls))
