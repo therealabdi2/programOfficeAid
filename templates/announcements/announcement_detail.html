@@ -116,11 +116,11 @@
                                                                     {{ comment.text }}
                                                                 </p>
                                                                 {% if user.is_authenticated %}
-                                                                    <div class="post-footer liked_comment">
+                                                                    <div class="post-footer liked_comment-{{ comment.pk }}">
                                                                         <form
                                                                                 hx-post="{% url 'announcements:like_comment' comment.pk %}"
-                                                                                hx-swap="outerHTML" hx-target="#Wrapper"
-                                                                                hx-select="#Wrapper">
+                                                                                hx-swap="outerHTML" hx-target=".liked_comment-{{ comment.pk }}"
+                                                                                hx-select=".liked_comment-{{ comment.pk }}">
                                                                             {% csrf_token %}
 
                                                                             <span class="button-love">
@@ -183,12 +183,12 @@
                                                                                 {{ reply.text }}
                                                                             </p>
                                                                             {% if user.is_authenticated %}
-                                                                                <div class="post-footer liked_reply">
+                                                                                <div class="post-footer liked_reply-{{ reply.pk }}">
                                                                                     <form
                                                                                             hx-post="{% url 'announcements:like_comment' reply.pk %}"
                                                                                             hx-swap="outerHTML"
-                                                                                            hx-target="#Wrapper"
-                                                                                            hx-select="#Wrapper">
+                                                                                            hx-target=".liked_reply-{{ reply.pk }}"
+                                                                                            hx-select=".liked_reply-{{ reply.pk }}">
                                                                                         {% csrf_token %}
 
                                                                                         <span class="button-love">
