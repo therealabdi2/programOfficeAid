@@ -1,34 +1,43 @@
-import datetime
-
 from django.test import TestCase
-from django.utils import timezone
+from django.urls import reverse
 
-from courses.models import Session
+from accounts.models import Programme, Department, Faculty
+from courses.models import Course, CourseType, CourseCategory
 
 
-class SessionModelTests(TestCase):
-    def test_if_session_dates_were_published_correctly(self):
-        """
-        returns True for session whose session_start_date comes before than
-        session_end_date
-        """
-        time_start = timezone.now()
-        time_end = timezone.now() + datetime.timedelta(days=1)
-        session = Session(session_start_date=time_start, session_end_date=time_end)
+class CourseTest(TestCase):
 
-        # check if session_start_date is less than session_end_date
-        self.assertIs(session.valid_session_date(), True)
+    def setUp(self):
+        faculty = Faculty.objects.create(faculty_name='Test Faculty')
+        department = Department.objects.create(department_name='Test Department', faculty=faculty)
+        course_category = CourseCategory.objects.create(course_category_name='Test_category')
+        course_type = CourseType.objects.create(course_type_name='Test_type',
+                                                course_type_category=course_category,
+                                                required_credits=21)
+        programme = Programme.objects.create(degree_name='Test_program', department=department)
 
-    # check if joining date is less than joining deadline
-    def test_if_joining_date_is_less_than_joining_deadline(self):
-        """
-        returns True for session whose joining_date comes before than
-        joining_deadline
-        """
-        time_start = timezone.now()
-        time_end = timezone.now() + datetime.timedelta(days=1)
-        joining = Session(joining_date=time_start, joining_deadline=time_end)
+        self.course = Course.objects.create(
+            course_name='Test 123',
+            course_code='T123',
+            course_details='This is a test course',
+            course_credit=3,
+            course_type=course_type,
+            offered_in_semester=1
+        )
+        self.course.course_programme.set([programme])
 
-        # check if joining_date is less than joining_deadline
-        self.assertIs(joining.valid_joining_date(), True)
+    def test_course_listing(self):
+        faculty = Faculty.objects.create(faculty_name='Test Faculty')
+        department = Department.objects.create(department_name='Test Department', faculty=faculty)
+        course_category = CourseCategory.objects.create(course_category_name='Test_category')
+        course_type = CourseType.objects.create(course_type_name='Test_type',
+                                                course_type_category=course_category,
+                                                required_credits=21)
 
+        self.assertEqual(f'{self.course.course_name}', 'Test 123')
+        self.assertEqual(f'{self.course.course_code}', 'T123')
+        self.assertEqual(f'{self.course.course_details}', 'This is a test course')
+        self.assertEqual(f'{self.course.course_credit}', '3')
+        self.assertEqual(f'{self.course.course_type}', course_type.course_type_name)
+        self.assertEqual(self.course.course_programme.all()[0].degree_name, 'Test_program')
+        self.assertEqual(f'{self.course.offered_in_semester}', '1')
