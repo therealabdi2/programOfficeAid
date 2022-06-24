@@ -19,6 +19,7 @@ from django.conf.urls import include
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
+from django.views.decorators.cache import cache_page
 
 from programOfficeAid.views import HomeView, AboutView, ServicesView
 
@@ -26,9 +27,9 @@ admin.autodiscover()
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', HomeView.as_view(), name='home'),
-    path('about/', AboutView.as_view(), name='about'),
-    path('services/', ServicesView.as_view(), name='services'),
+    path('', cache_page(60 * 43800)(HomeView.as_view()), name='home'),
+    path('about/', cache_page(60 * 43800)(AboutView.as_view()), name='about'),
+    path('services/', cache_page(60 * 43800)(ServicesView.as_view()), name='services'),
 
     path('api-auth/', include('rest_framework.urls')),
 
@@ -46,4 +47,3 @@ urlpatterns = [
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-

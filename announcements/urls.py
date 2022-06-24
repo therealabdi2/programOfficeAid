@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.urls import path
+from django.views.decorators.cache import cache_page
 
 from announcements.views import AllAnnouncementsView, AnnouncementDetailView, DeleteCommentView, LikeAnnouncementView, \
     LikeCommentVIew
@@ -7,7 +8,7 @@ from announcements.views import AllAnnouncementsView, AnnouncementDetailView, De
 app_name = 'announcements'
 
 urlpatterns = [
-    path('all_announcements/', AllAnnouncementsView.as_view(), name='all_announcements'),
+    path('all_announcements/', cache_page(60 * 15)(AllAnnouncementsView.as_view()), name='all_announcements'),
     path('announcement_detail/<int:pk>/', AnnouncementDetailView.as_view(), name='announcement_detail'),
     path('like/<int:pk>/', login_required(LikeAnnouncementView.as_view()), name='like_post'),
     path('like_comment/<int:pk>/', login_required(LikeCommentVIew.as_view()), name='like_comment'),
