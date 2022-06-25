@@ -226,3 +226,8 @@ EMAIL_PORT = config('EMAIL_PORT', cast=int)
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
+
+# Session
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True  # optional, as this will log you out when browser is closed
+SESSION_COOKIE_AGE = 300  # log user out after 300 seconds of inactivity
+SESSION_SAVE_EVERY_REQUEST = True  # Will prevent from logging you out after 300 seconds
