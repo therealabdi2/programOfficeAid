@@ -27,9 +27,9 @@ admin.autodiscover()
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', cache_page(60 * 43800)(HomeView.as_view()), name='home'),
-    path('about/', cache_page(60 * 43800)(AboutView.as_view()), name='about'),
-    path('services/', cache_page(60 * 43800)(ServicesView.as_view()), name='services'),
+    path('', HomeView.as_view(), name='home'),
+    path('about/', AboutView.as_view(), name='about'),
+    path('services/', ServicesView.as_view(), name='services'),
 
     path('api-auth/', include('rest_framework.urls')),
 

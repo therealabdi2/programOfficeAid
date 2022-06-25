@@ -1,10 +1,10 @@
 {% extends "base/base.html" %}
 {% load static %}
-
+{% load cache %}
 {% block head_title %}Program Office Aid{% endblock %}
 
+{% cache 500 home_body %}
 {% block content %}
-
     <div class="mfn-main-slider" id="mfn-rev-slider">
         <div id="rev_slider_1_1_wrapper" class="rev_slider_wrapper fullwidthbanner-container"
              data-source="gallery"
@@ -315,4 +315,5 @@
     </div>
 
 {% endblock %}
+{% endcache %}
 

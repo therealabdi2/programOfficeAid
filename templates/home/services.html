@@ -1,8 +1,10 @@
 {% extends "base/base.html" %}
 {% load static %}
+{% load cache %}
 
 {% block head_title %}Services - POA{% endblock %}
 
+{% cache 500 service_page_body %}
 {% block content %}
     <div class="mfn-main-slider" id="mfn-rev-slider">
         <div id="rev_slider_1_1_wrapper" class="rev_slider_wrapper fullwidthbanner-container"
@@ -220,3 +222,4 @@
         </div>
     </div>
 {% endblock %}
+{% endcache %}
