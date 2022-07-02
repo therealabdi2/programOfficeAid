@@ -40,9 +40,3 @@ class StudentJoiningForm(ModelForm):
             raise ValidationError(
                 f'The max amount of credit hours allocated for this session is 21. '
                 f'You have selected {total_credits_hours} credit hours.')
-
-        # credit_hours = sum(courses.values_list('course_credit', flat=True))
-        # if credit_hours > 21:
-        #     raise ValidationError(
-        #         f'The max amount of credit hours allocated for this session is 21. '
-        #         f'You have selected {credit_hours} credit hours.')
