@@ -3,7 +3,8 @@ from import_export import resources
 from import_export.admin import ImportExportModelAdmin
 
 # Register your models here.
-from courses.models import Course, CourseType, CourseCategory, Session
+from courses.models import Course, CourseType, CourseCategory, Session, OfferedCourses
+from accounts.models import Programme
 
 
 class CourseInline(admin.TabularInline):
@@ -58,6 +59,32 @@ class CourseCategoryAdmin(admin.ModelAdmin):
     inlines = [CourseTypeInline]
 
 
+class OfferedCoursesAdmin(admin.ModelAdmin):
+    list_display = 'semester', 'offered_to', 'courses_offered'
+    list_filter = ['semester', 'programme']
+    search_fields = ['semester', 'programme']
+    search_help_text = 'Search by semester or programme'
+    list_per_page = 10
+    filter_horizontal = ['course', 'programme']
+
+    fieldsets = [
+        (None, {'fields': ['semester']}),
+        ('Select Programmes', {'fields': ['programme']}),
+        ('Select Courses', {'fields': ['course']}),
+
+    ]
+
+    def offered_to(self, obj):
+        return ", ".join([
+            programme.degree_name for programme in obj.programme.all()
+        ])
+
+    def courses_offered(self, obj):
+        return ", ".join([
+            course.course_name for course in obj.course.all()
+        ])
+
+
 class SessionAdmin(admin.ModelAdmin):
     search_fields = ['session_name', 'session_year']
     search_help_text = 'Search by session name e.g SPR 2022'
@@ -70,3 +97,4 @@ admin.site.register(Course, CourseAdmin)
 admin.site.register(CourseType, CourseTypeAdmin)
 admin.site.register(CourseCategory, CourseCategoryAdmin)
 admin.site.register(Session, SessionAdmin)
+admin.site.register(OfferedCourses, OfferedCoursesAdmin)

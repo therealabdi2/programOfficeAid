@@ -1,0 +1,61 @@
+
+<div class="offered_courses">
+    <table class="table-striped table-hover">
+        <caption><div class="alert alert_warning">
+            <div class="alert_wrapper">
+                You may enroll in courses failed in any previous semester.
+            </div>
+        </div></caption>
+        <thead class="thead-dark">
+        <tr class="table-primary">
+            <th>Courses Code</th>
+            <th>Course</th>
+            <th>Prerequisite(s)</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for course in offered_courses %}
+            <tr class="table-success">
+                <td>{{ course.0 }}</td>
+                <td>{{ course.1 }}</td>
+                <td>{{ course.2 }}</td>
+            </tr>
+
+            </tbody>
+        {% endfor %}
+        <div class="alert alert_success">
+            <div class="alert_wrapper">
+                List of courses offered for the current session
+            </div>
+        </div>
+    <div class="previous_courses">
+    <table class="table-striped table-hover">
+        <div class="alert alert_info">
+            <div class="alert_wrapper">
+               Following are the courses you have enrolled in previous semesters.
+            </div>
+        </div>
+        <thead class="thead-dark">
+        <tr class="table-primary">
+            <th>Courses Code</th>
+            <th>Course</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for course in previous_courses %}
+            <tr class="table-success">
+                <td>{{ course.0 }}</td>
+                <td>{{ course.1 }}</td>
+
+            </tr>
+
+            </tbody>
+        {% endfor %}
+    </table>
+
+</div>
+
+    </table>
+
+</div>
+

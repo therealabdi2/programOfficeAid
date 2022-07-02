@@ -7,7 +7,7 @@ from django.views import View
 from django.views.generic import ListView, DetailView, UpdateView
 
 from accounts.models import StudentProfile
-from courses.models import Session
+from courses.models import Session, OfferedCourses, Course
 from submissions.forms import StudentJoiningForm
 from submissions.models import Joining
 
@@ -16,11 +16,6 @@ class JoiningFormView(ListView):
     model = Joining
     template_name = 'submissions/joining.html'
     context_object_name = 'joiningforms'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['session_deadline'] = Session.objects.latest('session_start_date')
-        return context
 
     def get_queryset(self):
         profile = get_object_or_404(StudentProfile, student_id=self.request.user.id)
@@ -57,10 +52,10 @@ class JoiningDetailView(DetailView):
 
 class JoiningCreateView(View):
     def get(self, request):
-        form = StudentJoiningForm()
+        student_joining_form = StudentJoiningForm()
         session_deadline = Session.objects.latest('session_start_date')
 
-        context = {'form': form,
+        context = {'form': student_joining_form,
                    'session_deadline': session_deadline
                    }
         return render(request, 'submissions/create_joining_form.html', context)
@@ -87,11 +82,32 @@ class JoiningUpdateView(UpdateView):
     def form_valid(self, form):
         # check status of the joining object
         if self.object.form_status != 'Pending':
-            messages.error(self.request, f'You cannot update this form as it has already been {self.object.form_status},'
-                                         f' by Program Office Staff')
+            messages.error(self.request,
+                           f'You cannot update this form as it has already been {self.object.form_status},'
+                           f' by Program Office Staff')
             return redirect('submissions:joining_form')
         return super().form_valid(form)
 
     def get_success_url(self):
         messages.success(self.request, 'Your form has been updated.')
         return reverse("submissions:joining_form")
+
+
+# get courses offered in semester for a specific programme
+class OfferedCoursesView(View):
+    def get(self, request, programme):
+        semester = request.GET.get('semester')
+        offered_courses = OfferedCourses.objects.filter(programme__degree_name=programme,
+                                                        semester=semester).values_list('course__course_code',
+                                                                                       'course__course_name',
+                                                                                       'course__course_prerequisite__course_name')
+
+        # get previous courses taken by the student in the joining form that were accepted
+        previous_courses = Joining.objects.filter(student__student_id=request.user.id,
+                                                  form_status='Accepted').values_list('course__course_code',
+                                                                                      'course__course_name',)
+        context = {
+            'offered_courses': offered_courses,
+            'previous_courses': previous_courses,
+        }
+        return render(request, 'submissions/offered_courses.html', context)

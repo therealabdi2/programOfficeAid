@@ -56,6 +56,16 @@ def get_session_end():
     return timezone.now() + timedelta(days=120)
 
 
+class OfferedCourses(models.Model):
+    course = models.ManyToManyField(Course, help_text="Select the course(s) to be offered")
+    semester = models.PositiveSmallIntegerField(default=1, blank=True, null=True,
+                                                help_text="Designates the semester in which the courses are "
+                                                          "offered")
+
+    programme = models.ManyToManyField('accounts.Programme',
+                                       help_text='Select the programme(s) the course(s) belong to')
+
+
 class Session(models.Model):
     SESSION_CHOICES = (
         ('Fall', 'Fall'),
@@ -63,9 +73,7 @@ class Session(models.Model):
         ('Summer', 'Summer'),
     )
 
-    session_name = models.CharField(max_length=20, choices=SESSION_CHOICES,
-                                    help_text="Please use the following format: <em>SPR-2022</em>.", default='Fall')
-
+    session_name = models.CharField(max_length=20, choices=SESSION_CHOICES, default='Fall')
     session_start_date = models.DateField(help_text="Please use the following format: <em>YYYY-MM-DD</em>.",
                                           default=timezone.now)
 
@@ -81,6 +89,9 @@ class Session(models.Model):
 
     joining_deadline = models.DateField(default=get_joining_deadline,
                                         help_text="Please use the following format: <em>YYYY-MM-DD</em>.")
+
+    def get_latest_session(self):
+        return self.objects.latest('session_start_date')
 
     def is_deadline(self):
         return self.joining_deadline <= datetime.datetime.today().date()
