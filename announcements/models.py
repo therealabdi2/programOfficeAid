@@ -36,6 +36,3 @@ class Comment(models.Model):
 
     def num_like(self):
         return self.liked.count()
-
-    class Meta:
-        ordering = ['-timestamp']
