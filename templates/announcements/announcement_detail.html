@@ -98,7 +98,7 @@
 
                                                 <ol class="commentlist">
                                                     {% for comment in comments %}
-                                                        <li class="comment commentbyuser comment-author-admin bypostauthor even thread-even depth-1 parent"
+                                                        <li class="comment commentbyuser_{{ comment.pk }} comment-author-admin bypostauthor even thread-even depth-1 parent"
                                                             id="comment-2">
                                                             <div id="div-comment-2" class="comment-body">
                                                                 <div class="comment-author vcard">
@@ -123,8 +123,8 @@
                                                                                         hx-post="{% url 'announcements:delete_comment' comment.pk %}"
                                                                                         hx-swap="outerHTML"
                                                                                         hx-swap="outerHTML"
-                                                                                        hx-target="#Wrapper"
-                                                                                        hx-select="#Wrapper"
+                                                                                        hx-target=".commentlist"
+                                                                                        hx-select=".commentlist"
                                                                                         hx-confirm="Are you sure you want to delete this comment?">
                                                                                     {% csrf_token %}
                                                                                     <button class="btn btn-outline-light btn-sm"
@@ -186,9 +186,9 @@
 
                                                             </div>
 
-                                                            <ul class="children">
+                                                            <ul class="children comment_replies">
                                                                 {% for reply in comment.replies.all %}
-                                                                    <li class="comment replybyuser comment-author-admin bypostauthor odd alt depth-2 parent">
+                                                                    <li class="comment replybyuser_{{ reply.pk }} comment-author-admin bypostauthor odd alt depth-2 parent">
                                                                         <div
                                                                                 class="comment-body">
                                                                             <div class="comment-author vcard">
@@ -294,10 +294,11 @@
                                                                                 <form
                                                                                         hx-post="{% url 'announcements:announcement_detail' announcement.pk %}"
                                                                                         hx-swap="outerHTML"
-                                                                                        hx-target="#Wrapper"
-                                                                                        hx-select="#Wrapper"
+                                                                                        hx-target=".commentbyuser_{{ comment.pk }}"
+                                                                                        hx-select=".commentbyuser_{{ comment.pk }}"
                                                                                         hx-push-url="true"
-                                                                                        hx-encoding='multipart/form-data'>
+                                                                                        hx-encoding='multipart/form-data'
+                                                                                        _="on submit toggle @disabled on .reply_submit until htmx:afterOnLoad then put '' into id_text's value">
 
                                                                                     <!-- Security token -->
                                                                                     {% csrf_token %}
@@ -307,7 +308,8 @@
                                                                                     <input type="hidden" name="ParentId"
                                                                                            value="{{ comment.pk }}">
 
-                                                                                    <input type="submit" value="Submit">
+                                                                                    <input class="reply_submit"
+                                                                                           type="submit" value="Submit">
                                                                                 </form>
                                                                             </div>
 
@@ -346,7 +348,8 @@
                                                               hx-target="#Wrapper"
                                                               hx-select="#Wrapper"
                                                               hx-push-url="true"
-                                                              hx-encoding='multipart/form-data'>
+                                                              hx-encoding='multipart/form-data'
+                                                              _="on submit toggle @disabled on .comment_submit until htmx:afterOnLoad then put '' into inputs's value">
 
                                                             <!-- Security token -->
                                                             {% csrf_token %}
@@ -355,7 +358,7 @@
                                                             {{ form }}
                                                             <input type="hidden" name="ParentId" value="">
 
-                                                            <input type="submit" value="Submit">
+                                                            <input class="comment_submit" type="submit" value="Submit">
                                                         </form>
                                                     {% endif %}
                                             </div>
