@@ -14,8 +14,15 @@ from submissions.models import Joining
 
 class JoiningFormView(ListView):
     model = Joining
+    session_deadline = Session.objects.latest('session_start_date').is_deadline()
     template_name = 'submissions/joining.html'
     context_object_name = 'joiningforms'
+
+    # give session in context
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['session_deadline'] = self.session_deadline
+        return context
 
     def get_queryset(self):
         profile = get_object_or_404(StudentProfile, student_id=self.request.user.id)
@@ -53,7 +60,7 @@ class JoiningDetailView(DetailView):
 class JoiningCreateView(View):
     def get(self, request):
         student_joining_form = StudentJoiningForm()
-        session_deadline = Session.objects.latest('session_start_date')
+        session_deadline = Session.objects.latest('session_start_date').is_deadline()
 
         context = {'form': student_joining_form,
                    'session_deadline': session_deadline
@@ -97,15 +104,16 @@ class JoiningUpdateView(UpdateView):
 class OfferedCoursesView(View):
     def get(self, request, programme):
         semester = request.GET.get('semester')
-        offered_courses = OfferedCourses.objects.filter(programme__degree_name=programme,
-                                                        semester=semester).values_list('course__course_code',
-                                                                                       'course__course_name',
-                                                                                       'course__course_prerequisite__course_name')
+        # prefetch the courses names offered in the semester
+        offered_courses = OfferedCourses.objects.filter(semester=semester, programme__degree_name=programme). \
+            prefetch_related('course').values_list('course__course_code',
+                                                   'course__course_name',
+                                                   'course__course_prerequisite__course_name')
 
-        # get previous courses taken by the student in the joining form that were accepted
         previous_courses = Joining.objects.filter(student__student_id=request.user.id,
-                                                  form_status='Accepted').values_list('course__course_code',
-                                                                                      'course__course_name',)
+                                                  form_status='Accepted'). \
+            prefetch_related('course').values_list('course__course_code',
+                                                   'course__course_name', )
         context = {
             'offered_courses': offered_courses,
             'previous_courses': previous_courses,
