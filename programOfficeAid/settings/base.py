@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     'announcements',
     'courses',
     'submissions',
+    'timetable',
     'crispy_forms',
     'import_export',
     'django_extensions',

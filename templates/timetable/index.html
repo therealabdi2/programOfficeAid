@@ -1,0 +1,25 @@
+
+{% extends 'timetable/base.html' %}
+{% block content %}
+
+{% load static %}
+<div class="inner">
+	<div class="vec">
+		<div class="img">
+		<img src="{% static 'timetable/img/vect.jpg' %}">
+		</div>
+
+</div>
+<div class="card">
+	<div class="txt">
+		<h2>Timetable Generator</h2>
+		<p>After setting up all and adding all the details press the button below</p>
+        <p>Please wait for at least 5 minutes since the algorithm needs to parse many options</p>
+	</div>
+	<div class="crdbtn">
+		<a href="{% url 'timetable:timetable' %}" class="btn">Generate Timetable</a>
+
+	</div>
+</div>
+{% endblock %}
+
