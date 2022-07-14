@@ -146,13 +146,13 @@
                                                                             {% csrf_token %}
 
                                                                             <span class="button-love">
-                                                                <button class="btn btn-outline-light btn-sm"
-                                                                        type="submit" name="post_id"
-                                                                        value="{{ comment.pk }}">
+                                                                                <button class="btn btn-outline-light btn-sm"
+                                                                                        type="submit" name="post_id"
+                                                                                        value="{{ comment.pk }}">
 
-                                                            <span class="love-text"></span><a href="#"
-                                                                                              class="mfn-love "
-                                                                                              data-id="2283">
+                                                                                        <span class="love-text"></span><a href="#"
+                                                                                                                          class="mfn-love "
+                                                                                                                          data-id="2283">
                                                                                         <span class="icons-wrapper">
                                                                                             {% if user in comment.liked.all %}
                                                                                                 <i class="mdi mdi-heart"></i>
@@ -163,27 +163,23 @@
 
                                                                                             {% endif %}
                                                                                             </span>
-                                                                        <span class="label">{{ comment.num_like }}</span></a>
-
-
-                                                                    </button>
-                                                                 </span>
+                                                                                            <span class="label">{{ comment.num_like }}</span></a>
+                                                                                </button>
+                                                                             </span>
                                                                         </form>
                                                                     </div>
                                                                 {% else %}
-
                                                                     <span class="love-text"></span>
                                                                     <a href="{% url 'account_login' %}?next={{ request.path }}"
                                                                        class="mfn-love "
                                                                        data-id="2283">
-                                                                <span class="icons-wrapper">
+                                                                        <span class="icons-wrapper">
 
                                                                         <i class="mdi mdi-heart-outline"></i>
-                                                                    </span>
+                                                                        </span>
                                                                         <span class="label">{{ comment.num_like }}</span></a>
 
                                                                 {% endif %}
-
                                                             </div>
 
                                                             <ul class="children comment_replies">
