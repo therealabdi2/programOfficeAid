@@ -21,9 +21,12 @@ INSTALLED_APPS = [
     'accounts',
     'announcements',
     'courses',
+    'queries',
     'submissions',
     'timetable',
+
     'crispy_forms',
+    'ckeditor',
     'import_export',
     'django_extensions',
     'django.contrib.admin',
