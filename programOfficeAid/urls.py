@@ -23,6 +23,8 @@ urlpatterns = [
 
     path('announcements/', include(('announcements.urls', 'announcements'), namespace='announcements')),
 
+    path('queries/', include(('queries.urls', 'queries'), namespace='queries')),
+
     path('submissions/', include(('submissions.urls', 'submissions'), namespace='submissions')),
 
     path('timetable/', include(('timetable.urls', 'timetable'), namespace='timetable')),

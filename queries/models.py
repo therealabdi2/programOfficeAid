@@ -16,7 +16,7 @@ class QueryPost(models.Model):
     liked = models.ManyToManyField(get_user_model(), related_name='liked_posts', blank=True, default=None)
 
     def __str__(self):
-        return self.title + " | " + self.author
+        return self.title + " | " + self.author.full_name()
 
     def num_like(self):
         return self.liked.count()

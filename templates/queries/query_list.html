@@ -1,0 +1,81 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block css_files %}
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" type="text/css"/>
+{% endblock %}
+
+{% block head_title %}Queries - POA{% endblock %}
+
+{% block content %}
+    <div class="section mcb-section"
+         style="padding-top:110px; background-color:#222f1f; background-image:url({% static "home/poa_main/images/home_poa_sectionbg2.png" %}); background-repeat:no-repeat; background-position:center top">
+        <div class="section_wrapper mcb-section-inner">
+            <div class="wrap mcb-wrap one valign-top clearfix">
+                <div class="mcb-wrap-inner">
+                    <div class="column mcb-column one column_column">
+                        <div class="column_attr clearfix align_center">
+                            <h2 style="color:#fff">Latest Queries</h2>
+                            <p class="themecolor" style="letter-spacing: 3px">
+                               Have a question? We'd love to hear from you.
+                            </p>
+                            {% include 'includes/alerts.html' %}
+                            <div id="contactWrapper">
+                        <div class="mx-auto query_card" id="form-card" style="max-width: 975px; margin-top:5px;">
+                            {% for query in queries %}
+                                <hr>
+                            <div class="post-desc-wrapper bg-white w-100">
+                                                <div class="post-desc">
+                                                    <div class="post-meta clearfix">
+                                                        <div class="author-date">
+                                                            <span class="author"><span>Asked by </span><i class="fa-solid fa-user"></i> <a href="#">{{ query.author.full_name }}</a>
+                                                            </span><span class="date"><span> at </span><i class="icon-clock"></i> {{ query.created_at }}</span>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="post-title">
+                                                        <blockquote>
+                                                            <a href="blog-single-video.html"><h2>{{ query.title }}</h2></a>
+                                                        </blockquote>
+                                                    </div>
+                                                    <div class="post-excerpt"></div>
+                                                    <div class="post-footer">
+                                                        <div class="button-love">
+                                                            <span class="love-text"></span><a href="#" class="mfn-love " data-id="190"><span class="icons-wrapper"><i class="icon-heart-empty-fa"></i><i class="icon-heart-fa"></i></span><span class="label">{{ query.num_like }}</span></a>
+                                                        </div>
+                                                        <div class="post-links">
+                                                            <i class="icon-comment-empty-fa"></i><a href="blog-single-video.html#comments" class="post-comments">{{ query.num_comment }}</a><i class="icon-doc-text"></i><a href="blog-single-video.html" class="post-more">Read more</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                            {% endfor %}
+                        </div>
+                     </div>
+                        </div>
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+                </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
