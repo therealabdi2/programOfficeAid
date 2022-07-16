@@ -4,10 +4,33 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.views import View
 
-from django.views.generic import ListView, DetailView, DeleteView
+from django.views.generic import ListView, DetailView, DeleteView, CreateView
 
 from queries.forms import QueryCommentForm
 from queries.models import QueryPost, QueryComment
+
+
+class UserQueryListView(ListView):
+    model = QueryPost
+    template_name = 'queries/query_list.html'
+    context_object_name = 'queries'
+
+    def get_queryset(self):
+        return QueryPost.objects.filter(author=self.request.user)
+
+
+class CreateQueryView(CreateView):
+    model = QueryPost
+    fields = ['title', 'body']
+    template_name = 'queries/create_query.html'
+
+    # redirect to the query detail page after creating a query
+    def get_success_url(self):
+        return reverse('queryapp:query_detail', kwargs={'pk': self.object.pk})
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
 
 
 class DeleteQueryCommentView(DeleteView):

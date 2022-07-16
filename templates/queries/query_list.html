@@ -19,6 +19,11 @@
                             <p class="themecolor" style="letter-spacing: 3px">
                                Have a question? We'd love to hear from you.
                             </p>
+                        <a href="{% url 'queryapp:make_query' %}"
+                               class="d-print-none"><span
+                                    class="mdi mdi-clipboard-edit"></span> Submit a query
+                            </a>
+
                             {% include 'includes/alerts.html' %}
                             <div id="contactWrapper">
                         <div class="mx-auto query_card" id="form-card" style="max-width: 975px; margin-top:5px;">

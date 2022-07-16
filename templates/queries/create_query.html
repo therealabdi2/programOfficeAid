@@ -1,0 +1,71 @@
+{% extends 'base/base.html' %}
+{% load crispy_forms_filters %}
+{% load static %}
+
+
+{% block head_title %}Submit Joining Form{% endblock %}
+
+{% block css_files %}
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" type="text/css"/>
+{% endblock %}
+
+{% block content %}
+    <div
+            class="section mcb-section"
+            style="
+                    padding-top: 110px;
+                    padding-bottom: 110px;
+                    background-color: #222f1f;
+                    background-image: url({% static "home/poa_main/images/home_poa_sectionbg2.png" %});
+                    background-repeat: no-repeat;
+                    background-position: center top;
+                    "
+    >
+        <div class="section_wrapper mcb-section-inner" id="main_section">
+            <div class="wrap mcb-wrap one valign-top clearfix">
+                <div class="mcb-wrap-inner">
+                    <div class="column mcb-column one column_column">
+                        <div class="column_attr clearfix align_center">
+                            <h2 style="color: #fff">Submit your query here</h2>
+                            <p class="themecolor" style="letter-spacing: 3px">Please do read the FAQ to avoid duplicate
+                                query</p>
+                            {% include 'includes/alerts.html' %}
+                        </div>
+                    </div>
+
+                    <div id="contactWrapper column one-second">
+                        <div class="card mx-auto" id="form-card" style="max-width: 325px; margin-top:5px;">
+                            <div class="card-body">
+                                {% if form.errors %}
+                                    <ul class="errorlist alert alert-error alert-danger">
+                                        {% for key, value in form.errors.items %}
+                                            <li>{% if key != '__all__' %}
+                                                <strong>{{ key }}</strong>{% endif %}{{ value }}
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                                <form action="{% url 'queryapp:make_query' %}"
+                                      method="post"
+                                      enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    {{ form.as_p }}
+
+                                    <div class="form-group column one">
+                                        <button
+                                                class="primaryAction btn-block"
+                                                type="submit">Submit
+                                            <img class="htmx-indicator spinner-cl"
+                                                 src="{% static "svg-loaders/circles.svg" %}">
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
