@@ -22,8 +22,6 @@ class AnnouncementDetailView(View):
     def get(self, request, pk):
         announcement = Announcement.objects.get(pk=pk)
         comments = Comment.objects.filter(post=announcement, reply=None)
-        replies = Comment.objects.filter(post=announcement, reply__isnull=False)
-        form = CommentForm()
         context = {'announcement': announcement,
                    'comments': comments,
                    'form': CommentForm()
