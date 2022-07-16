@@ -1,0 +1,364 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block head_title %}Query detail - POA{% endblock %}
+
+{% block css_files %}
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" type="text/css"/>
+{% endblock %}
+
+{% block content %}
+ <div
+            class="section mcb-section"
+            style="
+                    padding-top: 110px;
+                    padding-bottom: 110px;
+                    background-color: #222f1f;
+                    background-image: url({% static "home/poa_main/images/home_poa_sectionbg2.png" %});
+                    background-repeat: no-repeat;
+                    background-position: center top;
+                    "
+    >
+        <div class="section_wrapper mcb-section-inner" id="main_section">
+            <div class="wrap mcb-wrap one valign-top clearfix">
+                <div class="mcb-wrap-inner">
+                    <div class="column mcb-column one column_column">
+                        <div class="column_attr clearfix align_center">
+                            <div class="card mx-auto" id="form-card" style="max-width: 975px; margin-top:5px;">
+                                <div class="post-meta clearfix mx-auto mt-4">
+                                    <div class="author-date">
+                                                    <span style="color: #013220" class="vcard author post-author"><span
+                                                            class="label">Posted by </span><i
+                                                            class="mdi mdi-account-circle themecolor"></i> <span
+                                                            class="fn"><a
+                                                            href="mailto:{{ query.author }}">{{ query.author }}</a></span></span><span
+                                            class="date"><span class="label"> on </span><i
+                                            class="mdi mdi-calendar-clock themecolor"></i> <span
+                                            class="post-date updated">{{ query.created_at }}</span></span>
+                                    </div>
+                                </div>
+
+                                <h2 style="color: #013220">{{ query.title }}</h2>
+                                <p style="color: #013220; letter-spacing: 3px">{{ query.body|safe }}</p>
+                                {% if user.is_authenticated %}
+                                    <div class="post-footer liked_post">
+                                        <form
+                                                hx-post="{% url 'queryapp:like_query' query.pk %}"
+                                                hx-swap="outerHTML" hx-target=".liked_post"
+                                                hx-select=".liked_post">
+                                            {% csrf_token %}
+
+                                            <span class="button-love">
+                                        <button class="btn btn-outline-light btn-sm" type="submit" name="post_id"
+                                                value="{{ query.pk }}">
+
+                                            <span class="love-text"></span><a href="#"
+                                                                              class="mfn-love "
+                                                                              data-id="2283">
+                                            <span class="icons-wrapper">
+                                                {% if user in query.liked.all %}
+                                                    <i class="mdi mdi-heart"></i>
+                                                    <i class="mdi mdi-heart-outline"></i>
+                                                {% else %}
+                                                    <i class="mdi mdi-heart-outline"></i>
+                                                    <i class="mdi mdi-heart"></i>
+
+                                                {% endif %}
+                                           </span>
+                                            <span class="label">{{ query.num_like }}</span></a>
+
+
+                                        </button>
+                                     </span>
+                                        </form>
+                                    </div>
+                                {% else %}
+                                    <div class="reply">
+                                        <a rel="nofollow"
+                                           class="comment-reply-login"
+                                           href="{% url 'account_login' %}?next={{ request.path }}">Log
+                                            in to like this post</a>
+                                    </div>
+                                {% endif %}
+                            </div>
+                             {% include 'includes/alerts.html' %}
+                        </div>
+                    </div>
+                <div id="contactWrapper" class="swap-comments">
+                        <div class="card mx-auto mt-2" id="form-card" style="max-width: 975px; margin-top:5px;">
+                            <div class="column one column_blog">
+                                <div class="blog_wrapper isotope_wrapper">
+                                    <div class="posts_group lm_wrapper classic">
+                                        <div class="column one comments">
+                                            <div id="comments">
+                                                <h4 id="comments-title"> {{ query.num_comment }} comments</h4>
+
+                                                <ol class="commentlist">
+                                                    {% for comment in comments %}
+                                                        <li class="comment commentbyuser_{{ comment.pk }} comment-author-admin bypostauthor even thread-even depth-1 parent"
+                                                            id="comment-2">
+                                                            <div id="div-comment-2" class="comment-body">
+                                                                <div class="comment-author vcard">
+                                                                    <img alt=""
+                                                                         src="http://0.gravatar.com/avatar/057e2eb392b95a2ecfc9d32d554e3917?s=64&amp;d=http:%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G"
+                                                                         class="avatar avatar-64 photo"
+                                                                         height="64" width="64"><cite
+                                                                        class="fn">{{ comment.user.full_name }}</cite><span
+                                                                        class="says"> says:</span>
+                                                                </div>
+                                                                <div class="comment-meta commentmetadata themecolor">
+                                                                    {{ comment.timestamp }}
+                                                                </div>
+                                                                <p>
+                                                                    {{ comment.text }}
+                                                                </p>
+                                                                {% if user.is_authenticated %}
+                                                                    <div class="post-footer liked_comment-{{ comment.pk }}">
+                                                                        {% if user == comment.user %}
+                                                                            <div class="post-links">
+                                                                                <form
+                                                                                        hx-post="{% url 'queryapp:delete_query_comment' comment.pk %}"
+                                                                                        hx-swap="outerHTML"
+                                                                                        hx-swap="outerHTML"
+                                                                                        hx-target="#Wrapper"
+                                                                                        hx-select="#Wrapper"
+                                                                                        hx-confirm="Are you sure you want to delete this comment?">
+                                                                                    {% csrf_token %}
+                                                                                    <button class="btn btn-outline-light btn-sm"
+                                                                                            type="submit">
+                                                                                    <span class="icons-wrapper">
+                                                                                            <i class="mdi mdi-delete-forever-outline themecolor"></i>
+                                                                                    </span>
+                                                                                    </button>
+                                                                                </form>
+                                                                            </div>
+
+                                                                        {% endif %}
+
+                                                                        <form
+                                                                                hx-post="{% url 'queryapp:like_query_comment' comment.pk %}"
+                                                                                hx-swap="outerHTML"
+                                                                                hx-target=".liked_comment-{{ comment.pk }}"
+                                                                                hx-select=".liked_comment-{{ comment.pk }}">
+                                                                            {% csrf_token %}
+
+                                                                            <span class="button-love">
+                                                                                <button class="btn btn-outline-light btn-sm"
+                                                                                        type="submit" name="post_id"
+                                                                                        value="{{ comment.pk }}">
+
+                                                                                <span class="love-text"></span><a href="#"
+                                                                                              class="mfn-love "
+                                                                                              data-id="2283">
+                                                                                        <span class="icons-wrapper">
+                                                                                            {% if user in comment.liked.all %}
+                                                                                                <i class="mdi mdi-heart"></i>
+                                                                                                <i class="mdi mdi-heart-outline"></i>
+                                                                                            {% else %}
+                                                                                                <i class="mdi mdi-heart-outline"></i>
+                                                                                                <i class="mdi mdi-heart"></i>
+
+                                                                                            {% endif %}
+                                                                                            </span>
+                                                                                <span class="label">{{ comment.num_like }}</span></a>
+                                                                                </button>
+                                                                            </span>
+                                                                        </form>
+                                                                    </div>
+                                                                {% else %}
+
+                                                                    <span class="love-text"></span>
+                                                                    <a href="{% url 'account_login' %}?next={{ request.path }}"
+                                                                       class="mfn-love "
+                                                                       data-id="2283">
+                                                                        <span class="icons-wrapper">
+                                                                        <i class="mdi mdi-heart-outline"></i>
+                                                                        </span>
+                                                                        <span class="label">{{ comment.num_like }}</span></a>
+                                                                {% endif %}
+                                                            </div>
+
+                                                            <ul class="children comment_replies">
+                                                                {% for reply in comment.replies.all %}
+                                                                    <li class="comment replybyuser_{{ reply.pk }} comment-author-admin bypostauthor odd alt depth-2 parent">
+                                                                        <div
+                                                                                class="comment-body">
+                                                                            <div class="comment-author vcard">
+                                                                                <img alt=""
+                                                                                     src="http://0.gravatar.com/avatar/057e2eb392b95a2ecfc9d32d554e3917?s=64&amp;d=http:%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G"
+                                                                                     class="avatar avatar-64 photo"
+                                                                                     height="64" width="64"><cite
+                                                                                    class="fn">{{ reply.user.full_name }}</cite><span
+                                                                                    class="says"> says:</span>
+                                                                            </div>
+                                                                            <div class="comment-meta commentmetadata themecolor">
+                                                                                {{ reply.timestamp }}
+                                                                            </div>
+                                                                            <p>
+                                                                                {{ reply.text }}
+                                                                            </p>
+                                                                            {% if user.is_authenticated %}
+
+                                                                                <div class="post-footer liked_reply-{{ reply.pk }}">
+                                                                                    {% if user == reply.user %}
+                                                                                        <div class="post-links">
+                                                                                            <form
+                                                                                                    hx-post="{% url 'queryapp:delete_query_comment' reply.pk %}"
+                                                                                                    hx-swap="outerHTML"
+                                                                                                    hx-swap="outerHTML"
+                                                                                                    hx-target="#Wrapper"
+                                                                                                    hx-select="#Wrapper"
+                                                                                                    hx-confirm="Are you sure you want to delete this reply?">
+                                                                                                {% csrf_token %}
+                                                                                                <button class="btn btn-outline-light btn-sm"
+                                                                                                        type="submit">
+                                                                                    <span class="icons-wrapper">
+                                                                                            <i class="mdi mdi-delete-forever-outline themecolor"></i>
+                                                                                    </span>
+                                                                                                </button>
+                                                                                            </form>
+                                                                                        </div>
+                                                                                    {% endif %}
+
+
+                                                                                    <form
+                                                                                            hx-post="{% url 'queryapp:like_query_comment' reply.pk %}"
+                                                                                            hx-swap="outerHTML"
+                                                                                            hx-target=".liked_reply-{{ reply.pk }}"
+                                                                                            hx-select=".liked_reply-{{ reply.pk }}">
+                                                                                        {% csrf_token %}
+
+                                                                                        <span class="button-love">
+                                                                                            <button class="btn btn-outline-light btn-sm"
+                                                                                                    type="submit" name="post_id"
+                                                                                                    value="{{ reply.pk }}">
+
+                                                                                        <span class="love-text"></span><a
+                                                                                                    href="#"
+                                                                                                    class="mfn-love "
+                                                                                                    data-id="2283">
+                                                                            <span class="icons-wrapper">
+                                                                                {% if user in reply.liked.all %}
+                                                                                    <i class="mdi mdi-heart"></i>
+                                                                                    <i class="mdi mdi-heart-outline"></i>
+                                                                                {% else %}
+                                                                                    <i class="mdi mdi-heart-outline"></i>
+                                                                                    <i class="mdi mdi-heart"></i>
+
+                                                                                {% endif %}
+                                                                                   </span>
+                                                                                    <span class="label">{{ reply.num_like }}</span></a>
+                                                                                </button>
+                                                                                     </span>
+                                                                                    </form>
+
+                                                                                </div>
+                                                                            {% else %}
+
+                                                                                <span class="love-text"></span>
+                                                                                <a href="{% url 'account_login' %}?next={{ request.path }}"
+                                                                                   class="mfn-love "
+                                                                                   data-id="2283">
+                                                                <span class="icons-wrapper">
+
+                                                                        <i class="mdi mdi-heart-outline"></i>
+                                                                    </span>
+                                                                                    <span class="label">{{ reply.num_like }}</span></a>
+
+
+                                                                            {% endif %}
+
+                                                                        </div>
+
+                                                                    </li>
+                                                                {% endfor %}
+                                                            </ul>
+                                                        </li>
+                                                        <div class="reply mx-0 my-0">
+                                                            <div class="accordion">
+                                                                <div class="mfn-acc accordion_wrapper">
+                                                                    <div class="question">
+                                                                        <div class="title">
+                                                                            <i
+                                                                                    class="mdi mdi-message-reply-text"></i>Reply
+                                                                        </div>
+                                                                        {% if user.is_authenticated %}
+                                                                            <div class="answer">
+                                                                                <form
+                                                                                        hx-post=""
+                                                                                        hx-swap="outerHTML"
+                                                                                        hx-target=".commentbyuser_{{ comment.pk }}"
+                                                                                        hx-select=".commentbyuser_{{ comment.pk }}"
+                                                                                        hx-encoding='multipart/form-data'
+                                                                                        _="on submit toggle @disabled on .query_reply_submit until htmx:afterOnLoad then put '' into id_text's value">
+
+                                                                                    <!-- Security token -->
+                                                                                    {% csrf_token %}
+
+                                                                                    <!-- Using the formset -->
+                                                                                    {{ form }}
+                                                                                    <input type="hidden" name="ParentId"
+                                                                                           value="{{ comment.pk }}">
+
+                                                                                    <input class="query_reply_submit"
+                                                                                           type="submit" value="Submit">
+                                                                                </form>
+                                                                            </div>
+
+                                                                        {% else %}
+                                                                            <div class="answer">
+                                                                                <p class="must-log-in">
+                                                                                    You must be <a
+                                                                                        href="{% url 'account_login' %}?next={{ request.path }}">logged
+                                                                                    in</a> to post a
+                                                                                    reply.
+                                                                                </p>
+                                                                            </div>
+                                                                        {% endif %}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    {% endfor %}
+                                                </ol>
+
+                                                <div id="respond" class="comment-respond">
+                                                    <h3 id="reply-title" class="comment-reply-title">Leave a
+                                                        Comment </h3>
+                                                    {% if not user.is_authenticated %}
+                                                        <p class="must-log-in">
+                                                            You must be <a
+                                                                href="{% url 'account_login' %}?next={{ request.path }}">logged
+                                                            in</a> to post a
+                                                            comment.
+                                                        </p>
+
+                                                        </div>
+                                                    {% else %}
+                                                       <form hx-post="{% url 'queryapp:query_detail' query.pk %}"
+                                                              hx-swap="outerHTML"
+                                                              hx-target="#Wrapper"
+                                                              hx-select="#Wrapper"
+                                                              hx-encoding='multipart/form-data'
+                                                              _="on submit toggle @disabled on .query_comment_submit until htmx:afterOnLoad then put '' into inputs's value">
+                                                            <!-- Security token -->
+                                                            {% csrf_token %}
+                                                            <!-- Using the formset -->
+                                                            {{ form }}
+                                                            <input type="hidden" name="ParentId" value="">
+                                                            <input class="query_comment_submit" type="submit" value="Submit">
+                                                        </form>
+                                                    {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+ </div>
+{% endblock %}
