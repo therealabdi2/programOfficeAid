@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block content %}
- <div
+    <div
             class="section mcb-section"
             style="
                     padding-top: 110px;
@@ -44,7 +44,7 @@
                                 {% if user.is_authenticated %}
                                     <div class="post-footer liked_post">
                                         <form
-                                                hx-post="{% url 'queryapp:like_query' query.pk %}"
+                                                hx-post="{% url 'queryapp:like_query' query.slug %}"
                                                 hx-swap="outerHTML" hx-target=".liked_post"
                                                 hx-select=".liked_post">
                                             {% csrf_token %}
@@ -72,7 +72,28 @@
                                         </button>
                                      </span>
                                         </form>
+                                     {% if user == query.author %}
+                                        <div class="post-links">
+                                            <form
+                                                    hx-post="{% url 'queryapp:delete_query' query.slug %}"
+                                                    hx-swap="outerHTML"
+                                                    hx-swap="outerHTML"
+                                                    hx-target="#Wrapper"
+                                                    hx-select="#Wrapper"
+                                                    hx-confirm="Are you sure you want to delete this query?">
+                                                {% csrf_token %}
+                                                <button class="btn btn-outline-light btn-sm"
+                                                        type="submit">
+                                                                                    <span class="icons-wrapper">
+                                                                                            <i class="mdi mdi-delete-forever-outline themecolor"></i>
+                                                                                    </span>
+                                                </button>
+                                            </form>
+                                        </div>
+
+                                    {% endif %}
                                     </div>
+
                                 {% else %}
                                     <div class="reply">
                                         <a rel="nofollow"
@@ -82,10 +103,10 @@
                                     </div>
                                 {% endif %}
                             </div>
-                             {% include 'includes/alerts.html' %}
+                            {% include 'includes/alerts.html' %}
                         </div>
                     </div>
-                <div id="contactWrapper" class="swap-comments">
+                    <div id="contactWrapper" class="swap-comments">
                         <div class="card mx-auto mt-2" id="form-card" style="max-width: 975px; margin-top:5px;">
                             <div class="column one column_blog">
                                 <div class="blog_wrapper isotope_wrapper">
@@ -148,9 +169,10 @@
                                                                                         type="submit" name="post_id"
                                                                                         value="{{ comment.pk }}">
 
-                                                                                <span class="love-text"></span><a href="#"
-                                                                                              class="mfn-love "
-                                                                                              data-id="2283">
+                                                                                <span class="love-text"></span><a
+                                                                                        href="#"
+                                                                                        class="mfn-love "
+                                                                                        data-id="2283">
                                                                                         <span class="icons-wrapper">
                                                                                             {% if user in comment.liked.all %}
                                                                                                 <i class="mdi mdi-heart"></i>
@@ -231,7 +253,8 @@
 
                                                                                         <span class="button-love">
                                                                                             <button class="btn btn-outline-light btn-sm"
-                                                                                                    type="submit" name="post_id"
+                                                                                                    type="submit"
+                                                                                                    name="post_id"
                                                                                                     value="{{ reply.pk }}">
 
                                                                                         <span class="love-text"></span><a
@@ -336,7 +359,7 @@
 
                                                         </div>
                                                     {% else %}
-                                                       <form hx-post="{% url 'queryapp:query_detail' query.pk %}"
+                                                        <form hx-post="{% url 'queryapp:query_detail' query.slug %}"
                                                               hx-swap="outerHTML"
                                                               hx-target="#Wrapper"
                                                               hx-select="#Wrapper"
@@ -347,7 +370,8 @@
                                                             <!-- Using the formset -->
                                                             {{ form }}
                                                             <input type="hidden" name="ParentId" value="">
-                                                            <input class="query_comment_submit" type="submit" value="Submit">
+                                                            <input class="query_comment_submit" type="submit"
+                                                                   value="Submit">
                                                         </form>
                                                     {% endif %}
                                             </div>
@@ -360,5 +384,5 @@
                 </div>
             </div>
         </div>
- </div>
+    </div>
 {% endblock %}

@@ -43,7 +43,7 @@
                                                     </div>
                                                     <div class="post-title">
                                                         <blockquote>
-                                                            <a href="{% url 'queryapp:query_detail' query.pk %}"><h2>{{ query.title }}</h2></a>
+                                                            <a href="{% url 'queryapp:query_detail' query.slug %}"><h2>{{ query.title }}</h2></a>
                                                         </blockquote>
                                                     </div>
                                                     <div class="post-excerpt"></div>
@@ -51,7 +51,7 @@
                                                          {% if user.is_authenticated %}
                                                                 <div class="liked_post-{{ query.pk }}">
                                                                     <form
-                                                                            hx-post="{% url 'queryapp:like_query' query.pk %}"
+                                                                            hx-post="{% url 'queryapp:like_query' query.slug %}"
                                                                             hx-swap="outerHTML"
                                                                             hx-target=".liked_post-{{ query.pk }}"
                                                                             hx-select=".liked_post-{{ query.pk }}">
@@ -81,6 +81,26 @@
                                                                     </span>
                                                                     </form>
                                                                 </div>
+                                                             {% if user == query.author %}
+                                                                            <div class="post-links">
+                                                                                <form
+                                                                                        hx-post="{% url 'queryapp:delete_query' query.slug %}"
+                                                                                        hx-swap="outerHTML"
+                                                                                        hx-swap="outerHTML"
+                                                                                        hx-target="#Wrapper"
+                                                                                        hx-select="#Wrapper"
+                                                                                        hx-confirm="Are you sure you want to delete this query?">
+                                                                                    {% csrf_token %}
+                                                                                    <button class="btn btn-outline-light btn-sm"
+                                                                                            type="submit">
+                                                                                    <span class="icons-wrapper">
+                                                                                            <i class="mdi mdi-delete-forever-outline themecolor"></i>
+                                                                                    </span>
+                                                                                    </button>
+                                                                                </form>
+                                                                            </div>
+
+                                                                        {% endif %}
                                                             {% else %}
                                                                 <span class="love-text">
                                                                 <a href="{% url 'account_login' %}?next={{ request.path }}"
@@ -94,9 +114,9 @@
                                                             {% endif %}
                                                         <div class="post-links">
                                                             <i class="mdi mdi-comment-outline themecolor"></i>
-                                                            <a href="{% url 'queryapp:query_detail' query.pk %}" class="post-comments">{{ query.num_comment }}</a>
+                                                            <a href="{% url 'queryapp:query_detail' query.slug %}" class="post-comments">{{ query.num_comment }}</a>
                                                             <i class="mdi mdi-book-open themecolor"></i>
-                                                            <a href="{% url 'queryapp:query_detail' query.pk %}" class="post-more">See more</a>
+                                                            <a href="{% url 'queryapp:query_detail' query.slug %}" class="post-more">See more</a>
                                                         </div>
                                                     </div>
                                                 </div>

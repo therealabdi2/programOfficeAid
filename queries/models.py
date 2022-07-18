@@ -4,6 +4,8 @@ from ckeditor.fields import RichTextField
 
 
 # Create your models here.
+from django.template.defaultfilters import slugify
+
 
 class QueryPost(models.Model):
     title = models.CharField(max_length=100, help_text="What's on your mind?")
@@ -23,6 +25,10 @@ class QueryPost(models.Model):
 
     def num_comment(self):
         return self.query_comments.count()
+
+    def save(self, *args, **kwargs):
+        self.slug = self.slug or slugify(self.title)
+        super().save(*args, **kwargs)
 
 
 class QueryComment(models.Model):

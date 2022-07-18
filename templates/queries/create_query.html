@@ -34,7 +34,7 @@
                     </div>
 
                     <div id="contactWrapper column one-second">
-                        <div class="card mx-auto" id="form-card" style="max-width: 325px; margin-top:5px;">
+                        <div class="card mx-auto" id="form-card" style="max-width: 925px; margin-top:5px;">
                             <div class="card-body">
                                 {% if form.errors %}
                                     <ul class="errorlist alert alert-error alert-danger">
@@ -49,6 +49,7 @@
                                       method="post"
                                       enctype="multipart/form-data">
                                     {% csrf_token %}
+                                    {{ form.media }}
                                     {{ form.as_p }}
 
                                     <div class="form-group column one">
