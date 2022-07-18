@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from announcements.models import Announcement, Comment
+from announcements.models import Announcement, Comment, SendSMS
 
 
 class AnnouncementAdmin(admin.ModelAdmin):
@@ -11,5 +11,11 @@ class AnnouncementAdmin(admin.ModelAdmin):
     readonly_fields = ("created_at", "updated_at")
 
 
+class SendSMSAdmin(admin.ModelAdmin):
+    model = SendSMS
+    filter_horizontal = ('batch',)
+
+
 admin.site.register(Announcement, AnnouncementAdmin)
+admin.site.register(SendSMS, SendSMSAdmin)
 admin.site.register(Comment)
