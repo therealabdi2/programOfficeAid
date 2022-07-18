@@ -132,12 +132,12 @@
                             <!-- Counter area-->
                             <div class="quick_fact animate-math">
                                 <div class="number-wrapper">
-                                    <span class="number" data-to="142">142</span>
+                                    <span class="number" data-to="{{ query_count }}">{{ query_count }}</span>
                                 </div>
                                 <p style="margin: 0 10%;">
                                     Queries Submitted
                                 </p>
-                                <h3 class="title">View queries</h3>
+                                <p class="themecolor"><a href="{% url 'queryapp:student_queries' %}">View Queries</a></p>
                                 <hr class="hr_narrow">
                             </div>
                         </div>

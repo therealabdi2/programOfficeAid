@@ -1,0 +1,153 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block css_files %}
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" type="text/css"/>
+{% endblock %}
+
+{% block head_title %}Queries - POA{% endblock %}
+
+{% block content %}
+    <div class="section mcb-section"
+         style="padding-top:110px; background-color:#222f1f; background-image:url({% static "home/poa_main/images/home_poa_sectionbg2.png" %}); background-repeat:no-repeat; background-position:center top">
+        <div class="section_wrapper mcb-section-inner">
+            <div class="wrap mcb-wrap one valign-top clearfix">
+                <div class="mcb-wrap-inner">
+                    <div class="column mcb-column one column_column">
+                        <div class="column_attr clearfix align_center">
+                            <h2 style="color:#fff">Latest Queries</h2>
+                            <p class="themecolor" style="letter-spacing: 3px">
+                               Have a question? We'd love to hear from you.
+                            </p>
+                        <a href="{% url 'queryapp:make_query' %}"
+                               class="d-print-none"><span
+                                    class="mdi mdi-clipboard-edit"></span> Submit a query
+                            </a>
+
+                            {% include 'includes/alerts.html' %}
+                            <div id="contactWrapper">
+                        <div class="mx-auto query_card" id="form-card" style="max-width: 975px; margin-top:5px;">
+                            {% for query in queries %}
+                                <hr>
+                            <div class="post-desc-wrapper bg-white w-100">
+                                                <div class="post-desc">
+                                                    <div class="post-meta clearfix">
+                                                        <div class="author-date">
+                                                            <span class="author"><span>Asked by </span><i class="mdi mdi-account-circle themecolor"></i>
+                                                                <a href="mailto:{{ query.author }}">{{ query.author.full_name }}</a>
+                                                            </span><span class="date"><span> at </span>
+                                                            <i class="mdi mdi-calendar-clock themecolor">
+                                                            </i> {{ query.created_at }}</span>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="post-title">
+                                                        <blockquote>
+                                                            <a href="{% url 'queryapp:query_detail' query.slug %}"><h2>{{ query.title }}</h2></a>
+                                                        </blockquote>
+                                                    </div>
+                                                    <div class="post-excerpt"></div>
+                                                    <div class="post-footer">
+                                                         {% if user.is_authenticated %}
+                                                                <div class="liked_post-{{ query.pk }}">
+                                                                    <form
+                                                                            hx-post="{% url 'queryapp:like_query' query.slug %}"
+                                                                            hx-swap="outerHTML"
+                                                                            hx-target=".liked_post-{{ query.pk }}"
+                                                                            hx-select=".liked_post-{{ query.pk }}">
+                                                                        {% csrf_token %}
+                                                                        <input type="hidden" name="query_list"
+                                                                               value="query_list">
+                                                                        <span class="button-love">
+
+                                                        <button class="btn btn-outline-light btn-sm" type="submit"
+                                                                name="post_id"
+                                                                value="{{ query.pk }}">
+
+                                                                 <span class="love-text"></span><a href="#"
+                                                                                                   class="mfn-love "
+                                                                                                   data-id="2283">
+                                                                <span class="icons-wrapper">
+                                                                    {% if user in query.liked.all %}
+                                                                        <i class="mdi mdi-heart"></i>
+                                                                        <i class="mdi mdi-heart-outline"></i>
+                                                                    {% else %}
+                                                                        <i class="mdi mdi-heart-outline"></i>
+                                                                        <i class="mdi mdi-heart"></i>
+                                                                    {% endif %}
+                                                                    </span>
+                                                                <span class="label">{{ query.num_like }}</span></a>
+                                                                                </button>
+                                                                    </span>
+                                                                    </form>
+                                                                </div>
+                                                             {% if user == query.author %}
+                                                                            <div class="post-links">
+                                                                                <form
+                                                                                        hx-post="{% url 'queryapp:delete_query' query.slug %}"
+                                                                                        hx-swap="outerHTML"
+                                                                                        hx-swap="outerHTML"
+                                                                                        hx-target="#Wrapper"
+                                                                                        hx-select="#Wrapper"
+                                                                                        hx-confirm="Are you sure you want to delete this query?">
+                                                                                    {% csrf_token %}
+                                                                                    <button class="btn btn-outline-light btn-sm"
+                                                                                            type="submit">
+                                                                                    <span class="icons-wrapper">
+                                                                                            <i class="mdi mdi-delete-forever-outline themecolor"></i>
+                                                                                    </span>
+                                                                                    </button>
+                                                                                </form>
+                                                                            </div>
+
+                                                                        {% endif %}
+                                                            {% else %}
+                                                                <span class="love-text">
+                                                                <a href="{% url 'account_login' %}?next={{ request.path }}"
+                                                                   class="mfn-love "
+                                                                   data-id="2283">
+                                                                <span class="icons-wrapper">
+                                                                        <i class="mdi mdi-heart-outline"></i>
+                                                                    </span>
+                                                                    <span class="label">{{ query.num_like }}</span></a>
+                                                             </span>
+                                                            {% endif %}
+                                                        <div class="post-links">
+                                                            <i class="mdi mdi-comment-outline themecolor"></i>
+                                                            <a href="{% url 'queryapp:query_detail' query.slug %}" class="post-comments">{{ query.num_comment }}</a>
+                                                            <i class="mdi mdi-book-open themecolor"></i>
+                                                            <a href="{% url 'queryapp:query_detail' query.slug %}" class="post-more">See more</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                            {% endfor %}
+                        </div>
+                     </div>
+                        </div>
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+                </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

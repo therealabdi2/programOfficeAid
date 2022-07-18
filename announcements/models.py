@@ -1,6 +1,11 @@
+import os
+
 from ckeditor.fields import RichTextField
 from django.contrib.auth import get_user_model
 from django.db import models
+from twilio.rest import Client
+
+from accounts.models import Batch, StudentProfile
 
 
 class Announcement(models.Model):
@@ -37,3 +42,36 @@ class Comment(models.Model):
 
     def num_like(self):
         return self.liked.count()
+
+
+# send sms to all or selected batches
+class SendSMS(models.Model):
+    batch = models.ManyToManyField(Batch, blank=True, default=None)
+    message = models.TextField(max_length=300)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.message[0:10] + ".... - "
+
+    def send_sms(self):
+        account_sid = os.environ.get('TWILIO_ACCOUNT_SID')
+        auth_token = os.environ.get('TWILIO_AUTH_TOKEN')
+        client = Client(account_sid, auth_token)
+
+        # get all students phone number in the batches selected
+        students_phone_numbers = StudentProfile.objects.filter(batch__in=self.batch.all()).values_list('phone_number',
+                                                                                                       flat=True)
+
+        for phone_number in students_phone_numbers:
+            print(phone_number)
+
+            # client.messages.create(
+            #     body=self.message,
+            #     from_=os.environ.get('TWILIO_NUMBER'),
+            #     to=phone_number
+            # )
+
+    # send sms before saving
+    def save(self, *args, **kwargs):
+        self.send_sms()
+        super().save(*args, **kwargs)

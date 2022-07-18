@@ -97,6 +97,9 @@
                                         <li class="{% if '/announcements/all_announcements/' == request.path %} current-menu-item  {% endif %}">
                                             <a href="{% url 'announcements:all_announcements' %}"><span>Announcements</span></a>
                                         </li>
+                                        <li class="{% if '/queries/' == request.path %} current-menu-item  {% endif %}">
+                                            <a href="{% url 'queryapp:query_list' %}"><span>Queries</span></a>
+                                        </li>
                                         {% if user.is_authenticated %}
                                             <li class="{% if '/submissions/joining_form/' == request.path %} current-menu-item  {% endif %}">
                                                 <a href="{% url 'submissions:joining_form' %} "><span>Joining</span></a>
