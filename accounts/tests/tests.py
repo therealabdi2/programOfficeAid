@@ -1,4 +1,3 @@
-from allauth.account.views import SignupView
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.test import SimpleTestCase
@@ -12,14 +11,14 @@ class CustomUserTests(TestCase):
     def test_create_user(self):
         User = get_user_model()
         user = User.objects.create_user(
-            first_name='will',
-            last_name='smith',
-            email='will@iiu.edu.pk',
+            first_name='Abdurrehman',
+            last_name='Afridi',
+            email='afridi@iiu.edu.pk',
             password='testpass123'
         )
-        self.assertEqual(user.first_name, 'will')
-        self.assertEqual(user.last_name, 'smith')
-        self.assertEqual(user.email, 'will@iiu.edu.pk')
+        self.assertEqual(user.first_name, 'Abdurrehman')
+        self.assertEqual(user.last_name, 'Afridi')
+        self.assertEqual(user.email, 'afridi@iiu.edu.pk')
         self.assertTrue(user.is_active)
         self.assertFalse(user.is_staff)
         self.assertFalse(user.is_superuser)
