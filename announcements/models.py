@@ -8,6 +8,17 @@ from twilio.rest import Client
 from accounts.models import Batch, StudentProfile
 
 
+class AnnouncementSubscribers(models.Model):
+    email = models.EmailField(unique=True)
+    date_subscribed = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return self.email
+
+    class Meta:
+        verbose_name_plural = "Announcement Subscribers"
+
+
 class Announcement(models.Model):
     title = models.CharField(max_length=100, help_text="Enter announcement title")
     description = RichTextField()

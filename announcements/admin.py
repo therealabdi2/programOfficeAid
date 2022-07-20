@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from announcements.models import Announcement, Comment, SendSMS
+from announcements.models import Announcement, Comment, SendSMS, AnnouncementSubscribers
 
 
 class AnnouncementAdmin(admin.ModelAdmin):
@@ -17,5 +17,6 @@ class SendSMSAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Announcement, AnnouncementAdmin)
+admin.site.register(AnnouncementSubscribers)
 admin.site.register(SendSMS, SendSMSAdmin)
 admin.site.register(Comment)

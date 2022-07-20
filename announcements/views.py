@@ -4,10 +4,24 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.views import View
-from django.views.generic import ListView, DeleteView
+from django.views.generic import ListView, DeleteView, CreateView
 
 from announcements.forms import CommentForm
-from announcements.models import Announcement, Comment
+from announcements.models import Announcement, Comment, AnnouncementSubscribers
+
+
+class AnnouncementSubscriptionView(View):
+    def get(self, request):
+        # search email list for users email
+        emails = AnnouncementSubscribers.objects.values_list('email', flat=True)
+        user_email = request.user.email
+        if user_email in emails:
+            # delete user from email list
+            AnnouncementSubscribers.objects.filter(email=user_email).delete()
+        else:
+            # add user to email list
+            AnnouncementSubscribers.objects.create(email=user_email)
+        return HttpResponseRedirect(reverse('announcements:all_announcements'))
 
 
 class AllAnnouncementsView(ListView):
@@ -16,6 +30,15 @@ class AllAnnouncementsView(ListView):
     context_object_name = 'announcements'
     template_name = 'announcements/announcement_list.html'
     ordering = ['-created_at']
+
+    def get_context_data(self, **kwargs):
+        if not self.request.user.is_authenticated:
+            return super().get_context_data(**kwargs)
+
+        context = super().get_context_data(**kwargs)
+        context['subscribed'] = self.request.user.email in AnnouncementSubscribers.objects.values_list('email',
+                                                                                                       flat=True)
+        return context
 
 
 class AnnouncementDetailView(View):

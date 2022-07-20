@@ -19,6 +19,27 @@
                             <p class="themecolor" style="letter-spacing: 3px">
                                 All the latest announcements, news and events can be found here.
                             </p>
+                            <div class="subscription">
+                                {% if user.is_authenticated %}
+                                    <p>
+                                        Subscribe to get the latest updates as they happen
+                                    </p>
+                                    <a href="#" hx-get="{% url 'announcements:subscribe_announcements' %}"
+                                       hx-swap="outerHTML" hx-target=".subscription"
+                                       hx-select=".subscription">
+                                        {% if subscribed %}
+                                            <span class="mdi mdi-bell-cancel"> Unsubscribe</span>
+                                        {% else %}
+                                            <span class="mdi mdi-bell-alert"> Subscribe</span>
+                                        {% endif %}
+                                    </a>
+                                {% else %}
+                                <a rel="nofollow"
+                                           class="comment-reply-login"
+                                           href="{% url 'account_login' %}?next={{ request.path }}">Log
+                                            in</a> to subscribe and get the latest updates as they happen
+                                {% endif %}
+                            </div>
                             {% include 'includes/alerts.html' %}
                         </div>
                     </div>
