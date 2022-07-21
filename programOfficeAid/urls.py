@@ -5,7 +5,8 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 
-from programOfficeAid.views import HomeView, AboutView, ServicesView
+from programOfficeAid.views import AboutView, HomeView, ServicesView
+from queries.views import StudentFeedbackView
 
 admin.autodiscover()
 
@@ -14,6 +15,7 @@ urlpatterns = [
     path('', HomeView.as_view(), name='home'),
     path('about/', AboutView.as_view(), name='about'),
     path('services/', ServicesView.as_view(), name='services'),
+    path('contact/', StudentFeedbackView.as_view(), name='feedback'),
 
     path('api-auth/', include('rest_framework.urls')),
 

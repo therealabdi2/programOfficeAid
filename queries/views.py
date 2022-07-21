@@ -9,7 +9,7 @@ from django.views import View
 from django.views.generic import ListView, DetailView, DeleteView, CreateView
 
 from queries.forms import QueryCommentForm
-from queries.models import QueryPost, QueryComment
+from queries.models import QueryPost, QueryComment, StudentFeedback
 
 
 class UserQueryListView(ListView):
@@ -146,3 +146,17 @@ class LikeQueryView(View):
             return redirect('queryapp:query_list')
 
         return HttpResponseRedirect(reverse('queryapp:query_detail', args=[slug]))
+
+
+class StudentFeedbackView(CreateView):
+    model = StudentFeedback
+    fields = ['text',]
+    template_name = 'home/contact.html'
+
+    def get_success_url(self):
+        messages.success(self.request, 'Feedback sent successfully')
+        return reverse('feedback')
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)

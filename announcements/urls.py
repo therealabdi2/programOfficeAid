@@ -3,7 +3,7 @@ from django.urls import path
 
 from announcements.views import AnnouncementSubscriptionView, AllAnnouncementsView, AnnouncementDetailView, \
     DeleteCommentView, LikeAnnouncementView, \
-    LikeCommentVIew
+    LikeCommentVIew, SavedAnnouncementView
 
 app_name = 'announcements'
 
@@ -14,5 +14,6 @@ urlpatterns = [
          name='subscribe_announcements'),
     path('like/<int:pk>/', login_required(LikeAnnouncementView.as_view()), name='like_post'),
     path('like_comment/<int:pk>/', login_required(LikeCommentVIew.as_view()), name='like_comment'),
-    path('delete_comment/<int:pk>/', login_required(DeleteCommentView.as_view()), name='delete_comment')
+    path('delete_comment/<int:pk>/', login_required(DeleteCommentView.as_view()), name='delete_comment'),
+    path('saved_announcements/', login_required(SavedAnnouncementView.as_view()), name='saved_announcements'),
 ]

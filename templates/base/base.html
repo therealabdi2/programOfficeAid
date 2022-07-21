@@ -92,13 +92,16 @@
                                             <a href="{% url 'about' %}"><span>About</span></a>
                                         </li>
                                         <li class="{% if '/services/' == request.path %} current-menu-item  {% endif %}">
-                                            <a href="{% url 'services' %}"><span>Services</span></a>
+                                            <a href="{% url 'services' %}"><span>Features</span></a>
                                         </li>
                                         <li class="{% if '/announcements/all_announcements/' == request.path %} current-menu-item  {% endif %}">
                                             <a href="{% url 'announcements:all_announcements' %}"><span>Announcements</span></a>
                                         </li>
                                         <li class="{% if '/queries/' == request.path %} current-menu-item  {% endif %}">
                                             <a href="{% url 'queryapp:query_list' %}"><span>Queries</span></a>
+                                        </li>
+                                        <li class="{% if '/contact/' == request.path %} current-menu-item  {% endif %}">
+                                            <a href="{% url 'feedback' %}"><span>Contact</span></a>
                                         </li>
                                         {% if user.is_authenticated %}
                                             <li class="{% if '/submissions/joining_form/' == request.path %} current-menu-item  {% endif %}">

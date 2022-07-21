@@ -1,0 +1,162 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block css_files %}
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" type="text/css"/>
+{% endblock %}
+
+{% block head_title %}Saved Announcements - POA{% endblock %}
+
+{% block content %}
+    <div class="section mcb-section"
+         style="padding-top:110px; background-color:#222f1f; background-image:url({% static "home/poa_main/images/home_poa_sectionbg2.png" %}); background-repeat:no-repeat; background-position:center top">
+        <div class="section_wrapper mcb-section-inner">
+            <div class="wrap mcb-wrap one valign-top clearfix">
+                <div class="mcb-wrap-inner">
+                    <div class="column mcb-column one column_column">
+                        <div class="column_attr clearfix align_center">
+                            <h2 style="color:#fff">Save Announcements</h2>
+                            <p class="themecolor" style="letter-spacing: 3px">
+                                All your saved announcements, can be found here.
+                            </p>
+
+                            {% include 'includes/alerts.html' %}
+                        </div>
+                    </div>
+                    <div id="contactWrapper">
+                        <div class="card mx-auto" id="form-card" style="max-width: 975px; margin-top:5px;">
+                            <div class="column one column_blog">
+                                <div class="blog_wrapper isotope_wrapper">
+                                    <div class="posts_group lm_wrapper classic">
+                                        {% for announcement in announcements %}
+                                            <div class="post-2283 post format-standard has-post-thumbnail category-stories tag-design post-item isotope-item">
+                                                <div class="image_frame post-photo-wrapper scale-with-grid">
+                                                    <div class="image_wrapper">
+                                                        <a href="{% url 'announcements:announcement_detail' announcement.pk %}">
+                                                            <div class="mask"></div>
+                                                            <img width="300" height="300"
+                                                                 src="{% static 'announcements/images/arrow_poa.png' %}"
+                                                                 class="scale-with-grid wp-post-image"
+                                                                 alt="home_university_blog_1">
+                                                        </a>
+
+                                                    </div>
+                                                </div>
+                                                <div class="post-desc-wrapper">
+                                                    <div class="post-desc">
+                                                        <div class="post-meta clearfix">
+                                                            <div class="author-date">
+                                                    <span class="vcard author post-author"><span
+                                                            class="label">Posted by </span><i
+                                                            class="mdi mdi-account-circle themecolor"></i> <span
+                                                            class="fn"><a
+                                                            href="mailto:{{ announcement.author }}">{{ announcement.author }}</a></span></span><span
+                                                                    class="date"><span class="label"> on </span><i
+                                                                    class="mdi mdi-calendar-clock themecolor"></i> <span
+                                                                    class="post-date updated">{{ announcement.created_at }}</span></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="post-title">
+                                                            <h2 class="entry-title"><a
+                                                                    href="{% url 'announcements:announcement_detail' announcement.pk %}">{{ announcement.title }}</a>
+                                                            </h2>
+                                                        </div>
+                                                        <div class="post-excerpt">
+                                                            {{ announcement.description|safe }}
+                                                        </div>
+                                                        <div class="post-footer">
+                                                            {% if user.is_authenticated %}
+                                                                <div class="liked_post-{{ announcement.pk }}">
+                                                                    <form
+                                                                            hx-post="{% url 'announcements:like_post' announcement.pk %}"
+                                                                            hx-swap="outerHTML"
+                                                                            hx-target=".liked_post-{{ announcement.pk }}"
+                                                                            hx-select=".liked_post-{{ announcement.pk }}">
+                                                                        {% csrf_token %}
+                                                                        <input type="hidden" name="announcement_list"
+                                                                               value="announcement_list">
+                                                                        <span class="button-love">
+
+                                                        <button class="btn btn-outline-light btn-sm" type="submit"
+                                                                name="post_id"
+                                                                value="{{ announcement.pk }}">
+
+                                                                 <span class="love-text"></span><a href="#"
+                                                                                                   class="mfn-love "
+                                                                                                   data-id="2283">
+                                                                <span class="icons-wrapper">
+                                                                    {% if user in announcement.liked.all %}
+                                                                        <i class="mdi mdi-heart"></i>
+                                                                        <i class="mdi mdi-heart-outline"></i>
+                                                                    {% else %}
+                                                                        <i class="mdi mdi-heart-outline"></i>
+                                                                        <i class="mdi mdi-heart"></i>
+                                                                    {% endif %}
+                                                                    </span>
+                                                                <span class="label">{{ announcement.num_like }}</span></a>
+                                                                                </button>
+                                                                    </span>
+                                                                    </form>
+                                                                </div>
+                                                            {% else %}
+                                                                <span class="love-text"></span>
+                                                                <a href="{% url 'account_login' %}?next={{ request.path }}"
+                                                                   class="mfn-love "
+                                                                   data-id="2283">
+                                                                <span class="icons-wrapper">
+
+                                                                        <i class="mdi mdi-heart-outline"></i>
+                                                                    </span>
+                                                                    <span class="label">{{ announcement.num_like }}</span></a>
+
+                                                            {% endif %}
+                                                            <div class="post-links">
+                                                                <i class="mdi mdi-comment-outline themecolor"></i><a
+                                                                    href="{% url 'announcements:announcement_detail' announcement.pk %}"
+                                                                    class="post-comments">{{ announcement.num_comment }}</a><i
+                                                                    class="mdi mdi-book-open themecolor"></i><a
+                                                                    href="{% url 'announcements:announcement_detail' announcement.pk %}"
+                                                                    class="post-more">See
+                                                                more</a>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

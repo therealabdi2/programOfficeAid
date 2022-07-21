@@ -106,3 +106,10 @@ class LikeCommentVIew(View):
         else:
             comment.liked.add(request.user)
         return HttpResponseRedirect(reverse('announcements:announcement_detail', args=[comment.post.pk]))
+
+
+class SavedAnnouncementView(View):
+    def get(self, request):
+        saved_announcements = request.user.liked_announcements.all()
+        context = {'announcements': saved_announcements}
+        return render(request, 'announcements/saved_announcements.html', context)

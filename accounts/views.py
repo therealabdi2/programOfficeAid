@@ -5,6 +5,7 @@ from django.views.generic import DetailView
 
 from accounts.forms import StudentProfileForm
 from accounts.models import Account, StudentProfile
+from announcements.models import Announcement
 from queries.models import QueryPost
 from submissions.models import Joining
 
@@ -21,6 +22,9 @@ class DashboardView(DetailView):
         context['student'] = self.get_object()
         context['form_count'] = Joining.objects.filter(student=self.get_object()).count()
         context['query_count'] = QueryPost.objects.filter(author=self.get_object().student).count()
+        # get the count of all the announcements liked by user
+        context['liked_announcements_count'] = self.request.user.liked_announcements.count()
+
         return context
 
 

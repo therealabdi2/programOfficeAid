@@ -5,6 +5,8 @@
     <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" type="text/css"/>
 {% endblock %}
 
+{% block head_title %}Dashboard - POA{% endblock %}
+
 {% block content %}
     <div
             class="section mcb-section first-section"
@@ -146,12 +148,13 @@
                             <!-- Counter area-->
                             <div class="quick_fact animate-math">
                                 <div class="number-wrapper">
-                                    <span class="number" data-to="142">142</span>
+                                    <span class="number" data-to="{{ liked_announcements_count }}">{{ liked_announcements_count }}</span>
                                 </div>
                                 <p style="margin: 0 10%;">
-                                    Feedback Submitted
+                                    Announcement saved
                                 </p>
-                                <h3 class="title">View feedback</h3>
+                                 <p class="themecolor"><a href="{% url 'announcements:saved_announcements' %}">View saved announcement</a></p>
+
                                 <hr class="hr_narrow">
                             </div>
                         </div>

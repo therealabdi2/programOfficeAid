@@ -1,0 +1,192 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% load cache %}
+
+{% block head_title %}Contact - POA{% endblock %}
+
+{% cache 500 about_page_body %}
+    {% block content %}
+        <div class="mfn-main-slider" id="mfn-rev-slider">
+            <div id="rev_slider_1_1_wrapper" class="rev_slider_wrapper fullwidthbanner-container"
+                 data-source="gallery"
+                 style="margin:0px auto;background:transparent;padding:0px;margin-top:0px;margin-bottom:0px">
+                <div id="rev_slider_1_1" class="rev_slider fullwidthabanner" style="display:none;"
+                     data-version="5.4.7.2">
+                    <ul>
+                        <li data-index="rs-1" data-transition="fade" data-slotamount="default"
+                            data-hideafterloop="0" data-hideslideonmobile="off" data-easein="default"
+                            data-easeout="default" data-masterspeed="300" data-rotate="0" data-saveperformance="off"
+                            data-title="Slide"
+                            data-param1="" data-param2="" data-param3="" data-param4="" data-param5=""
+                            data-param6="" data-param7="" data-param8="" data-param9="" data-param10=""
+                            data-description="">
+                            <img src="{% static 'home/poa_main/images/home_poa_slider_bg.jpg' %}"
+                                 title="home_garden3_slider_bg" width="1920" height="790"
+                                 data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat"
+                                 class="rev-slidebg" data-no-retina>
+                            <div class="tp-caption tp-resizeme" id="slide-1-layer-1" data-x="150" data-y="359"
+                                 data-width="['auto']" data-height="['auto']" data-type="text"
+                                 data-responsive_offset="on"
+                                 data-frames='[{"delay":0,"speed":300,"frame":"0","from":"opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"opacity:0;","ease":"Power3.easeInOut"}]'
+                                 data-textAlign="['inherit','inherit','inherit','inherit']"
+                                 data-paddingtop="[0,0,0,0]" data-paddingright="[0,0,0,0]"
+                                 data-paddingbottom="[0,0,0,0]" data-paddingleft="[0,0,0,0]"
+                                 style="z-index: 5; white-space: nowrap; font-size: 65px; line-height: 65px; font-weight: 700; color: #ffffff; letter-spacing: 0px;font-family:PT Serif">
+                                Contact us
+
+                            </div>
+                            <div class="tp-caption tp-shape tp-shapewrapper  tp-resizeme" id="slide-1-layer-2"
+                                 data-x="40" data-y="395" data-width="['75']" data-height="['6']" data-type="shape"
+                                 data-responsive_offset="on"
+                                 data-frames='[{"delay":0,"speed":300,"frame":"0","from":"opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"opacity:0;","ease":"Power3.easeInOut"}]'
+                                 data-textAlign="['inherit','inherit','inherit','inherit']"
+                                 data-paddingtop="[0,0,0,0]" data-paddingright="[0,0,0,0]"
+                                 data-paddingbottom="[0,0,0,0]" data-paddingleft="[0,0,0,0]"
+                                 style="z-index: 6;background-color:rgb(110,198,86)"></div>
+                            <div class="tp-caption tp-resizeme" id="slide-1-layer-3" data-x="150" data-y="531"
+                                 data-width="['auto']" data-height="['auto']" data-type="text"
+                                 data-responsive_offset="on"
+                                 data-frames='[{"delay":0,"speed":300,"frame":"0","from":"opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"opacity:0;","ease":"Power3.easeInOut"}]'
+                                 data-textAlign="['inherit','inherit','inherit','inherit']"
+                                 data-paddingtop="[0,0,0,0]" data-paddingright="[0,0,0,0]"
+                                 data-paddingbottom="[0,0,0,0]" data-paddingleft="[0,0,0,0]"
+                                 style="z-index: 7; white-space: nowrap; font-size: 15px; line-height: 22px; font-weight: 500; color: #6ec656; letter-spacing: 4px;font-family:Yantramanav">
+                                 {% include 'includes/alerts.html' %}
+                                Find us here
+
+                            </div>
+                            <div class="tp-caption tp-resizeme" id="slide-1-layer-4" data-x="150" data-y="600"
+                                 data-width="['none','none','none','none']"
+                                 data-height="['none','none','none','none']" data-type="image"
+                                 data-actions='[{"event":"click","action":"scrollbelow","offset":"-60px","delay":"","speed":"300","ease":"Power2.easeInOut"}]'
+                                 data-responsive_offset="on"
+                                 data-frames='[{"delay":0,"speed":300,"frame":"0","from":"opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"opacity:0;","ease":"Power3.easeInOut"}]'
+                                 data-textAlign="['inherit','inherit','inherit','inherit']"
+                                 data-paddingtop="[0,0,0,0]" data-paddingright="[0,0,0,0]"
+                                 data-paddingbottom="[0,0,0,0]" data-paddingleft="[0,0,0,0]"
+                                 style="z-index: 8;cursor:pointer"><img
+                                    src="{% static 'home/poa_main/images/home_poa_slider_pic1.png' %}"
+                                    data-ww="12px"
+                                    data-hh="20px" width="12" height="20" data-no-retina>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div id="Content">
+            <div class="content_wrapper clearfix">
+                <div class="sections_group">
+                    <div class="entry-content">
+                        <div class="section mcb-section" style="padding-top:0px; padding-bottom:70px">
+                            <div class="section_wrapper mcb-section-inner">
+                                <div class="wrap mcb-wrap one-second valign-top clearfix" style="padding:100px 2% 0">
+                                    <div class="mcb-wrap-inner">
+                                        <div class="column mcb-column one column_column column-margin-20px">
+                                            <div class="column_attr clearfix">
+                                                <h2>Program Office</h2>
+                                            </div>
+                                        </div>
+                                        <div class="column mcb-column one-second column_column">
+                                            <div class="column_attr clearfix" style="padding:0 8% 0 0">
+                                                <p>
+                                                    H10,
+                                                    <br> Islamabad, 44000,
+                                                    <br> Pakistan
+                                                </p>
+                                                <p>
+                                                    <a href="mailto:program.office.aid@gmail.com"><span>program.office.aid@gmail.com</span></a>
+                                                </p>
+                                                <p>
+                                                    051 1123456
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="column mcb-column one-second column_column">
+                                            <div class="column_attr clearfix" style="padding:0 8% 0 0">
+                                                <p>
+                                                    Monday - Friday
+                                                    <br> 09:00 am - 04:30 pm
+                                                </p>
+
+                                            </div>
+                                        </div>
+                                        <div class="column mcb-column one column_column">
+                                            <div class="column_attr clearfix"
+                                                 style="background-color:#574442; padding:50px 50px 35px">
+                                                {% if user.is_authenticated %}
+                                                    <div id="contactWrapper">
+                                                        {% if form.errors %}
+                                                            <ul class="errorlist alert alert-error alert-danger">
+                                                                {% for key, value in form.errors.items %}
+                                                                    <li>{% if key != '__all__' %}
+                                                                        <strong>{{ key }}</strong>{% endif %}{{ value }}
+                                                                    </li>
+                                                                {% endfor %}
+                                                            </ul>
+                                                        {% endif %}
+
+                                                        <form id="contactform" action="{% url 'feedback' %}"
+                                                              method="post">
+                                                            {% csrf_token %}
+                                                            {{ form.as_p }}
+
+                                                            <button
+                                                                    class="primaryAction"
+                                                                    type="submit">Submit
+
+                                                            </button>
+
+
+                                                        </form>
+
+                                                    </div>
+                                                {% else %}
+                                                    <p class="must-log-in">
+                                                        You must be <a
+                                                            href="{% url 'account_login' %}?next={{ request.path }}">logged
+                                                        in</a> to submit feedback
+                                                    </p>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="wrap mcb-wrap one-second valign-top move-up clearfix"
+                                     style="padding:0 2%; margin-top:-30px" data-mobile="no-up">
+                                    <div class="mcb-wrap-inner">
+                                        <div class="column mcb-column one column_image">
+                                            <div class="image_frame image_item no_link scale-with-grid aligncenter no_border">
+                                                <div class="image_wrapper">
+                                                    <img class="scale-with-grid"
+                                                         src="{% static 'home/poa_main/images/paper_waste.jpg' %}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="section mcb-section no-margin-h no-margin-v full-width"
+                             style="padding-top:0px; padding-bottom:0px">
+                            <div class="section_wrapper mcb-section-inner">
+                                <div class="wrap mcb-wrap one valign-top clearfix">
+                                    <div class="mcb-wrap-inner">
+                                        <div class="column mcb-column one column_map_basic">
+                                            <iframe class="embed" width="100%" height="500" frameborder="0"
+                                                    style="border:0"
+                                                    src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d338.47992720410565!2d73.02433420755577!3d33.65901475484805!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38df9591363f16eb%3A0x347fdb2410bab275!2sDepartment%20of%20Computer%20Science%20and%20Software%20Engineering!5e0!3m2!1sen!2s!4v1658419247178!5m2!1sen!2s"
+                                                    width="600" height="450" style="border:0;" allowfullscreen=""
+                                                    loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+{% endcache %}

@@ -2,7 +2,6 @@ from django.contrib.auth import get_user_model
 from django.db import models
 from ckeditor.fields import RichTextField
 
-
 # Create your models here.
 from django.template.defaultfilters import slugify
 
@@ -45,3 +44,12 @@ class QueryComment(models.Model):
 
     def num_like(self):
         return self.liked.count()
+
+
+class StudentFeedback(models.Model):
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    text = models.TextField(max_length=300, help_text="Your feedback is always appreciated")
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.user.full_name() + " - " + self.text[0:10] + "...."
