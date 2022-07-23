@@ -1,0 +1,84 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block css_files %}
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" type="text/css"/>
+{% endblock %}
+{% block head_title %}{% trans "All Add / Drop Forms - POA" %}{% endblock %}
+
+{% block content %}
+    <div
+            class="section mcb-section first-section"
+            style="
+                    padding-top: 110px;
+                    padding-bottom: 110px;
+                    background-color: #222f1f;
+                    background-image: url({% static "home/poa_main/images/home_poa_sectionbg2.png" %});
+                    background-repeat: no-repeat;
+                    background-position: center top;
+                    "
+    >
+        <div class="section_wrapper mcb-section-inner" id="main_section">
+            <div class="wrap mcb-wrap one valign-top clearfix">
+                <div class="mcb-wrap-inner">
+                    <div class="column mcb-column one column_column">
+                        <div class="column_attr clearfix align_center">
+                            <h2 style="color: #fff">Add Drop form list</h2>
+                            <p class="themecolor" style="letter-spacing: 3px">All your forms submitted to date can be
+                                found here</p>
+
+                            <a href="{% url 'submissions:add_drop_form_create' %}"
+                               class="d-print-none"><span
+                                    class="mdi mdi-clipboard-edit"></span> Submit new form
+                            </a>
+                            <p>Click on a form to see more details</p>
+
+                            {% include 'includes/alerts.html' %}
+                        </div>
+                    </div>
+                    {% for form in add_drop_forms %}
+                        <div class="column mcb-column one-fifth column_trailer_box">
+                            <div class="trailer_box">
+                                <a href="{% url 'submissions:add_drop_form_detail' form.pk %}">
+                                    <img class="scale-with-grid"
+                                         src="{% static 'submissions/images/form_bg.png' %}">
+                                    <div class="desc">
+                                        <p>Semester {{ form.semester }}</p>
+                                        <div class="subtitle">
+                                            {{ form.session }}
+                                        </div>
+                                        <h2>{{ form.form_status }}</h2>
+                                        <div class="line"></div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+        </div>
+        <div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+        </div>
+    </div>
+
+
+{% endblock %}

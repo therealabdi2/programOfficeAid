@@ -1,8 +1,10 @@
 from django.contrib.auth.decorators import login_required
 from django.urls import path
 
-from submissions.views import AllJoiningView, JoiningFormView, JoiningDetailView, JoiningCreateView, JoiningUpdateView, \
-    OfferedCoursesView
+from submissions.views import AddDropFormView, AddDropFormDetailView, AllJoiningView, JoiningFormView, \
+    JoiningDetailView, JoiningCreateView, \
+    JoiningUpdateView, \
+    OfferedCoursesView, AddDropFormCreateView, AddDropFormUpdateView
 
 app_name = 'submissions'
 
@@ -14,4 +16,9 @@ urlpatterns = [
     path('joining_detail/<int:pk>/', login_required(JoiningDetailView.as_view()), name='joining_detail'),
     path('offered_courses/<str:programme>/', login_required(OfferedCoursesView.as_view()),
          name='offered_courses'),
+
+    path('add-drop-form-list/', login_required(AddDropFormView.as_view()), name='add_drop_form_list'),
+    path('add-drop-form-detail/<int:pk>', login_required(AddDropFormDetailView.as_view()), name='add_drop_form_detail'),
+    path('add-drop-form-create/', login_required(AddDropFormCreateView.as_view()), name='add_drop_form_create'),
+    path('add-drop-form-update/<int:pk>', login_required(AddDropFormUpdateView.as_view()), name='add_drop_form_update'),
 ]

@@ -1,0 +1,152 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load i18n %}
+
+
+{% block css_files %}
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" type="text/css"/>
+{% endblock %}
+
+{% block head_title %}{% trans "Add / Drop form detail" %}{% endblock %}
+
+{% block content %}
+
+
+    <div id="section-to-print"
+         class="section mcb-section"
+         style="
+                 padding-top: 110px;
+                 padding-bottom: 110px;
+                 background-color: #222f1f;
+                 background-image: url({% static "home/poa_main/images/home_poa_sectionbg2.png" %});
+                 background-repeat: no-repeat;
+                 background-position: center top;
+                 "
+    >
+        <div class="section_wrapper mcb-section-inner" id="main_section">
+            <div class="wrap mcb-wrap one valign-top clearfix">
+                <div class="mcb-wrap-inner">
+                    <div class="column mcb-column one column_column">
+                        <div class="column_attr clearfix align_center">
+                            {% if add_drop_form.is_rejected %}
+                                <h2 style="color: #fff">Your form was rejected for the following reason(s)</h2>
+                                <p class="themecolor">{{ add_drop_form.reason }}</p>
+                                <p>If you think this is a mistake, please contact Program Office Staff</p>
+                            {% else %}
+                                <h2 style="color: #fff">International Islamic University Islamabad</h2>
+                                <h3 class="themecolor"
+                                    style="letter-spacing: 3px">Department of {{ add_drop_form.student.department }}</h3>
+                                <h4 class="themecolor"
+                                    style="letter-spacing: 3px">Faculty of {{ add_drop_form.student.faculty }}</h4>
+                                <h5 class="themecolor">Add / Drop form</h5>
+                                <button class="d-print-none" onclick="window.print()"><span
+                                        class="mdi mdi-cloud-print"></span> Print this form
+                                </button>
+                                {% if add_drop_form.is_pending %}
+                                    <a href="{% url 'submissions:add_drop_form_update' add_drop_form.pk %}"
+                                       class="d-print-none"><span
+                                            class="mdi mdi-clipboard-edit"></span> Edit this form
+                                    </a>
+                                {% endif %}
+                            {% endif %}
+                            {% include 'includes/alerts.html' %}
+                        </div>
+                    </div>
+                    <div id="contactWrapper">
+                        <div class="card mx-auto " style="max-width: 675px; margin-top:5px;">
+                            <div class="card-body">
+                                <div class="column one-second">
+                                    <i class="mdi mdi-google-classroom themecolor"></i>
+                                    <strong>Session:</strong> {{ add_drop_form.session }}
+                                </div>
+                                <div class="column one-second">
+                                    <i class="mdi mdi-clock themecolor"></i>
+                                    <strong>Date:</strong> {{ add_drop_form.submitted_at }}
+                                </div>
+                                <div class="column one-second">
+                                    <i class="mdi mdi-file-account themecolor"></i>
+                                    <strong>Semester:</strong> {{ add_drop_form.semester }}
+                                </div>
+                                <div class="column one-second">
+                                    <i class="mdi mdi-account themecolor"></i>
+                                    <strong>Registration:</strong> {{ add_drop_form.student.registration_number }}
+                                    {{ add_drop_form.student.section }}
+                                </div>
+                                <div class="column one-second">
+                                    <i class="mdi mdi-rename-box themecolor"></i>
+                                    <strong>Name:</strong> {{ add_drop_form.student.student.first_name }} {{ add_drop_form.student.student.last_name }}
+                                </div>
+                                <div class="column one-second">
+                                    <i class="mdi mdi-phone-dial themecolor"></i>
+                                    <strong>Contact:</strong> {{ add_drop_form.student.phone_number }}
+                                </div>
+                                <div class="column one-second">
+                                    <i class="mdi mdi-account-group themecolor"></i>
+                                    <strong>Nationality:</strong> {{ add_drop_form.student.nationality }}
+                                </div>
+                                <div class="column one-second">
+                                    <i class="mdi mdi-identifier themecolor"></i>
+                                    <strong>CNIC/Passport No:</strong> {{ add_drop_form.student.cnic }}
+                                </div>
+                                <div class="column one-second">
+                                    <i class="mdi mdi-account-child-circle themecolor"></i>
+                                    <strong>Parent/Guardian:</strong> {{ add_drop_form.student.fatherName }}
+                                </div>
+                                <div class="column one-second">
+                                    <i class="mdi mdi-list-status themecolor"></i>
+                                    <strong>Form Status:</strong> {{ add_drop_form.form_status }}
+                                </div>
+
+                                <table class="table table-hover ">
+                                    <caption>List of courses to Add</caption>
+                                    <thead>
+                                    <tr class="table-primary">
+                                        <th scope="col">Course Code</th>
+                                        <th scope="col">Course Name</th>
+                                        <th scope="col">Credit Hours</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for course in add_courses %}
+                                        <tr class="table-success">
+                                            <td>{{ course.course_code }}</td>
+                                            <td>{{ course.course_name }}</td>
+                                            <td>{{ course.course_credit }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+
+                            <table class="table table-hover ">
+                                    <caption>List of courses to Drop</caption>
+                                    <thead>
+                                    <tr class="table-primary">
+                                        <th scope="col">Course Code</th>
+                                        <th scope="col">Course Name</th>
+                                        <th scope="col">Credit Hours</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for course in drop_courses %}
+                                        <tr class="table-success">
+                                            <td>{{ course.course_code }}</td>
+                                            <td>{{ course.course_name }}</td>
+                                            <td>{{ course.course_credit }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+
+                                <div class="column one-third">
+                                    <i class="mdi mdi-window-maximize themecolor"></i>
+                                    <strong>Max Credit Allowed:</strong> 21
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

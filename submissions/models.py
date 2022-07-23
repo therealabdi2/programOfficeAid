@@ -10,6 +10,10 @@ from twilio.rest import Client
 from courses.models import Course, Session
 
 
+def get_latest_session():
+    return Session.objects.latest('session_start_date')
+
+
 class ParentForm(models.Model):
     STATUS = (
         ('Pending', 'Pending'),
@@ -17,29 +21,36 @@ class ParentForm(models.Model):
         ('Rejected', 'Rejected'),
     )
 
-    student = models.ForeignKey('accounts.StudentProfile', on_delete=models.CASCADE, related_name='forms',
+    student = models.ForeignKey('accounts.StudentProfile', on_delete=models.CASCADE,
                                 help_text="Click above to get Student Info")
     form_status = models.CharField(max_length=12, choices=STATUS, default='Pending',
                                    help_text="Change status to 'Accepted' if Student is eligible or 'Rejected' if not")
     submitted_at = models.DateTimeField(auto_now_add=True, )
 
-    reason = models.TextField(blank=True, null=True, help_text="Mention reason if rejected")
-
-    class Meta:
-        abstract = True
-
-
-def get_latest_session():
-    return Session.objects.latest('session_start_date')
-
-
-class Joining(ParentForm):
     semester = models.PositiveSmallIntegerField(default=1, choices=list(zip(range(1, 10), range(1, 10))),
                                                 validators=[
                                                     MaxValueValidator(9),
                                                     MinValueValidator(1)
                                                 ])
-    session = models.ForeignKey(Session, on_delete=models.CASCADE, related_name='session', default=get_latest_session)
+
+    session = models.ForeignKey(Session, on_delete=models.CASCADE, default=get_latest_session)
+    reason = models.TextField(blank=True, null=True, help_text="Mention reason if rejected")
+
+    def is_rejected(self):
+        if self.form_status == 'Rejected':
+            return True
+        return False
+
+    def is_pending(self):
+        if self.form_status == 'Pending':
+            return True
+        return False
+
+    class Meta:
+        abstract = True
+
+
+class Joining(ParentForm):
     course = models.ManyToManyField(Course, related_name='courses')
     fee_slip = models.ImageField(upload_to='forms/',
                                  help_text="<strong>Note:</strong> Your form might get rejected if your fee slip is "
@@ -101,15 +112,23 @@ class Joining(ParentForm):
         # self.send_email()
         super().save(*args, **kwargs)
 
-    def is_rejected(self):
-        if self.form_status == 'Rejected':
-            return True
-        return False
-
-    def is_pending(self):
-        if self.form_status == 'Pending':
-            return True
-        return False
-
     def __str__(self):
         return f"{self.student}'s joining form"
+
+
+class AddDropForm(ParentForm):
+    add_course = models.ManyToManyField(Course, related_name='add_courses',
+                                        help_text="Add the course(s) to add, (leave blank if you only want to drop)",
+                                        blank=True,
+                                        default=None)
+    drop_course = models.ManyToManyField(Course, related_name='drop_courses',
+                                         help_text="Add the course(s) to drop, (leave blank if you only want to add)",
+                                         blank=True,
+                                         default=None)
+
+    fee_slip = models.ImageField(upload_to='AddDropForms/',
+                                 help_text="<strong>Note:</strong> Your form might get rejected if your fee slip is "
+                                           "not attached",
+                                 blank=True, null=True)
+
+    remarks = models.TextField(max_length=300, blank=True, null=True, help_text="Write your remarks if any")

@@ -4,12 +4,77 @@ from django.db.models import Sum
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
 from django.views import View
-from django.views.generic import ListView, DetailView, UpdateView
+from django.views.generic import ListView, DetailView, UpdateView, CreateView
 
 from accounts.models import StudentProfile
 from courses.models import Session, OfferedCourses, Course
-from submissions.forms import StudentJoiningForm
-from submissions.models import Joining
+from submissions.forms import StudentAddDropForm, StudentJoiningForm
+from submissions.models import Joining, AddDropForm
+
+
+class AddDropFormView(ListView):
+    model = AddDropForm
+    template_name = 'submissions/add_drop_form_list.html'
+    context_object_name = 'add_drop_forms'
+    paginate_by = 5
+
+    def get_queryset(self):
+        profile = get_object_or_404(StudentProfile, student_id=self.request.user.id)
+        return self.model.objects.filter(student=profile).order_by('-id')[:3]
+
+
+class AddDropFormDetailView(DetailView):
+    model = AddDropForm
+    template_name = 'submissions/add_drop_form_detail.html'
+    context_object_name = 'add_drop_form'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['add_courses'] = self.object.add_course.all()
+        context['drop_courses'] = self.object.drop_course.all()
+        return context
+
+
+class AddDropFormCreateView(CreateView):
+    model = AddDropForm
+    form_class = StudentAddDropForm
+    template_name = 'submissions/add_drop_form_create.html'
+
+    def form_valid(self, form):
+        form.instance.student = StudentProfile.objects.get(student_id=self.request.user.id)
+        form.instance.save()
+        messages.success(self.request, 'Form submitted successfully.')
+        return super().form_valid(form)
+
+    session_deadline = Session.objects.latest('session_start_date').is_deadline()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['session_deadline'] = self.session_deadline
+        return context
+
+    def get_success_url(self):
+        return reverse('submissions:add_drop_form_list')
+
+
+class AddDropFormUpdateView(UpdateView):
+    model = AddDropForm
+    form_class = StudentAddDropForm
+    template_name = 'submissions/add_drop_form_update.html'
+    context_object_name = 'add_drop_form'
+
+    def form_valid(self, form):
+        # check status of the joining object
+        if self.object.form_status != 'Pending':
+            messages.error(self.request,
+                           f'You cannot update this form as it has already been {self.object.form_status},'
+                           f' by Program Office Staff')
+            return redirect('submissions:joining_form')
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        messages.success(self.request, 'Your form has been updated.')
+        return reverse('submissions:add_drop_form_list')
 
 
 class JoiningFormView(ListView):

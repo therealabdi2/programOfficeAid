@@ -1,0 +1,119 @@
+{% extends 'base/base.html' %}
+{% load crispy_forms_filters %}
+{% load static %}
+
+
+{% block head_title %}Submit Joining Form{% endblock %}
+
+{% block css_files %}
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" type="text/css"/>
+    {{ form.media }}
+{% endblock %}
+
+{% block content %}
+    <div
+            class="section mcb-section"
+            style="
+                    padding-top: 110px;
+                    padding-bottom: 110px;
+                    background-color: #222f1f;
+                    background-image: url({% static "home/poa_main/images/home_poa_sectionbg2.png" %});
+                    background-repeat: no-repeat;
+                    background-position: center top;
+                    "
+    >
+        <div class="section_wrapper mcb-section-inner" id="main_section">
+            <div class="wrap mcb-wrap one valign-top clearfix">
+                <div class="mcb-wrap-inner">
+                    <div class="column mcb-column one column_column">
+                        <div class="column_attr clearfix align_center">
+                            {% if session_deadline %}
+                                <h2 style="color: #fff">Form Submission Closed</h2>
+                                <p class="themecolor" style="letter-spacing: 3px">The deadline has passed.
+                                    Please contact Program Office Staff if you wish to submit an add / drop form.</p>
+
+                            {% else %}
+                                <h2 style="color: #fff">Welcome {{ user.first_name }}</h2>
+                                <p class="themecolor" style="letter-spacing: 3px">You can submit your joining form for
+                                    the
+                                    current session below</p>
+
+                                </div>
+                                </div>
+
+                                <div id="contactWrapper column one-second">
+                                <div class="card mx-auto" id="form-card" style="max-width: 325px; margin-top:5px;">
+                                <div class="card-body">
+                                {% if form.errors %}
+                                    <ul class="errorlist alert alert-error alert-danger">
+                                        {% for key, value in form.errors.items %}
+                                            <li>{% if key != '__all__' %}
+                                                <strong>{{ key }}</strong>{% endif %}{{ value }}
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                                <form action="{% url 'submissions:add_drop_form_create' %}"
+                                      method="post"
+                                      enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <div class="form-group column one mb-0">
+                                        <i class="mdi mdi-file-account themecolor"></i>
+                                        {{ form.semester | as_crispy_field }}
+                                        <div class="row d-inline-block">
+                                            <div class="column_attr ">
+                                                <a href="#popup-54969ebe8f8d1" rel="prettyphoto"
+                                                   hx-swap="outerHTML" hx-target=".offered_courses"
+                                                   hx-get="{% url 'submissions:offered_courses' user.student_account.programme.degree_name %}"
+                                                   hx-select=".offered_courses"
+                                                   hx-include="[name='semester']"
+                                                   class="popup-link button btn-sm button_js button_green"><span
+                                                        class="button_label">Courses Offered</span></a>
+                                                <div id="popup-54969ebe8f8d1" class="popup-content">
+                                                    <div class="flv_style_64 popup-inner">
+                                                        <table class="offered_courses">
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group column one">
+                                        <i class="mdi mdi-book themecolor"></i>
+                                        {{ form.add_course | as_crispy_field }}
+                                    </div>
+                                     <div class="form-group column one">
+                                        <i class="mdi mdi-book themecolor"></i>
+                                        {{ form.drop_course | as_crispy_field }}
+                                    </div>
+                                    <div class="form-group column one">
+                                        <i class="mdi mdi-note-text themecolor"></i>
+                                        {{ form.fee_slip  | as_crispy_field }}
+                                    </div>
+                                    <div class="form-group column one">
+                                        <i class="mdi mdi-note-text themecolor"></i>
+                                        {{ form.remarks | as_crispy_field }}
+                                    </div>
+
+                                    <div class="form-group column one">
+                                        <button
+                                                class="primaryAction btn-block"
+                                                type="submit">Submit
+                                            <img class="htmx-indicator spinner-cl"
+                                                 src="{% static "svg-loaders/circles.svg" %}">
+                                        </button>
+                                    </div>
+                                </form>
+                            {% endif %}
+                            </div>
+                            </div>
+                            </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
