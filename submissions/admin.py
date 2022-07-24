@@ -4,7 +4,7 @@ from django.contrib import admin
 from django.core.exceptions import ValidationError
 from django.utils.safestring import mark_safe
 
-from submissions.models import Joining, AddDropForm
+from submissions.models import Joining, AddDropForm, Petition
 
 
 class JoiningForm(forms.ModelForm):
@@ -60,5 +60,11 @@ class AddDropFormAdmin(admin.ModelAdmin):
         )
 
 
-admin.site.register(Joining, JoiningAdmin)
+class PetitionAdmin(admin.ModelAdmin):
+    list_display = ['petition_title', 'form_status']
+    list_filter = ['form_status', 'session__session_name', 'student__batch', 'semester', ]
+
+
 admin.site.register(AddDropForm, AddDropFormAdmin)
+admin.site.register(Joining, JoiningAdmin)
+admin.site.register(Petition, PetitionAdmin)

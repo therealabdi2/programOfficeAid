@@ -7,11 +7,18 @@ from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from twilio.rest import Client
 
+from datetime import timedelta
+from django.utils import timezone
+
 from courses.models import Course, Session
 
 
 def get_latest_session():
     return Session.objects.latest('session_start_date')
+
+
+def get_expiry():
+    return timezone.now() + timedelta(days=15)
 
 
 class ParentForm(models.Model):
@@ -132,3 +139,29 @@ class AddDropForm(ParentForm):
                                  blank=True, null=True)
 
     remarks = models.TextField(max_length=300, blank=True, null=True, help_text="Write your remarks if any")
+
+    def __str__(self):
+        return f"{self.student}'s Add/Drop form"
+
+
+class Petition(ParentForm):
+    petition_title = models.CharField(max_length=100, help_text="Write the title of your petition")
+    petition_description = models.TextField(max_length=300, help_text="Write the description of your petition")
+    student_signatures = models.ManyToManyField('accounts.StudentProfile', related_name='petition_signatures',
+                                                blank=True, )
+    created_at = models.DateTimeField(auto_now_add=True, )
+    # set expiry date 20 days from creation date
+    expired_at = models.DateTimeField(help_text="Set the date and time when the petition will expire",
+                                      default=get_expiry())
+
+    # get count of signatures
+    def get_signature_count(self):
+        return self.student_signatures.count()
+
+    def has_expired(self):
+        if self.expired_at < timezone.now():
+            return True
+        return False
+
+    def __str__(self):
+        return f"{self.petition_title}"

@@ -9,7 +9,7 @@ from django.views.generic import ListView, DetailView, UpdateView, CreateView
 from accounts.models import StudentProfile
 from courses.models import Session, OfferedCourses, Course
 from submissions.forms import StudentAddDropForm, StudentJoiningForm
-from submissions.models import Joining, AddDropForm
+from submissions.models import Joining, AddDropForm, Petition
 
 
 class AddDropFormView(ListView):
@@ -184,3 +184,56 @@ class OfferedCoursesView(View):
             'previous_courses': previous_courses,
         }
         return render(request, 'submissions/offered_courses.html', context)
+
+
+class PetitionListView(ListView):
+    model = Petition
+    paginate_by = 10
+    template_name = 'submissions/petition_list.html'
+    context_object_name = 'petitions'
+    ordering = '-id'
+
+
+class PetitionCreateView(CreateView):
+    model = Petition
+    fields = ['petition_title', 'petition_description']
+    template_name = 'submissions/create_petition.html'
+
+    def form_valid(self, form):
+        form.instance.student = StudentProfile.objects.get(student_id=self.request.user.id)
+        form.instance.save()
+        messages.success(self.request, 'Petition submitted successfully.')
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('submissions:petition_list')
+
+
+class PetitionDetailView(DetailView):
+    model = Petition
+    template_name = 'submissions/petition_detail.html'
+    context_object_name = 'petition'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # check if student has already signed the petition
+
+        context['signed'] = self.object.student_signatures.filter(student_id=self.request.user.id).exists()
+
+        return context
+
+
+class SignPetitionView(View):
+    def get(self, request, pk):
+        petition = get_object_or_404(Petition, pk=pk)
+        if petition.form_status != 'Pending':
+            messages.error(request, f'This petition has already been {petition.form_status}')
+        # check if student has already signed the petition
+        if petition.student_signatures.filter(student_id=self.request.user.id).exists():
+            petition.student_signatures.remove(request.user.student_account)
+            messages.success(request, 'You have successfully unsigned the petition.')
+            return redirect('submissions:petition_detail', pk=pk)
+
+        petition.student_signatures.add(request.user.student_account)
+        messages.success(request, 'You have successfully signed the petition.')
+        return redirect('submissions:petition_detail', pk=pk)

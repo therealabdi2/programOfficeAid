@@ -105,11 +105,16 @@
                                         </li>
                                         {% if user.is_authenticated %}
 
-                                            <li class="submenu {% if '/submissions/joining_form/' == request.path or '/submissions/add-drop-form-list/' == request.path %} current-menu-item  {% endif %}">
+                                            <li class="submenu
+                                            {% if '/submissions/joining_form/' == request.path or '/submissions/add-drop-form-list/' == request.path or '/submissions/petition-list/' == request.path %}
+                                            current-menu-item  {% endif %}">
                                                 <a href="{% url 'submissions:joining_form' %}"><span>Forms</span></a>
                                                 <ul class="sub-menu" style="display: none;">
                                                     <li class="">
                                                         <a href="{% url 'submissions:joining_form' %} "><span>Joining</span></a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="{% url 'submissions:petition_list' %} "><span>Petitions</span></a>
                                                     </li>
                                                     <li>
                                                         <a href="{% url 'submissions:add_drop_form_list' %} "><span>Add / Drop</span></a>
