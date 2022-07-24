@@ -53,7 +53,7 @@ class StudentAddDropForm(ModelForm):
 
     class Meta:
         model = AddDropForm
-        fields = ['semester', 'add_course', 'drop_course', 'fee_slip', 'remarks']
+        fields = ['semester', 'add_course', 'drop_course', 'fee_slip',]
 
     add_course = AutoCompleteSelectMultipleField('courses',
                                                  help_text='Type in the course name,'
