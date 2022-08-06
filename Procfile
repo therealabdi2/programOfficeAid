@@ -1,1 +1,1 @@
-web: python manage.py migrate && gunicorn programOfficeAid.wsgi
+web: gunicorn django_project.wsgi --log-file -

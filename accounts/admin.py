@@ -107,9 +107,6 @@ class FacultyAdmin(admin.ModelAdmin):
     search_fields = ['faculty_name']
     search_help_text = 'Search by faculty name'
 
-    def has_delete_permission(self, request, obj=None):
-        return False
-
 
 class ProgrammeAdmin(admin.ModelAdmin):
     autocomplete_fields = ['department']
@@ -133,7 +130,6 @@ class SectionAdmin(admin.ModelAdmin):
 
 
 class StudentAdmin(admin.ModelAdmin):
-
     autocomplete_fields = ['faculty', 'programme', 'batch', 'section', 'department']
     list_display = (
         'student_full_name', 'registration_number', 'faculty', 'programme', 'batch', 'section', 'department',)

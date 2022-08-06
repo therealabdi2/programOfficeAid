@@ -35,6 +35,7 @@ class CourseResource(resources.ModelResource):
 class CourseAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     list_display = 'course_code', 'course_name', 'course_credit', 'prerequisite_display'
     list_filter = ['course_type', 'course_programme']
+    filter_horizontal = ['course_programme']
     search_fields = ['course_code', 'course_name']
     search_help_text = 'Search by course code or course name'
     list_per_page = 10

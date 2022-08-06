@@ -76,11 +76,11 @@ class SendSMS(models.Model):
         for phone_number in students_phone_numbers:
             print(phone_number)
 
-            # client.messages.create(
-            #     body=self.message,
-            #     from_=os.environ.get('TWILIO_NUMBER'),
-            #     to=phone_number
-            # )
+            client.messages.create(
+                body=self.message,
+                from_=os.environ.get('TWILIO_NUMBER'),
+                to=phone_number
+            )
 
     # send sms before saving
     def save(self, *args, **kwargs):

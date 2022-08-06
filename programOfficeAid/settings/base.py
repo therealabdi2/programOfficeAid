@@ -18,6 +18,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'admin_interface',
     'colorfield',
+
+    # local apps
     'accounts',
     'announcements',
     'courses',
@@ -25,6 +27,7 @@ INSTALLED_APPS = [
     'submissions',
     'timetable',
 
+    # third party apps
     'crispy_forms',
     'ckeditor',
     'import_export',
@@ -34,6 +37,7 @@ INSTALLED_APPS = [
     'imagekit',
     'ajax_select',
     'storages',
+    "whitenoise.runserver_nostatic",
     'django.contrib.staticfiles',
 
     'django.contrib.sites',  # make sure sites is included
@@ -57,6 +61,7 @@ SILENCED_SYSTEM_CHECKS = ['security.W019']
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
