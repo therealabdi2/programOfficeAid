@@ -17,7 +17,7 @@ class APITests(APITestCase):
         )
         cls.announcement = Announcement.objects.create(
             title="University Closed",
-            subtitle="Due to the prevailing pandemic university will remain closed till further notice",
+            description="Due to the prevailing pandemic university will remain closed till further notice",
             author=author,
         )
 
@@ -26,3 +26,13 @@ class APITests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(Announcement.objects.count(), 1)
         self.assertContains(response, self.announcement)
+
+    def test_api_detailview(self):
+        response = self.client.get(
+            reverse("announcements:detail_announcement", kwargs={"pk": self.announcement.id}),
+            format="json"
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(Announcement.objects.count(), 1)
+        self.assertContains(response, "University Closed")

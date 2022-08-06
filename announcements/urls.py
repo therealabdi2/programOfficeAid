@@ -5,7 +5,7 @@ from announcements.views import AnnouncementSubscriptionView, AllAnnouncementsVi
     DeleteCommentView, LikeAnnouncementView, \
     LikeCommentVIew, SavedAnnouncementView
 
-from announcements.apiviews import AllAnnouncementsAPIView
+from announcements.api.apiviews import AllAnnouncementsAPIView, DetailAnnouncementsAPIView
 
 app_name = 'announcements'
 
@@ -20,6 +20,6 @@ urlpatterns = [
     path('saved_announcements/', login_required(SavedAnnouncementView.as_view()), name='saved_announcements'),
 
     # api
-    path('api/all-announcements', AllAnnouncementsAPIView.as_view(),
-         name='api_all_announcements'),
+    path('api/all-announcements', AllAnnouncementsAPIView.as_view(), name='api_all_announcements'),
+    path('api/detail-announcement/<int:pk>', DetailAnnouncementsAPIView.as_view(), name='detail_announcement'),
 ]
