@@ -1,5 +1,6 @@
 import os
 
+from django.utils.text import slugify
 from ckeditor.fields import RichTextField
 from django.contrib.auth import get_user_model
 from django.db import models
@@ -28,6 +29,10 @@ class Announcement(models.Model):
     slug = models.SlugField(default="", blank=True,
                             null=False, unique=True)
     liked = models.ManyToManyField(get_user_model(), related_name='liked_announcements', blank=True, default=None)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
+        super(Announcement, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.title

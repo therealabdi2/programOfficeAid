@@ -61,7 +61,8 @@ class AddDropFormAdmin(admin.ModelAdmin):
 
 
 class PetitionAdmin(admin.ModelAdmin):
-    list_display = ['petition_title', 'form_status']
+    list_display = ['petition_title'
+                    '', 'form_status']
     list_filter = ['form_status', 'session__session_name', 'student__batch', 'semester', ]
 
 
