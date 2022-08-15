@@ -139,24 +139,14 @@
                                     </div>
 
                                     <hr class="no_line hrmargin_b_20">
-                                    {% if session_deadline %}
-                                        <h4>Joining closed</h4>
-                                        <p style="color: #818181;">The joining deadline has passed.
-                                            Please contact Program Office Staff if you wish to submit a new joining
-                                            form.</p>
-
-                                    {% else %}
                                         <h4>New form</h4>
                                         <p style="color: #818181;">
-
                                             Submit a new joining form for the current session
-
                                         </p>
                                         <a class="mfn-link mfn-link-4 "
                                            href="{% url 'submissions:create_joining_form' %}"
                                            data-hover="MORE ..."><span
                                                 data-hover="SUBMIT ...">SUBMIT ...</span></a>
-                                    {% endif %}
                                 </div>
                             </div>
                         </div>

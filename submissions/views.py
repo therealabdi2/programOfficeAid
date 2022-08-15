@@ -83,12 +83,6 @@ class JoiningFormView(ListView):
     template_name = 'submissions/joining.html'
     context_object_name = 'joiningforms'
 
-    # give session in context
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['session_deadline'] = self.session_deadline
-        return context
-
     def get_queryset(self):
         profile = get_object_or_404(StudentProfile, student_id=self.request.user.id)
         return self.model.objects.filter(student=profile).order_by('-id')[:3]
