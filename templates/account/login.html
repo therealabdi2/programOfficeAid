@@ -64,6 +64,7 @@
                                     <i class="mdi mdi-lock themecolor"></i>
                                     <label>Password</label>
                                     {{ form.password }}
+                                    <input type="checkbox" onchange="document.getElementsByName('password')[0].type = this.checked ? 'text' : 'password'"> Show Password
                                 </div>
                                 {% if redirect_field_value %}
                                     <input type="hidden" name="{{ redirect_field_name }}"
@@ -85,7 +86,7 @@
                                        class="forgot_password secondaryAction float-right "
                                        href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
                                 </div>
-                            <input type="hidden" name="next" value="{{ request.GET.next }}" />
+                                <input type="hidden" name="next" value="{{ request.GET.next }}"/>
                             </form>
                             {% if socialaccount_providers %}
                                 <p>{% blocktrans with site.name as site_name %}Please sign in with one
@@ -119,6 +120,28 @@
     </div>
 
 
+    {% block scripts %}
+        <script>
 
+            $(function () {
+
+                $('#reveal_password').change(function () {
+
+                    if ($(this).is(':checked')) {
+
+                        $('password').attr('type', 'text');
+
+                    } else {
+
+                        $('password').attr('type', 'password');
+
+                    }
+
+                });
+
+            });
+
+        </script>
+    {% endblock %}
 
 {% endblock %}
