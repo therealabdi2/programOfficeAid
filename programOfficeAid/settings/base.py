@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "rest_framework.authtoken",
     "dj_rest_auth",
     "dj_rest_auth.registration",
+    "drf_spectacular",
     'imagekit',
     'ajax_select',
     'storages',
@@ -59,6 +60,13 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.SessionAuthentication",
         "rest_framework.authentication.TokenAuthentication",
     ],
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Program Office Aid",
+    "DESCRIPTION": "Quality of life convenient system for students and staff of IIUI",
+    "VERSION": "1.0.0",
 }
 
 # for django-admin-interface
